@@ -1,0 +1,25 @@
+# All lines starting with # will be ignored!
+#
+# Title for the commit, it should obey:
+# 1. Start with a CAPITAL letter
+# 2. Use keywords for the action performed
+#  (Add,Remove,Update,Change,etc...)
+# 3. Try and keep it short. (50 chars max)
+# 4. DO NOT END THE COMMIT WITH "." (period)
+# 5. Add an Emoji to the end of your subject
+#
+# List of emojis!
+# http://www.webpagefx.com/tools/emoji-cheat-sheet/
+
+Title goes here
+
+# A description of the changes from the initial project.
+# EX:
+# If implemented this commit will:
+#   + Change X to Y
+#   + Remove unused imports
+#   + Fix Issue#23
+#   + Refactor code in File1, File2
+
+If implemented this commit will:
+  +
