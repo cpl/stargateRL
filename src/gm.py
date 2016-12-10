@@ -8,10 +8,15 @@ from pyglet.window import key
 
 myMap = mapset.Map(config.MAP_SIZE_X, config.MAP_SIZE_Y)
 
-player = entity.Entity('Engineer', 1, 1, graphics.PRIEST)
+player = entity.Player('Engineer', 1, 1, graphics.PRIEST,
+                       myMap, 100, 100, True)
 
-window = pyglet.window.Window(config.MAP_SIZE_X * config.TILE_SIZE,
-                              config.MAP_SIZE_Y * config.TILE_SIZE)
+enemy = entity.Entity('Demon', 2, 3, graphics.DEMON, myMap, 100, 100, True)
+
+window = pyglet.window.Window(config.WINDOW_SIZE_X, config.WINDOW_SIZE_Y)
+
+label_player_name = pyglet.text.Label('Name: ' + player.name, x=10, y=config.WINDOW_SIZE_Y-20)
+label_player_pos = pyglet.text.Label('POS: ' + str(player.position_x) + ' ' + str(player.position_y), x=200, y=config.WINDOW_SIZE_Y-20)
 
 batch = pyglet.graphics.Batch()
 
@@ -22,28 +27,17 @@ for row in myMap.tiles:
 
 @window.event
 def on_key_press(symbol, modifiers):
-        if symbol == key.UP:
-            if myMap.tiles[player.position_y+1][player.position_x].walkable:
-                player.add_position(0, 1)
-        elif symbol == key.DOWN:
-            if myMap.tiles[player.position_y-1][player.position_x].walkable:
-                player.add_position(0, -1)
-        elif symbol == key.LEFT:
-            if myMap.tiles[player.position_y][player.position_x-1].walkable:
-                player.add_position(-1, 0)
-        elif symbol == key.RIGHT:
-            if myMap.tiles[player.position_y][player.position_x+1].walkable:
-                player.add_position(1, 0)
-        player.sprite.set_position(player.position_x * config.TILE_SIZE,
-                                   player.position_y * config.TILE_SIZE)
-        print player.position_x, player.position_y
-        print myMap
+    player.move(symbol)
+    label_player_pos.text = 'POS: ' + str(player.position_x) + ' ' + str(player.position_y)
 
 
 @window.event
 def on_draw():
     window.clear()
     batch.draw()
+    label_player_name.draw()
+    label_player_pos.draw()
+    enemy.sprite.draw()
     player.sprite.draw()
 
 
