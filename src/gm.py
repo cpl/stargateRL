@@ -6,7 +6,10 @@ import graphics
 
 from pyglet.window import key
 
-myMap = mapset.Map(config.MAP_SIZE_X, config.MAP_SIZE_Y)
+myMap = mapset.Map()
+myMap = mapset.load('src/maps/test.map')
+myMap.make_empty(20, 20)
+
 
 player = entity.Player('Engineer', 1, 1, graphics.PRIEST,
                        myMap, 100, 100, True)
@@ -20,9 +23,7 @@ label_player_pos = pyglet.text.Label('POS: ' + str(player.position_x) + ' ' + st
 
 batch = pyglet.graphics.Batch()
 
-for row in myMap.tiles:
-    for tile in row:
-        tile.sprite.batch = batch
+myMap.update(batch)
 
 
 @window.event
