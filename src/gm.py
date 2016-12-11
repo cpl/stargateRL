@@ -4,8 +4,15 @@ import entity
 import config
 import graphx
 
+from pyglet.window import key
+from pyglet import gl
+
 window = pyglet.window.Window(config.WINDOW_SIZE_X,
-                              config.WINDOW_SIZE_Y)
+                              config.WINDOW_SIZE_Y,
+                              caption='Stargate RL')
+
+icon = pyglet.image.load(graphx.PRIEST)
+window.set_icon(icon)
 
 batch_map = pyglet.graphics.Batch()
 batch_entity = pyglet.graphics.Batch()
@@ -28,6 +35,13 @@ demon.addPosition(1, 0)
 
 @window.event
 def on_draw():
+    gl.glMatrixMode(gl.GL_MODELVIEW)
+    gl.glLoadIdentity()
+
+    # This makes the "camera" follow the player
+    gl.glTranslatef((-player.x * config.TILE_SIZE)+config.WINDOW_SIZE_X/2,
+                    (-player.y * config.TILE_SIZE)+config.WINDOW_SIZE_Y/2, 0)
+
     window.clear()
     batch_map.draw()
     batch_entity.draw()
