@@ -7,49 +7,68 @@ import graphx
 from pyglet.window import key
 from pyglet import gl
 
-window = pyglet.window.Window(config.WINDOW_SIZE_X,
-                              config.WINDOW_SIZE_Y,
-                              caption='Stargate RL')
 
-icon = pyglet.image.load(graphx.PRIEST)
-window.set_icon(icon)
+class GameWindow(pyglet.window.Window):
 
-batch_map = pyglet.graphics.Batch()
-batch_entity = pyglet.graphics.Batch()
+    def __init__(self):
+        super(GameWindow, self).__init__(config.WINDOW_SIZE_X,
+                                         config.WINDOW_SIZE_Y,
+                                         caption='Stargate RL',
+                                         fullscreen=config.WINDOW_FULLSCREEN,
+                                         resizable=config.WINDOW_RESIZABLE)
 
-mymap = mapset.Map(config.MAP_SIZE_X, config.MAP_SIZE_Y)
-mymap.loadMap('src/maps/test1.map')
-mymap.setBatch(batch_map)
+        self.set_icon(pyglet.image.load(graphx.PRIEST))
 
-player = entity.Player('Engineer', 3, 3, mymap, '@', graphx.PRIEST)
-demon = entity.Entity('Demon', 4, 3, mymap, 'D', graphx.DEMON)
+        self.batch_map = pyglet.graphics.Batch()
+        self.batch_entity = pyglet.graphics.Batch()
 
-player.sprite.batch = batch_entity
-demon.sprite.batch = batch_entity
+        self.VIEWPORT_X = 0
+        self.VIEWPORT_Y = 0
 
-demon.setPosition(1, 1)
-demon.setPosition(0, 0)
-demon.addPosition(0, 1)
-demon.addPosition(1, 0)
+    def on_key_press(self, symbol, modifiers):
+        player.move(symbol)
 
+        if symbol == key.D:
+            self.VIEWPORT_X += 1
+        elif symbol == key.A:
+            self.VIEWPORT_X -= 1
+        elif symbol == key.S:
+            self.VIEWPORT_Y -= 1
+        elif symbol == key.W:
+            self.VIEWPORT_Y += 1
 
-@window.event
-def on_draw():
-    gl.glMatrixMode(gl.GL_MODELVIEW)
-    gl.glLoadIdentity()
+    def on_draw(self):
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+        gl.glLoadIdentity()
 
-    # This makes the "camera" follow the player
-    gl.glTranslatef((-player.x * config.TILE_SIZE)+config.WINDOW_SIZE_X/2,
-                    (-player.y * config.TILE_SIZE)+config.WINDOW_SIZE_Y/2, 0)
+        if config.CAMERA_FOLLOW_PLAYER:
+            gl.glTranslatef(
+                (-player.x * config.TILE_SIZE)+config.WINDOW_SIZE_X/2,
+                (-player.y * config.TILE_SIZE)+config.WINDOW_SIZE_Y/2, 0)
+        else:
+            gl.glTranslatef(-self.VIEWPORT_X * config.TILE_SIZE,
+                            -self.VIEWPORT_Y * config.TILE_SIZE, 0)
 
-    window.clear()
-    batch_map.draw()
-    batch_entity.draw()
+        self.clear()
+        self.batch_map.draw()
+        self.batch_entity.draw()
 
+    def clearBatches(self):
+        self.batch_map = pyglet.graphics.Batch()
+        self.batch_entity = pyglet.graphics.Batch()
 
-@window.event
-def on_key_press(symbol, modifiers):
-    player.move(symbol)
+if __name__ == '__main__':
+    game = GameWindow()
 
+    mymap = mapset.Map(config.MAP_SIZE_X, config.MAP_SIZE_Y)
+    mymap.loadMap('src/maps/test1.map')
 
-pyglet.app.run()
+    mymap.setBatch(game.batch_map)
+
+    player = entity.Player('Engineer', 3, 3, mymap, '@', graphx.PRIEST)
+    demon = entity.Entity('Demon', 4, 3, mymap, 'D', graphx.DEMON)
+
+    player.sprite.batch = game.batch_entity
+    demon.sprite.batch = game.batch_entity
+
+    pyglet.app.run()

@@ -15,38 +15,54 @@ class Entity():
                                            _x * config.TILE_SIZE,
                                            _y * config.TILE_SIZE)
 
+        _rootMap.tiles[_y][_x].isWalkable = False
+        _rootMap.tiles[_y][_x].entity = self
+
     def __str__(self):
         _string = 'Name: ' + self.name + '; Position: ' + str(self.x) + ',' + str(self.y)
         return _string
 
     def setPosition(self, _x, _y, _force=False):
         if _force:
+            self.unocupyPosition()
             self.x = _x
             self.y = _y
-            self.sprite.set_position(self.x * config.TILE_SIZE,
-                                     self.y * config.TILE_SIZE)
+            self.updatePosition()
         else:
             if self.rootMap.tiles[_y][_x].isWalkable:
+                self.unocupyPosition()
                 self.x = _x
                 self.y = _y
-                self.sprite.set_position(self.x * config.TILE_SIZE,
-                                         self.y * config.TILE_SIZE)
+                self.updatePosition()
 
     def addPosition(self, _x, _y, _force=False):
         if _force:
+            self.unocupyPosition()
             self.x += _x
             self.y += _y
-            self.sprite.set_position(self.x * config.TILE_SIZE,
-                                     self.y * config.TILE_SIZE)
+            self.updatePosition()
         else:
             if self.rootMap.tiles[self.y + _y][self.x + _x].isWalkable:
+                self.unocupyPosition()
                 self.x += _x
                 self.y += _y
-                self.sprite.set_position(self.x * config.TILE_SIZE,
-                                         self.y * config.TILE_SIZE)
+                self.updatePosition()
 
     def getPosition(self):
         return self.x, self.y
+
+    def updatePosition(self):
+        self.ocupyPosition()
+        self.sprite.set_position(self.x * config.TILE_SIZE,
+                                 self.y * config.TILE_SIZE)
+
+    def ocupyPosition(self):
+        self.rootMap.tiles[self.y][self.x].isWalkable = False
+        self.rootMap.tiles[self.y][self.x].entity = self
+
+    def unocupyPosition(self):
+        self.rootMap.tiles[self.y][self.x].isWalkable = True
+        self.rootMap.tiles[self.y][self.x].entity = None
 
 
 class Player(Entity):

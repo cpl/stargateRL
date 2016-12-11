@@ -13,7 +13,8 @@ class Tile():
         self.x = _x
         self.y = _y
         self.isWalkable = _isWalkable
-        self.hasEntity = _hasEntity
+
+        self.entity = None
 
         self.image = pyglet.image.load(_image)
         self.sprite = pyglet.sprite.Sprite(self.image,
@@ -21,7 +22,7 @@ class Tile():
                                            _y * config.TILE_SIZE)
 
     def __str__(self):
-        if self.hasEntity:
+        if self.entity is not None:
             return self.entity.ascii
         else:
             return self.ascii
@@ -47,7 +48,7 @@ class Map():
             for tile in row:
                 tile.sprite.batch = _batch
 
-    def loadMap(self, _file):
+    def loadMap(self, _file, _json=False):
         with open(_file, 'r') as inputFile:
             for y, line in enumerate(reversed(inputFile.readlines())):
                 for x, tile in enumerate(line):
@@ -60,9 +61,12 @@ class Map():
                     elif tile == ')':
                         self.tiles[y][x] = Tile(tile, x, y, graphx.DOOR_O, True)
 
-    def saveMap(self, _file):
-        with open(_file, 'w+') as outputFile:
-            for row in self.tiles:
-                for tile in row:
-                    outputFile.write(tile.ascii)
-                outputFile.write('\n')
+    def saveMap(self, _file, _json=False):
+            with open(_file, 'w+') as outputFile:
+                if _json:
+                    pass
+                else:
+                    for row in self.tiles:
+                        for tile in row:
+                            outputFile.write(tile.ascii)
+                        outputFile.write('\n')
