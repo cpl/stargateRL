@@ -1,48 +1,61 @@
 import pyglet
 import config
 
-from pyglet.window import key
-
 
 class Entity():
-    def __init__(self, _name, _position_x, _position_y, _graphic, _map,
-                 _health, _hp, _is_alive):
+    def __init__(self, _name, _x, _y, _rootMap, _ascii, _image):
         self.name = _name
-        self.position_x = _position_x
-        self.position_y = _position_y
-        self.graphic = pyglet.image.load(_graphic)
-        self.root = _map
-        self.health = _health
-        self.max_hp = _hp
+        self.x = _x
+        self.y = _y
+        self.rootMap = _rootMap
+        self.ascii = _ascii
 
-        self.is_alive = _is_alive
+        self.image = pyglet.image.load(_image)
+        self.sprite = pyglet.sprite.Sprite(self.image,
+                                           _x * config.TILE_SIZE,
+                                           _y * config.TILE_SIZE)
 
-        self.sprite = pyglet.sprite.Sprite(self.graphic,
-                                           _position_x * config.TILE_SIZE,
-                                           _position_y * config.TILE_SIZE)
+    def __str__(self):
+        _string = 'Name: ' + self.name + '; Position: ' + str(self.x) + ',' + str(self.y)
+        return _string
 
-    def set_position(self, _x, _y):
-        self.position_x = _x
-        self.position_y = _y
+    def setPosition(self, _x, _y, _force=False):
+        if _force:
+            self.x = _x
+            self.y = _y
+            self.sprite.set_position(self.x * config.TILE_SIZE,
+                                     self.y * config.TILE_SIZE)
+        else:
+            if self.rootMap.tiles[_y][_x].isWalkable:
+                self.x = _x
+                self.y = _y
+                self.sprite.set_position(self.x * config.TILE_SIZE,
+                                         self.y * config.TILE_SIZE)
 
-    def add_position(self, _x, _y):
-        self.position_x += _x
-        self.position_y += _y
+    def addPosition(self, _x, _y, _force=False):
+        if _force:
+            self.x += _x
+            self.y += _y
+            self.sprite.set_position(self.x * config.TILE_SIZE,
+                                     self.y * config.TILE_SIZE)
+        else:
+            if self.rootMap.tiles[self.y + _y][self.x + _x].isWalkable:
+                self.x += _x
+                self.y += _y
+                self.sprite.set_position(self.x * config.TILE_SIZE,
+                                         self.y * config.TILE_SIZE)
+
+    def getPosition(self):
+        return self.x, self.y
 
 
 class Player(Entity):
     def move(self, _key):
-        if _key == key.UP:
-            if self.root.tiles[self.position_y+1][self.position_x].walkable:
-                self.add_position(0, 1)
-        elif _key == key.DOWN:
-            if self.root.tiles[self.position_y-1][self.position_x].walkable:
-                self.add_position(0, -1)
-        elif _key == key.LEFT:
-            if self.root.tiles[self.position_y][self.position_x-1].walkable:
-                self.add_position(-1, 0)
-        elif _key == key.RIGHT:
-            if self.root.tiles[self.position_y][self.position_x+1].walkable:
-                self.add_position(1, 0)
-        self.sprite.set_position(self.position_x * config.TILE_SIZE,
-                                 self.position_y * config.TILE_SIZE)
+        if _key == pyglet.window.key.UP:
+            self.addPosition(0, 1)
+        elif _key == pyglet.window.key.DOWN:
+            self.addPosition(0, -1)
+        elif _key == pyglet.window.key.RIGHT:
+            self.addPosition(1, 0)
+        elif _key == pyglet.window.key.LEFT:
+            self.addPosition(-1, 0)

@@ -1,45 +1,41 @@
 import pyglet
-import entity
 import mapset
+import entity
 import config
-import graphics
+import graphx
 
-from pyglet.window import key
+window = pyglet.window.Window(config.WINDOW_SIZE_X,
+                              config.WINDOW_SIZE_Y)
 
-myMap = mapset.Map()
-myMap = mapset.load('src/maps/test.map')
-myMap.make_empty(20, 20)
+batch_map = pyglet.graphics.Batch()
+batch_entity = pyglet.graphics.Batch()
 
+mymap = mapset.Map(config.MAP_SIZE_X, config.MAP_SIZE_Y)
+mymap.loadMap('src/maps/test1.map')
+mymap.setBatch(batch_map)
 
-player = entity.Player('Engineer', 1, 1, graphics.PRIEST,
-                       myMap, 100, 100, True)
+player = entity.Player('Engineer', 3, 3, mymap, '@', graphx.PRIEST)
+demon = entity.Entity('Demon', 4, 3, mymap, 'D', graphx.DEMON)
 
-enemy = entity.Entity('Demon', 2, 3, graphics.DEMON, myMap, 100, 100, True)
+player.sprite.batch = batch_entity
+demon.sprite.batch = batch_entity
 
-window = pyglet.window.Window(config.WINDOW_SIZE_X, config.WINDOW_SIZE_Y)
-
-label_player_name = pyglet.text.Label('Name: ' + player.name, x=10, y=config.WINDOW_SIZE_Y-20)
-label_player_pos = pyglet.text.Label('POS: ' + str(player.position_x) + ' ' + str(player.position_y), x=200, y=config.WINDOW_SIZE_Y-20)
-
-batch = pyglet.graphics.Batch()
-
-myMap.update(batch)
-
-
-@window.event
-def on_key_press(symbol, modifiers):
-    player.move(symbol)
-    label_player_pos.text = 'POS: ' + str(player.position_x) + ' ' + str(player.position_y)
+demon.setPosition(1, 1)
+demon.setPosition(0, 0)
+demon.addPosition(0, 1)
+demon.addPosition(1, 0)
 
 
 @window.event
 def on_draw():
     window.clear()
-    batch.draw()
-    label_player_name.draw()
-    label_player_pos.draw()
-    enemy.sprite.draw()
-    player.sprite.draw()
+    batch_map.draw()
+    batch_entity.draw()
+
+
+@window.event
+def on_key_press(symbol, modifiers):
+    player.move(symbol)
 
 
 pyglet.app.run()
