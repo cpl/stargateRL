@@ -1,0 +1,1727 @@
+{
+  "tiles": [
+    [
+      {
+        "y": 0, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 1, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 2, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 3, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 4, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 5, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 8, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 9, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 10, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 11, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 12, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 13, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 14, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 15, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 16, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 17, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 18, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 0, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 1, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 1, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 6, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 7, 
+        "imagePath": "bin/graphics/openDoor12.gif", 
+        "ascii": ")"
+      }, 
+      {
+        "y": 1, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 1, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 2, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 1, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 2, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 2, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 2, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 2, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 8, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 9, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 10, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 11, 
+        "imagePath": "bin/graphics/openDoor12.gif", 
+        "ascii": ")"
+      }, 
+      {
+        "y": 2, 
+        "x": 12, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 13, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 14, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 15, 
+        "imagePath": "bin/graphics/openDoor12.gif", 
+        "ascii": ")"
+      }, 
+      {
+        "y": 2, 
+        "x": 16, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 17, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 18, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 2, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 3, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 3, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": ".", 
+        "entity": {
+          "y": 3, 
+          "x": 4, 
+          "imagePath": "bin/graphics/demon.gif", 
+          "ascii": "D", 
+          "name": "Demon"
+        }
+      }, 
+      {
+        "y": 3, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 6, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 3, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 3, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 4, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 4, 
+        "x": 1, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 4, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 4, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 4, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 11, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 4, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 15, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 4, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 4, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 5, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 5, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 6, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 5, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 5, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 6, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 6, 
+        "x": 1, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 6, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 6, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 6, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 11, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 6, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 15, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 6, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 6, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 7, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 7, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": ".", 
+        "entity": {
+          "y": 7, 
+          "x": 3, 
+          "imagePath": "bin/graphics/priest.gif", 
+          "ascii": "@", 
+          "name": "Engineer"
+        }
+      }, 
+      {
+        "y": 7, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 6, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 7, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 7, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 8, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 1, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 2, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 3, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 4, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 5, 
+        "imagePath": "bin/graphics/openDoor12.gif", 
+        "ascii": ")"
+      }, 
+      {
+        "y": 8, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 8, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 9, 
+        "imagePath": "bin/graphics/door12.gif", 
+        "ascii": "]"
+      }, 
+      {
+        "y": 8, 
+        "x": 10, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 11, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 12, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 13, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 14, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 15, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 16, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 17, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 18, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 8, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 9, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 9, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 6, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 7, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 9, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 10, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 10, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 10, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 10, 
+        "x": 8, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 10, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 10, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 11, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 8, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 11, 
+        "x": 16, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 17, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 18, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 11, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 12, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 12, 
+        "x": 1, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 2, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 3, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 4, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 5, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 6, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 7, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 8, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 9, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 10, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 11, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 12, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 13, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 14, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 15, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 16, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 17, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 18, 
+        "imagePath": "bin/graphics/floor12.gif", 
+        "ascii": "."
+      }, 
+      {
+        "y": 12, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ], 
+    [
+      {
+        "y": 13, 
+        "x": 0, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 1, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 2, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 3, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 4, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 5, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 6, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 7, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 8, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 9, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 10, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 11, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 12, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 13, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 14, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 15, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 16, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 17, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 18, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }, 
+      {
+        "y": 13, 
+        "x": 19, 
+        "imagePath": "bin/graphics/wall12.gif", 
+        "ascii": "#"
+      }
+    ]
+  ], 
+  "name": "SG_MAP"
+}

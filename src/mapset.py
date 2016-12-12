@@ -16,6 +16,7 @@ class Tile():
 
         self.entity = None
 
+        self.imagePath = _image
         self.image = pyglet.image.load(_image)
         self.sprite = pyglet.sprite.Sprite(self.image,
                                            _x * config.mapdata['tileSize'],
@@ -27,13 +28,23 @@ class Tile():
         else:
             return self.ascii
 
+    def save(self):
+        _jsonObject = {'ascii': self.ascii, 'x': self.x, 'y': self.y,
+                       'imagePath': self.imagePath}
+
+        if self.entity is not None:
+            _jsonObject.update({'entity': self.entity.save()})
+
+        return _jsonObject
+
 
 class Map():
 
-    def __init__(self, _lenX=0, _lenY=0):
+    def __init__(self, _lenX=0, _lenY=0, _name='SG_MAP'):
         self.tiles = [['' for _ in range(_lenX)] for _ in range(_lenY)]
         self.lenX = _lenX
         self.lenY = _lenY
+        self.name = _name
 
     def __str__(self):
         _string = ''
@@ -62,14 +73,16 @@ class Map():
                         self.tiles[y][x] = Tile(tile, x, y,
                                                 config.graphx['door_c'])
                     elif tile == ')':
-                        self.tiles[y][x] = Tile(tile, x, y, graphx.DOOR_O, True)
+                        self.tiles[y][x] = Tile(tile, x, y,
+                                                config.graphx['door_o'], True)
 
-    def saveMap(self, _file, _json=False):
-            with open(_file, 'w+') as outputFile:
-                if _json:
-                    pass
-                else:
-                    for row in self.tiles:
-                        for tile in row:
-                            outputFile.write(tile.ascii)
-                        outputFile.write('\n')
+    def save(self):
+        _jsonObject = []
+
+        for row in self.tiles:
+            _jsonRow = []
+            for tile in row:
+                _jsonRow.append(tile.save())
+            _jsonObject.append(_jsonRow)
+
+        return {'tiles': _jsonObject, 'name': self.name}

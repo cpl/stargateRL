@@ -10,6 +10,7 @@ class Entity():
         self.rootMap = _rootMap
         self.ascii = _ascii
 
+        self.imagePath = _image
         self.image = pyglet.image.load(_image)
         self.sprite = pyglet.sprite.Sprite(self.image,
                                            _x * config.mapdata['tileSize'],
@@ -63,6 +64,10 @@ class Entity():
     def unocupyPosition(self):
         self.rootMap.tiles[self.y][self.x].isWalkable = True
         self.rootMap.tiles[self.y][self.x].entity = None
+
+    def save(self):
+        return {'name': self.name, 'x': self.x, 'y': self.y,
+                'ascii': self.ascii, 'imagePath': self.imagePath}
 
 
 class Player(Entity):
