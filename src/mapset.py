@@ -18,8 +18,8 @@ class Tile():
 
         self.image = pyglet.image.load(_image)
         self.sprite = pyglet.sprite.Sprite(self.image,
-                                           _x * config.TILE_SIZE,
-                                           _y * config.TILE_SIZE)
+                                           _x * config.mapdata['tileSize'],
+                                           _y * config.mapdata['tileSize'])
 
     def __str__(self):
         if self.entity is not None:
@@ -53,11 +53,14 @@ class Map():
             for y, line in enumerate(reversed(inputFile.readlines())):
                 for x, tile in enumerate(line):
                     if tile == '#':
-                        self.tiles[y][x] = Tile(tile, x, y, graphx.WALL)
+                        self.tiles[y][x] = Tile(tile, x, y,
+                                                config.graphx['wall'])
                     elif tile == '.':
-                        self.tiles[y][x] = Tile(tile, x, y, graphx.FLOOR, True)
+                        self.tiles[y][x] = Tile(tile, x, y,
+                                                config.graphx['floor'], True)
                     elif tile == ']':
-                        self.tiles[y][x] = Tile(tile, x, y, graphx.DOOR_C)
+                        self.tiles[y][x] = Tile(tile, x, y,
+                                                config.graphx['door_c'])
                     elif tile == ')':
                         self.tiles[y][x] = Tile(tile, x, y, graphx.DOOR_O, True)
 

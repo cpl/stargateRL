@@ -12,8 +12,8 @@ class Entity():
 
         self.image = pyglet.image.load(_image)
         self.sprite = pyglet.sprite.Sprite(self.image,
-                                           _x * config.TILE_SIZE,
-                                           _y * config.TILE_SIZE)
+                                           _x * config.mapdata['tileSize'],
+                                           _y * config.mapdata['tileSize'])
 
         _rootMap.tiles[_y][_x].isWalkable = False
         _rootMap.tiles[_y][_x].entity = self
@@ -53,8 +53,8 @@ class Entity():
 
     def updatePosition(self):
         self.ocupyPosition()
-        self.sprite.set_position(self.x * config.TILE_SIZE,
-                                 self.y * config.TILE_SIZE)
+        self.sprite.set_position(self.x * config.mapdata['tileSize'],
+                                 self.y * config.mapdata['tileSize'])
 
     def ocupyPosition(self):
         self.rootMap.tiles[self.y][self.x].isWalkable = False

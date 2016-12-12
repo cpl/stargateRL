@@ -2,7 +2,6 @@ import pyglet
 import mapset
 import entity
 import config
-import graphx
 
 from pyglet.window import key
 from pyglet import gl
@@ -11,13 +10,13 @@ from pyglet import gl
 class GameWindow(pyglet.window.Window):
 
     def __init__(self):
-        super(GameWindow, self).__init__(config.WINDOW_SIZE_X,
-                                         config.WINDOW_SIZE_Y,
+        super(GameWindow, self).__init__(config.window['width'],
+                                         config.window['height'],
                                          caption='Stargate RL',
-                                         fullscreen=config.WINDOW_FULLSCREEN,
-                                         resizable=config.WINDOW_RESIZABLE)
+                                         fullscreen=config.window['fullscreen'],
+                                         resizable=config.window['resizable'])
 
-        self.set_icon(pyglet.image.load(graphx.PRIEST))
+        self.set_icon(pyglet.image.load(config.graphx['priest']))
 
         self.batch_map = pyglet.graphics.Batch()
         self.batch_entity = pyglet.graphics.Batch()
@@ -41,13 +40,14 @@ class GameWindow(pyglet.window.Window):
         gl.glMatrixMode(gl.GL_MODELVIEW)
         gl.glLoadIdentity()
 
-        if config.CAMERA_FOLLOW_PLAYER:
+        if config.window['cameraFollow']:
             gl.glTranslatef(
-                (-player.x * config.TILE_SIZE)+config.WINDOW_SIZE_X/2,
-                (-player.y * config.TILE_SIZE)+config.WINDOW_SIZE_Y/2, 0)
+             (-player.x * config.mapdata['tileSize'])+config.window['width']/2,
+             (-player.y * config.mapdata['tileSize'])+config.window['height']/2,
+             0)
         else:
-            gl.glTranslatef(-self.VIEWPORT_X * config.TILE_SIZE,
-                            -self.VIEWPORT_Y * config.TILE_SIZE, 0)
+            gl.glTranslatef(-self.VIEWPORT_X * config.mapdata['tileSize'],
+                            -self.VIEWPORT_Y * config.mapdata['tileSize'], 0)
 
         self.clear()
         self.batch_map.draw()
@@ -60,13 +60,15 @@ class GameWindow(pyglet.window.Window):
 if __name__ == '__main__':
     game = GameWindow()
 
-    mymap = mapset.Map(config.MAP_SIZE_X, config.MAP_SIZE_Y)
-    mymap.loadMap('src/maps/test1.map')
+    mymap = mapset.Map(config.mapdata['lenX'], config.mapdata['lenY'])
+    mymap.loadMap('data/map_ascii/test1.map')
 
     mymap.setBatch(game.batch_map)
 
-    player = entity.Player('Engineer', 3, 3, mymap, '@', graphx.PRIEST)
-    demon = entity.Entity('Demon', 4, 3, mymap, 'D', graphx.DEMON)
+    player = entity.Player('Engineer', 3, 3,
+                           mymap, '@', config.graphx['priest'])
+
+    demon = entity.Entity('Demon', 4, 3, mymap, 'D', config.graphx['demon'])
 
     player.sprite.batch = game.batch_entity
     demon.sprite.batch = game.batch_entity

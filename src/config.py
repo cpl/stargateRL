@@ -1,16 +1,21 @@
 
-MAP_SIZE_X = 20
-MAP_SIZE_Y = 14
+root = {'graphx': 'bin/graphics/',
+        'map_ascii': 'data/map_ascii/',
+        'map_json': 'data/map_json/'}
 
-TILE_SIZE = 32
+graphx = {'demon': root['graphx']+'demon.gif',
+          'door_c': root['graphx']+'door12.gif',
+          'floor': root['graphx']+'floor12.gif',
+          'door_o': root['graphx']+'openDoor12.gif',
+          'priest': root['graphx']+'priest.gif',
+          'wall': root['graphx']+'wall12.gif'}
 
-GUI_UPPER = 0
-GUI_RIGHT = 0
+mapdata = {'lenX': 20,
+           'lenY': 14,
+           'tileSize': 32}
 
-CAMERA_FOLLOW_PLAYER = False
-
-WINDOW_FULLSCREEN = False
-WINDOW_RESIZABLE = True
-
-WINDOW_SIZE_X = GUI_RIGHT + MAP_SIZE_X * TILE_SIZE
-WINDOW_SIZE_Y = GUI_UPPER + MAP_SIZE_Y * TILE_SIZE
+window = {'cameraFollow': False,
+          'fullscreen': False,
+          'resizable': True,
+          'width': mapdata['lenX']*mapdata['tileSize'],
+          'height': mapdata['lenY']*mapdata['tileSize']}
