@@ -15,10 +15,12 @@ mapdata = {'len_x': 20,
            'len_y': 14,
            'tile_size': 32}
 
+gui = {'right': 192}
+
 window = {'camera_follow': False,
           'fullscreen': False,
           'resizable': True,
-          'width': mapdata['len_x']*mapdata['tile_size'],
+          'width': mapdata['len_x']*mapdata['tile_size']+gui['right'],
           'height': mapdata['len_y']*mapdata['tile_size']}
 
 mouse = {'visible': False,
