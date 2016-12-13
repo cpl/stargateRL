@@ -1,4 +1,4 @@
 # Stargate RL
-###### A Stargate inspired Rougelike
+###### A Stargate inspired RogueLike
 
 ---

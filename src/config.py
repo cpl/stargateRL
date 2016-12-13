@@ -11,14 +11,15 @@ graphx = {'demon': root['graphx']+'demon.gif',
           'wall': root['graphx']+'wall12.gif',
           'selector': root['graphx']+'selection.png'}
 
-mapdata = {'lenX': 20,
-           'lenY': 14,
-           'tileSize': 32}
+mapdata = {'len_x': 20,
+           'len_y': 14,
+           'tile_size': 32}
 
-window = {'cameraFollow': False,
+window = {'camera_follow': False,
           'fullscreen': False,
           'resizable': True,
-          'width': mapdata['lenX']*mapdata['tileSize'],
-          'height': mapdata['lenY']*mapdata['tileSize'],
-          'visibleMouse': False,
-          'enableMouse': False}
+          'width': mapdata['len_x']*mapdata['tile_size'],
+          'height': mapdata['len_y']*mapdata['tile_size']}
+
+mouse = {'visible': False,
+         'enabled': False}

@@ -11,17 +11,17 @@ import mapset
 if __name__ == '__main__':
     game = GameWindow()
 
-    mymap = mapset.Map(config.mapdata['lenX'], config.mapdata['lenY'])
-    mymap.loadMap('data/map_ascii/test1.map')
+    mymap = mapset.Map(config.mapdata['len_x'], config.mapdata['len_y'])
+    mymap.load_map('data/map_ascii/test1.map')
 
-    mymap.setBatch(game.batch_map)
+    mymap.set_batch(game._batch_map)
 
-    game.selector.rootMap = mymap
+    game._selector._root_map = mymap
 
     player = entity.Player('Engineer', 3, 3,
                            mymap, '@', config.graphx['priest'])
 
-    game.player = player
+    game._player = player
 
     @game.event
     def on_key_press(symbol, modifiers):
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     demon = entity.Entity('Demon', 4, 3, mymap, 'D', config.graphx['demon'])
 
-    player.sprite.batch = game.batch_entity
-    demon.sprite.batch = game.batch_entity
+    player._sprite.batch = game._batch_entity
+    demon._sprite.batch = game._batch_entity
 
     pyglet.app.run()

@@ -6,124 +6,124 @@ from pyglet.window import key
 
 class Tile():
 
-    def __init__(self, _ascii, _x, _y, _image,
-                 _isWalkable=False,
-                 _hasEntity=False):
+    def __init__(self, ascii, x, y, image_path,
+                 is_walkable=False,
+                 has_entity=False):
 
-        self.ascii = _ascii
-        self.x = _x
-        self.y = _y
-        self.isWalkable = _isWalkable
+        self._ascii = ascii
+        self._x = x
+        self._y = y
+        self._is_walkable = is_walkable
 
-        self.entity = None
+        self._entity = None
 
-        self.imagePath = _image
-        self.image = pyglet.image.load(_image)
-        self.sprite = pyglet.sprite.Sprite(self.image,
-                                           _x * config.mapdata['tileSize'],
-                                           _y * config.mapdata['tileSize'])
+        self._image_path = image_path
+        self._image = pyglet.image.load(image_path)
+        self._sprite = pyglet.sprite.Sprite(self._image,
+                                            x * config.mapdata['tile_size'],
+                                            y * config.mapdata['tile_size'])
 
     def __str__(self):
-        if self.entity is not None:
-            return self.entity.ascii
+        if self._entity is not None:
+            return self._entity._ascii
         else:
-            return self.ascii
+            return self._ascii
 
     def save(self):
-        _jsonObject = {'ascii': self.ascii, 'x': self.x, 'y': self.y,
-                       'imagePath': self.imagePath}
+        jsonObject = {'ascii': self._ascii, 'x': self._x, 'y': self._y,
+                      'imagePath': self._image_path}
 
-        if self.entity is not None:
-            _jsonObject.update({'entity': self.entity.save()})
+        if self._entity is not None:
+            jsonObject.update({'entity': self._entity.save()})
 
-        return _jsonObject
+        return jsonObject
 
 
 class Map():
 
-    def __init__(self, _lenX=0, _lenY=0, _name='SG_MAP'):
-        self.tiles = [['' for _ in range(_lenX)] for _ in range(_lenY)]
-        self.lenX = _lenX
-        self.lenY = _lenY
-        self.name = _name
+    def __init__(self, len_x=0, len_y=0, name='SG_MAP'):
+        self._tiles = [['' for _ in range(len_x)] for _ in range(len_y)]
+        self._len_x = len_x
+        self._len_y = len_y
+        self._name = name
 
     def __str__(self):
-        _string = ''
-        for row in reversed(self.tiles):
-            _string += '\n'
+        string = ''
+        for row in reversed(self._tiles):
+            string += '\n'
             for tile in row:
-                _string += str(tile)
-        return _string
+                string += str(tile)
+        return string
 
-    def setBatch(self, _batch):
-        for row in self.tiles:
+    def set_batch(self, batch):
+        for row in self._tiles:
             for tile in row:
-                tile.sprite.batch = _batch
+                tile._sprite.batch = batch
 
-    def loadMap(self, _file, _json=False):
-        with open(_file, 'r') as inputFile:
-            for y, line in enumerate(reversed(inputFile.readlines())):
+    def load_map(self, file, json=False):
+        with open(file, 'r') as input_file:
+            for y, line in enumerate(reversed(input_file.readlines())):
                 for x, tile in enumerate(line):
                     if tile == '#':
-                        self.tiles[y][x] = Tile(tile, x, y,
-                                                config.graphx['wall'])
+                        self._tiles[y][x] = Tile(tile, x, y,
+                                                 config.graphx['wall'])
                     elif tile == '.':
-                        self.tiles[y][x] = Tile(tile, x, y,
-                                                config.graphx['floor'], True)
+                        self._tiles[y][x] = Tile(tile, x, y,
+                                                 config.graphx['floor'], True)
                     elif tile == ']':
-                        self.tiles[y][x] = Tile(tile, x, y,
-                                                config.graphx['door_c'])
+                        self._tiles[y][x] = Tile(tile, x, y,
+                                                 config.graphx['door_c'])
                     elif tile == ')':
-                        self.tiles[y][x] = Tile(tile, x, y,
-                                                config.graphx['door_o'], True)
+                        self._tiles[y][x] = Tile(tile, x, y,
+                                                 config.graphx['door_o'], True)
 
     def save(self):
-        _jsonObject = []
+        jsonObject = []
 
-        for row in self.tiles:
-            _jsonRow = []
+        for row in self._tiles:
+            jsonRow = []
             for tile in row:
-                _jsonRow.append(tile.save())
-            _jsonObject.append(_jsonRow)
+                jsonRow.append(tile.save())
+            jsonObject.append(jsonRow)
 
-        return {'tiles': _jsonObject, 'name': self.name}
+        return {'tiles': jsonObject, 'name': self._name}
 
 
 class Selector():
 
-    def __init__(self, _image, _rootMap=None):
-        self.x = 0
-        self.y = 0
-        self.rootMap = _rootMap
+    def __init__(self, image_path, root_map=None):
+        self._x = 0
+        self._y = 0
+        self._root_map = root_map
 
-        self.imagePath = _image
-        self.image = pyglet.image.load(_image)
+        self._image_path = image_path
+        self._image = pyglet.image.load(image_path)
 
-        self.sprite = pyglet.sprite.Sprite(self.image, self.x, self.y)
+        self._sprite = pyglet.sprite.Sprite(self._image, self._x, self._y)
 
-    def set_position(self, _x, _y):
-        self.x = _x
-        self.y = _y
-        self.sprite.set_position(self.x*config.mapdata['tileSize'],
-                                 self.y*config.mapdata['tileSize'])
+    def set_position(self, x, y):
+        self._x = x
+        self._y = y
+        self._sprite.set_position(self._x*config.mapdata['tile_size'],
+                                  self._y*config.mapdata['tile_size'])
 
         self.get_info()
 
     def move(self, symbol):
-        if symbol == key.W and self.y < self.rootMap.lenY-1:
-            self.set_position(self.x, self.y+1)
-        elif symbol == key.S and self.y > 0:
-            self.set_position(self.x, self.y-1)
-        elif symbol == key.D and self.x < self.rootMap.lenX-1:
-            self.set_position(self.x+1, self.y)
-        elif symbol == key.A and self.x > 0:
-            self.set_position(self.x-1, self.y)
+        if symbol == key.W and self._y < self._root_map._len_y-1:
+            self.set_position(self._x, self._y+1)
+        elif symbol == key.S and self._y > 0:
+            self.set_position(self._x, self._y-1)
+        elif symbol == key.D and self._x < self._root_map._len_x-1:
+            self.set_position(self._x+1, self._y)
+        elif symbol == key.A and self._x > 0:
+            self.set_position(self._x-1, self._y)
 
     def get_info(self):
-        print self.rootMap.tiles[self.y][self.x].save()
+        print self._root_map._tiles[self._y][self._x].save()
 
     def on_mouse_motion(self, x, y, dx, dy):
-        if config.window['enableMouse']:
+        if config.mouse['enabled']:
             self.set_position(
-                x/config.mapdata['tileSize'],
-                y/config.mapdata['tileSize'])
+                x/config.mapdata['tile_size'],
+                y/config.mapdata['tile_size'])
