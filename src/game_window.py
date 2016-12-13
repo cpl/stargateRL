@@ -32,6 +32,10 @@ class GameWindow(pyglet.window.Window):
 
         self.selector = mapset.Selector(config.graphx['selector'])
 
+        pyglet.gl.glEnable(pyglet.gl.GL_BLEND)
+        pyglet.gl.glBlendFunc(pyglet.gl.GL_SRC_ALPHA,
+                              pyglet.gl.GL_ONE_MINUS_SRC_ALPHA)
+
     def on_key_press(self, symbol, modifiers):
         self.player.move(symbol)
 
@@ -66,6 +70,15 @@ class GameWindow(pyglet.window.Window):
         self.batch_map.draw()
         self.batch_entity.draw()
         self.selector.sprite.draw()
+
+        # DRAW "FOG"
+        # pyglet.graphics.draw(4, pyglet.gl.GL_POLYGON,
+        #                      ('v2f', (0, 0,
+        #                               0, config.window['height'],
+        #                               config.window['width'],
+        #                               config.window['height'],
+        #                               config.window['width'], 0)),
+        #                      ('c4B', (0, 0, 0, 128)*4))
 
     def on_mouse_motion(self, x, y, dx, dy):
         self.selector.on_mouse_motion(x, y, dx, dy)
