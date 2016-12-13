@@ -21,4 +21,4 @@ window = {'cameraFollow': False,
           'width': mapdata['lenX']*mapdata['tileSize'],
           'height': mapdata['lenY']*mapdata['tileSize'],
           'visibleMouse': False,
-          'enableMouse': True}
+          'enableMouse': False}

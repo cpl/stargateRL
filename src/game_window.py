@@ -47,10 +47,6 @@ class GameWindow(pyglet.window.Window):
             elif symbol == key.W:
                 self.VIEWPORT_Y += 1
 
-        if symbol == key.Q:
-            with open(config.root['map_json']+'map.json', 'w+') as outputFile:
-                json.dump(mymap.save(), outputFile, indent=2)
-
     def on_draw(self):
         gl.glMatrixMode(gl.GL_MODELVIEW)
         gl.glLoadIdentity()
