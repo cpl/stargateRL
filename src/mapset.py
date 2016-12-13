@@ -1,6 +1,5 @@
 import pyglet
 import config
-import graphx
 
 from pyglet.window import key
 
