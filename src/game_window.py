@@ -13,24 +13,21 @@ from pyglet import gl
 
 class GameWindow(pyglet.window.Window):
 
-    def __init__(self):
-        super(GameWindow, self).__init__(config.window['width'],
-                                         config.window['height'],
-                                         caption='Stargate RL',
+    def __init__(self, width, height):
+        super(GameWindow, self).__init__(width, height, caption='Stargate RL',
                                          fullscreen=config.window['fullscreen'],
                                          resizable=config.window['resizable'])
 
         self.set_icon(pyglet.image.load(config.graphx['priest']))
 
-        self._batch_map = pyglet.graphics.Batch()
-        self._batch_entity = pyglet.graphics.Batch()
+        self._batch_map = None
+        self._batch_entity = None
+        self._selector = None
 
         self._viewport_x = 0
         self._viewport_y = 0
 
         self.set_mouse_visible(config.mouse['visible'])
-
-        self._selector = mapset.Selector(config.graphx['selector'])
 
         pyglet.gl.glEnable(pyglet.gl.GL_BLEND)
         pyglet.gl.glBlendFunc(pyglet.gl.GL_SRC_ALPHA,
@@ -82,6 +79,6 @@ class GameWindow(pyglet.window.Window):
     def on_mouse_motion(self, x, y, dx, dy):
         self._selector.on_mouse_motion(x, y, dx, dy)
 
-    def clear_batches(self):
-        self._batch_map = pyglet.graphics.Batch()
-        self._batch_entity = pyglet.graphics.Batch()
+    # def clear_batches(self):
+    #     self._batch_map = pyglet.graphics.Batch()
+    #     self._batch_entity = pyglet.graphics.Batch()

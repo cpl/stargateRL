@@ -39,3 +39,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# TEMP FOLDER #
+###############
+tmp/

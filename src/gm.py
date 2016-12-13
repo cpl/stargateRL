@@ -1,37 +1,37 @@
 from game_window import GameWindow
+from game_data import GameData
+from mapset import Map
+from mapset import Selector
+from entity import Player
+from entity import Entity
+
 from pyglet.window import key
 
 import pyglet
+import config
 
 import json
-import entity
-import config
-import mapset
 
 if __name__ == '__main__':
-    game = GameWindow()
 
-    mymap = mapset.Map(config.mapdata['len_x'], config.mapdata['len_y'])
-    mymap.load_map('data/map_ascii/test1.map')
+    MGD = GameData(GameWindow(config.window['width'],
+                              config.window['height']),
+                   Map(config.mapdata['len_x'],
+                       config.mapdata['len_y']),
+                   Player('Engineer', 3, 4, '@',
+                          config.graphx['priest']),
+                   Selector(config.graphx['selector']),
+                   entities=[Entity('Demon', 3, 3, 'D',
+                                    config.graphx['demon'])])
 
-    mymap.set_batch(game._batch_map)
+    MGD.sync()
+    MGD.initialize()
 
-    game._selector._root_map = mymap
-
-    player = entity.Player('Engineer', 3, 3,
-                           mymap, '@', config.graphx['priest'])
-
-    game._player = player
-
-    @game.event
+    @MGD._game_window.event
     def on_key_press(symbol, modifiers):
         if symbol == key.Q:
-            with open(config.root['map_json']+'map.json', 'w+') as outputFile:
-                json.dump(mymap.save(), outputFile, indent=2)
-
-    demon = entity.Entity('Demon', 4, 3, mymap, 'D', config.graphx['demon'])
-
-    player._sprite.batch = game._batch_entity
-    demon._sprite.batch = game._batch_entity
+            print 'GAME SAVED'
+            with open(config.root['map_json']+'map.json', 'w+') as output_file:
+                json.dump(MGD._root_map.save(), output_file, indent=2)
 
     pyglet.app.run()

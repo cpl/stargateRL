@@ -393,23 +393,16 @@
         "entity": {
           "y": 3, 
           "x": 3, 
-          "imagePath": "bin/graphics/priest.gif", 
-          "ascii": "@", 
-          "name": "Engineer"
+          "imagePath": "bin/graphics/demon.gif", 
+          "ascii": "D", 
+          "name": "Demon"
         }
       }, 
       {
         "y": 3, 
         "x": 4, 
         "imagePath": "bin/graphics/floor12.gif", 
-        "ascii": ".", 
-        "entity": {
-          "y": 3, 
-          "x": 4, 
-          "imagePath": "bin/graphics/demon.gif", 
-          "ascii": "D", 
-          "name": "Demon"
-        }
+        "ascii": "."
       }, 
       {
         "y": 3, 
@@ -525,7 +518,14 @@
         "y": 4, 
         "x": 3, 
         "imagePath": "bin/graphics/floor12.gif", 
-        "ascii": "."
+        "ascii": ".", 
+        "entity": {
+          "y": 4, 
+          "x": 3, 
+          "imagePath": "bin/graphics/priest.gif", 
+          "ascii": "@", 
+          "name": "Engineer"
+        }
       }, 
       {
         "y": 4, 

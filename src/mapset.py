@@ -91,10 +91,9 @@ class Map():
 
 class Selector():
 
-    def __init__(self, image_path, root_map=None):
+    def __init__(self, image_path):
         self._x = 0
         self._y = 0
-        self._root_map = root_map
 
         self._image_path = image_path
         self._image = pyglet.image.load(image_path)
@@ -110,17 +109,17 @@ class Selector():
         self.get_info()
 
     def move(self, symbol):
-        if symbol == key.W and self._y < self._root_map._len_y-1:
+        if symbol == key.W and self._y < self._map._len_y-1:
             self.set_position(self._x, self._y+1)
         elif symbol == key.S and self._y > 0:
             self.set_position(self._x, self._y-1)
-        elif symbol == key.D and self._x < self._root_map._len_x-1:
+        elif symbol == key.D and self._x < self._map._len_x-1:
             self.set_position(self._x+1, self._y)
         elif symbol == key.A and self._x > 0:
             self.set_position(self._x-1, self._y)
 
     def get_info(self):
-        print self._root_map._tiles[self._y][self._x].save()
+        print self._map._tiles[self._y][self._x].save()
 
     def on_mouse_motion(self, x, y, dx, dy):
         if config.mouse['enabled']:
