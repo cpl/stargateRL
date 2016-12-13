@@ -24,4 +24,8 @@ if __name__ == '__main__':
     player.sprite.batch = game.batch_entity
     demon.sprite.batch = game.batch_entity
 
+    @game.event
+    def on_mouse_press(x, y, button, modifiers):
+        print mymap.tiles[y/32][x/32].save()
+
     pyglet.app.run()
