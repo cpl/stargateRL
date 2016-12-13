@@ -8,7 +8,8 @@ graphx = {'demon': root['graphx']+'demon.gif',
           'floor': root['graphx']+'floor12.gif',
           'door_o': root['graphx']+'openDoor12.gif',
           'priest': root['graphx']+'priest.gif',
-          'wall': root['graphx']+'wall12.gif'}
+          'wall': root['graphx']+'wall12.gif',
+          'selection': root['graphx']+'selection.png'}
 
 mapdata = {'lenX': 20,
            'lenY': 14,
