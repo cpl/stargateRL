@@ -28,23 +28,26 @@ class GameWindow(pyglet.window.Window):
         self.VIEWPORT_X = 0
         self.VIEWPORT_Y = 0
 
-        self.set_mouse_visible(False)
+        self.set_mouse_visible(config.window['visibleMouse'])
 
-        self.selection = pyglet.sprite.Sprite(
-            pyglet.image.load(config.graphx['selection']),
-            0, 0)
+        self.selector = mapset.Selector(config.graphx['selector'])
 
     def on_key_press(self, symbol, modifiers):
         self.player.move(symbol)
 
-        if symbol == key.D:
-            self.VIEWPORT_X += 1
-        elif symbol == key.A:
-            self.VIEWPORT_X -= 1
-        elif symbol == key.S:
-            self.VIEWPORT_Y -= 1
-        elif symbol == key.W:
-            self.VIEWPORT_Y += 1
+        print symbol, modifiers
+
+        if modifiers:
+            self.selector.move(symbol)
+        else:
+            if symbol == key.D:
+                self.VIEWPORT_X += 1
+            elif symbol == key.A:
+                self.VIEWPORT_X -= 1
+            elif symbol == key.S:
+                self.VIEWPORT_Y -= 1
+            elif symbol == key.W:
+                self.VIEWPORT_Y += 1
 
         if symbol == key.Q:
             with open(config.root['map_json']+'map.json', 'w+') as outputFile:
@@ -68,12 +71,10 @@ class GameWindow(pyglet.window.Window):
         self.clear()
         self.batch_map.draw()
         self.batch_entity.draw()
-        self.selection.draw()
+        self.selector.sprite.draw()
 
     def on_mouse_motion(self, x, y, dx, dy):
-        self.selection.set_position(
-            config.mapdata['tileSize']*(x/config.mapdata['tileSize']),
-            config.mapdata['tileSize']*(y/config.mapdata['tileSize']))
+        self.selector.on_mouse_motion(x, y, dx, dy)
 
     def clearBatches(self):
         self.batch_map = pyglet.graphics.Batch()

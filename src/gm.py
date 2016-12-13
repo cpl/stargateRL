@@ -14,6 +14,8 @@ if __name__ == '__main__':
 
     mymap.setBatch(game.batch_map)
 
+    game.selector.rootMap = mymap
+
     player = entity.Player('Engineer', 3, 3,
                            mymap, '@', config.graphx['priest'])
 
@@ -23,9 +25,5 @@ if __name__ == '__main__':
 
     player.sprite.batch = game.batch_entity
     demon.sprite.batch = game.batch_entity
-
-    @game.event
-    def on_mouse_press(x, y, button, modifiers):
-        print mymap.tiles[y/32][x/32].save()
 
     pyglet.app.run()

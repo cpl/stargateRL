@@ -2,6 +2,8 @@ import pyglet
 import config
 import graphx
 
+from pyglet.window import key
+
 
 class Tile():
 
@@ -86,3 +88,43 @@ class Map():
             _jsonObject.append(_jsonRow)
 
         return {'tiles': _jsonObject, 'name': self.name}
+
+
+class Selector():
+
+    def __init__(self, _image, _rootMap=None):
+        self.x = 0
+        self.y = 0
+        self.rootMap = _rootMap
+
+        self.imagePath = _image
+        self.image = pyglet.image.load(_image)
+
+        self.sprite = pyglet.sprite.Sprite(self.image, self.x, self.y)
+
+    def set_position(self, _x, _y):
+        self.x = _x
+        self.y = _y
+        self.sprite.set_position(self.x*config.mapdata['tileSize'],
+                                 self.y*config.mapdata['tileSize'])
+
+        self.get_info()
+
+    def move(self, symbol):
+        if symbol == key.W:
+            self.set_position(self.x, self.y+1)
+        elif symbol == key.S:
+            self.set_position(self.x, self.y-1)
+        elif symbol == key.D:
+            self.set_position(self.x+1, self.y)
+        elif symbol == key.A:
+            self.set_position(self.x-1, self.y)
+
+    def get_info(self):
+        print self.rootMap.tiles[self.y][self.x].save()
+
+    def on_mouse_motion(self, x, y, dx, dy):
+        if config.window['enableMouse']:
+            self.set_position(
+                x/config.mapdata['tileSize'],
+                y/config.mapdata['tileSize'])
