@@ -35,8 +35,6 @@ class GameWindow(pyglet.window.Window):
     def on_key_press(self, symbol, modifiers):
         self.player.move(symbol)
 
-        print symbol, modifiers
-
         if modifiers:
             self.selector.move(symbol)
         else:

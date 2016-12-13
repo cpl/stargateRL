@@ -111,13 +111,13 @@ class Selector():
         self.get_info()
 
     def move(self, symbol):
-        if symbol == key.W:
+        if symbol == key.W and self.y < self.rootMap.lenY-1:
             self.set_position(self.x, self.y+1)
-        elif symbol == key.S:
+        elif symbol == key.S and self.y > 0:
             self.set_position(self.x, self.y-1)
-        elif symbol == key.D:
+        elif symbol == key.D and self.x < self.rootMap.lenX-1:
             self.set_position(self.x+1, self.y)
-        elif symbol == key.A:
+        elif symbol == key.A and self.x > 0:
             self.set_position(self.x-1, self.y)
 
     def get_info(self):
