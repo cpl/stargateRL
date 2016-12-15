@@ -28,3 +28,14 @@ class GameData:
     def load(self):
         pass
 
+
+class GraphxData:
+
+    def __init__(self, path, row, col):
+        self.path = path
+
+        self.tile_image = pyglet.resource.image(path)
+
+        self.tile_set = pyglet.image.ImageGrid(self.tile_image, row, col)
+        self.tile_set = reversed(tuple(zip(*[iter(self.tile_set)]*16)))
+        self.tile_set = [tile for row in self.tile_set for tile in row]
