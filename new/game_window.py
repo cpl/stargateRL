@@ -17,8 +17,8 @@ class GameWindow(pyglet.window.Window):
         return '''GameWindow(Width:{},Height:{},Caption:{})\
                '''.format(self.width, self.height, self.caption)
 
-    def load_graphx(self, path, row, col):
-        self.graphx = GraphxData(path, row, col)
+    def load_graphx(self, path, size):
+        self.graphx = GraphxData(path, size)
 
     def load_mapset(self, tiles):
         self.tiles_sprites = []

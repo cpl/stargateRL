@@ -29,7 +29,7 @@ if __name__ == '__main__':
     gm_data = game_data.GameData(my_map, my_player)
     gm_wind = game_window.GameWindow(200, 200, resizable=True)
 
-    gm_wind.load_graphx('tileset.png', 16, 16)
+    gm_wind.load_graphx('tileset.png', 16)
     gm_wind.load_mapset(my_map.get_all())
 
     sg_game = StarGateRL(gm_wind, gm_data)
