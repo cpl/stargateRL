@@ -4,6 +4,7 @@ import game_logic
 
 import mapset
 import entity
+import config
 
 import pyglet
 
@@ -27,9 +28,9 @@ if __name__ == '__main__':
     my_player = entity.Player('Engineer', 1, 1, '@')
 
     gm_data = game_data.GameData(my_map, my_player)
-    gm_wind = game_window.GameWindow(200, 200, resizable=True)
+    gm_wind = game_window.GameWindow(640, 480, resizable=True)
 
-    gm_wind.load_graphx('tileset.png', 16)
+    gm_wind.load_graphx('tileset.png', config.gfx_tilesize)
     gm_wind.load_mapset(my_map.get_all())
 
     sg_game = StarGateRL(gm_wind, gm_data)

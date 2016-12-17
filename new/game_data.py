@@ -32,6 +32,8 @@ class GameData:
 
 class GraphxData:
 
+    pyglet.resource.path = [config.dir_gfx]
+
     def __init__(self, path, size):
         self.tile_image = pyglet.resource.image(path)
 
@@ -39,7 +41,7 @@ class GraphxData:
                                                self.tile_image.width/size,
                                                self.tile_image.height/size)
 
-        self.tile_set = reversed(tuple(zip(*[iter(self.tile_set)]*16)))
+        self.tile_set = reversed(tuple(zip(*[iter(self.tile_set)]*size)))
         self.tile_set = [tile for row in self.tile_set for tile in row]
 
     def get_tile(self, id):
@@ -67,3 +69,8 @@ class GraphxData:
 
         return pyglet.image.ImageData(image_tile.width, image_tile.height,
                                       'RGBA', combined_pixels)
+
+if __name__ == '__main__':
+    gfxd = GraphxData('tileset.png', config.gfx_tilesize)
+    if gfxd.tile_image.__str__() == '<Texture 256x256>':
+        assert True

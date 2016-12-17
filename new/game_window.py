@@ -21,32 +21,34 @@ class GameWindow(pyglet.window.Window):
         self.graphx = GraphxData(path, size)
 
     def load_mapset(self, tiles):
+        ts = config.gfx_tilesize
+
         self.tiles_sprites = []
         for tile in tiles:
             if tile.symbol == '#':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.get_colored(35, color.red, color.visiniu),
-                                         tile.x*16, tile.y*16,
+                                         tile.x*ts, tile.y*ts,
                                          batch=self.tiles_batch))
             elif tile.symbol == '.':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.get_colored(43, color.sand, color.sanddark),
-                                         tile.x*16, tile.y*16,
+                                         tile.x*ts, tile.y*ts,
                                          batch=self.tiles_batch))
             elif tile.symbol == ')':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.tile_set[0],
-                                         tile.x*16, tile.y*16,
+                                         tile.x*ts, tile.y*ts,
                                          batch=self.tiles_batch))
             elif tile.symbol == ']':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.tile_set[0],
-                                         tile.x*16, tile.y*16,
+                                         tile.x*ts, tile.y*ts,
                                          batch=self.tiles_batch))
             else:
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.tile_set[1],
-                                         tile.x*16, tile.y*16,
+                                         tile.x*ts, tile.y*ts,
                                          batch=self.tiles_batch))
 
     def on_draw(self):
