@@ -6,6 +6,8 @@ STANDARD_DIRECTIONS = {key.UP: (0,   1), key.DOWN: (0,  -1),
                        key.RIGHT: (1,   0), key.LEFT: (-1,  0)}
 MODIFIER_DIRECTIONS = {key.UP: (1,   1), key.DOWN: (-1,  -1),
                        key.RIGHT: (1,   -1), key.LEFT: (-1,  1)}
+MULTIPLIED_DIRECTIONS = {key.UP: (0, 10), key.DOWN: (0, -10),
+                         key.RIGHT: (10, 0), key.LEFT: (-10, 0)}
 
 
 class GameLogic:
@@ -36,3 +38,12 @@ class GameLogic:
 
         self.game_window.update_player(self.game_data.player.x,
                                        self.game_data.player.y)
+
+    def move_selector(self, command, modifiers):
+        if modifiers == 644:
+            self.game_window.selector.move(STANDARD_DIRECTIONS[command])
+        elif modifiers == 645:
+            self.game_window.selector.move(MULTIPLIED_DIRECTIONS[command])
+
+        self.game_window.selector.get_info(self.game_data.root_map)
+        self.game_window.update_selector()

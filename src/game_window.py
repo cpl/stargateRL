@@ -3,6 +3,7 @@ import config
 import color
 
 from game_data import GraphxData
+from game_data import GraphxSelector
 
 
 class GameWindow(pyglet.window.Window):
@@ -11,6 +12,8 @@ class GameWindow(pyglet.window.Window):
         super(GameWindow, self).__init__(width, height, **kargs)
 
         self.graphx = None
+        self.selector = None
+
         self.batch_t = pyglet.graphics.Batch()
         self.batch_p = pyglet.graphics.Batch()
         self.batch_e = pyglet.graphics.Batch()
@@ -21,6 +24,15 @@ class GameWindow(pyglet.window.Window):
 
     def load_graphx(self, path, size):
         self.graphx = GraphxData(path, size)
+        self.selector = GraphxSelector(
+            0, 0, self.graphx.get_colored(176,
+                                          color.TRANSPARENT.get_color(),
+                                          color.ORANGE.get_color()))
+
+    def update_selector(self):
+        ts = config.gfx_tilesize
+        self.selector.sprite.set_position(self.selector.x*ts,
+                                          self.selector.y*ts)
 
     def render_player(self, player):
         ts = config.gfx_tilesize
@@ -79,3 +91,4 @@ class GameWindow(pyglet.window.Window):
         self.clear()
         self.batch_t.draw()
         self.batch_p.draw()
+        self.selector.sprite.draw()

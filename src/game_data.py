@@ -1,6 +1,5 @@
 import pyglet
 import config
-import json
 import color
 import hashlib
 import os
@@ -23,15 +22,6 @@ class GameData:
         return 'GameData(\n{},\n{},\n{})'.format(self.root_map,
                                                  self.player,
                                                  _entities)
-
-    def save_json(self):
-        ''' JSON save method. '''
-        _entities = []
-        for entity in self.entities:
-            _entities.append(entity.save())
-
-        return {'root_map': self.root_map.save(), 'player': self.player.save(),
-                'entities': _entities}
 
     def save(self):
         selfhash = hashlib.sha256(os.urandom(32)).hexdigest()
@@ -91,6 +81,22 @@ class GraphxData:
 
         return pyglet.image.ImageData(image_tile.width, image_tile.height,
                                       'RGBA', combined_pixels)
+
+
+class GraphxSelector:
+
+    def __init__(self, x, y, image):
+        self.x = x
+        self.y = y
+        self.sprite = pyglet.sprite.Sprite(image, x, y)
+
+    def move(self, direction):
+        self.x += direction[0]
+        self.y += direction[1]
+
+    def get_info(self, root_map):
+        print root_map.get_tile(self.x, self.y)
+
 
 if __name__ == '__main__':
     gfxd = GraphxData('tileset.png', config.gfx_tilesize)

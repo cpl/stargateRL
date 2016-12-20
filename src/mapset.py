@@ -12,9 +12,6 @@ class Tile:
         return '''Tile(Position:({:3},{:3}),Symbol:{})\
                '''.format(self.x, self.y, self.symbol)
 
-    def save(self):
-        return {'x': self.x, 'y': self.y, 'symbol': self.symbol}
-
 
 class Map:
     ''' A set of tiles with helper methods. '''
@@ -52,10 +49,6 @@ class Map:
                         if char != '\n':
                             self.set_tile(Tile(x, y, char,
                                                TAGS[char]))
-
-    def save(self):
-        return {'size_x': self.size_x, 'size_y': self.size_y,
-                'tiles': [tile.save() for tile in self.get_all()]}
 
     def get_tile(self, x, y):
         return self.tiles[y][x]

@@ -48,8 +48,12 @@ if __name__ == '__main__':
 
     @gm_wind.event
     def on_key_press(symbol, modifiers):
+
+
         if symbol in [key.UP, key.DOWN, key.LEFT, key.RIGHT]:
             gm_logic.move_player(symbol, modifiers)
+            gm_logic.move_selector(symbol, modifiers)
+
         if symbol == key.S:
             gm_data.save()
         if symbol == key.L:

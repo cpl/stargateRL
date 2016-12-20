@@ -43,9 +43,13 @@ class Color:
 BLACK = Color('#000000', 'ff')
 WHITE = Color('#ffffff', 'ff')
 
+TRANSPARENT = Color('#000000', '00')
+
 RED = Color('#ff0000', 'ff')
 GREEN = Color('#00ff00', 'ff')
 BLUE = Color('#0000ff', 'ff')
+
+ORANGE = Color('#f4a433', 'ff')
 
 WOOD_DARK = Color('#775533', 'ff')
 WOOD_LIGHT = Color('#bb9977', 'ff')

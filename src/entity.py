@@ -11,11 +11,6 @@ class Entity:
         return '''Entity(Name:{},Position:({},{}),Symbol:{})\
                '''.format(self.name, self.x, self.y, self.symbol)
 
-    def save(self):
-        ''' Soon to be deprecated (or maybe not), JSON save method. '''
-        return {'name': self.name, 'x': self.x, 'y': self.y,
-                'symbol': self.symbol}
-
     def move(self, direction):
         ''' Shift the Entity position by a given x and y. '''
         self.x += direction[0]
