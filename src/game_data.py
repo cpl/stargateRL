@@ -1,6 +1,10 @@
 import pyglet
 import config
+import json
 import color
+import hashlib
+import os
+import cPickle as pickel
 
 
 class GameData:
@@ -20,7 +24,7 @@ class GameData:
                                                  self.player,
                                                  _entities)
 
-    def save(self):
+    def save_json(self):
         ''' JSON save method. '''
         _entities = []
         for entity in self.entities:
@@ -29,8 +33,19 @@ class GameData:
         return {'root_map': self.root_map.save(), 'player': self.player.save(),
                 'entities': _entities}
 
-    def load(self):
-        pass
+    def save(self):
+        selfhash = hashlib.sha256(os.urandom(32)).hexdigest()
+        with open(os.path.join(config.dir_saves,
+                               selfhash[:6]), 'w+') as save_file:
+            pickel.dump(self, save_file)
+
+    def load(self, save_file):
+        with open(os.path.join(config.dir_saves, save_file), 'r') as save_file:
+            loaded_game_data = pickel.load(save_file)
+
+            self.root_map = loaded_game_data.root_map
+            self.player = loaded_game_data.player
+            self.entities = loaded_game_data.entities
 
 
 class GraphxData:

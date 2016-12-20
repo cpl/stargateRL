@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     gm_wind.load_graphx('tileset.png', config.gfx_tilesize)
 
-    gm_wind.render_mapset(my_map.get_all())
+    gm_wind.render_mapset(gm_data.root_map.get_all())
     gm_wind.render_player(gm_data.player)
 
     gm_logic = game_logic.GameLogic(gm_data, gm_wind)
@@ -50,6 +50,12 @@ if __name__ == '__main__':
     def on_key_press(symbol, modifiers):
         if symbol in [key.UP, key.DOWN, key.LEFT, key.RIGHT]:
             gm_logic.move_player(symbol, modifiers)
+        if symbol == key.S:
+            gm_data.save()
+        if symbol == key.L:
+            gm_data.load('4553a5')
+            gm_wind.render_mapset(gm_data.root_map.get_all())
+            gm_wind.render_player(gm_data.player)
 
     sg_game = StarGateRL(gm_wind, gm_data, gm_logic)
     sg_game.run()
