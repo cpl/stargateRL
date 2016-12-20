@@ -38,7 +38,6 @@ class Color:
             colorstring += chr(int(hexcode[i:i+2], 16))
         colorstring += chr(int(alpha, 16))
 
-        print colorstring
         return colorstring
 
 BLACK = Color('#000000', 'ff')
@@ -53,7 +52,3 @@ WOOD_LIGHT = Color('#bb9977', 'ff')
 
 BRICK_DARK = Color('#773333', 'ff')
 BRICK_LIGHT = Color('#cc5555', 'ff')
-
-a = 'HELP'
-a += BRICK_DARK.get_color()
-print a

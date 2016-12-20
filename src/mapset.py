@@ -50,7 +50,8 @@ class Map:
                 for y, line in enumerate(reversed(lines)):
                     for x, char in enumerate(line):
                         if char != '\n':
-                            self.set_tile(Tile(x, y, char))
+                            self.set_tile(Tile(x, y, char,
+                                               TAGS[char]))
 
     def save(self):
         return {'size_x': self.size_x, 'size_y': self.size_y,
@@ -69,8 +70,20 @@ class Map:
                 _tiles.append(tile)
         return _tiles
 
+    def check_tile(self, player_position, direction):
+        if 'walkable' in self.get_tile(player_position[0] + direction[0],
+                                       player_position[1] + direction[1]).tags:
+            return True
+        else:
+            return False
+
     def display(self):
         for row in reversed(self.tiles):
             for tile in row:
                 print tile.symbol,
             print
+
+TAGS = {'#': [],
+        '.': ['walkable'],
+        ')': ['walkable'],
+        ']': []}

@@ -16,15 +16,19 @@ class Entity:
         return {'name': self.name, 'x': self.x, 'y': self.y,
                 'symbol': self.symbol}
 
-    def move(self, x, y):
+    def move(self, direction):
         ''' Shift the Entity position by a given x and y. '''
-        self.x += x
-        self.y += y
+        self.x += direction[0]
+        self.y += direction[1]
 
-    def set_position(self, x, y):
+    def set_position(self, direction):
         ''' Set the Entity position to a given x and y. '''
-        self.x = x
-        self.y = y
+        self.x = direction[0]
+        self.y = direction[1]
+
+    def get_position(self):
+        ''' Get the Entity position as x,y tuple. '''
+        return (self.x, self.y)
 
 
 class Player(Entity):

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import game_data
 import game_window
 import game_logic
