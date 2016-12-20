@@ -43,15 +43,19 @@ class GameWindow(pyglet.window.Window):
 
             if tile.symbol == '#':
                 self.tiles_sprites.append(
-                    pyglet.sprite.Sprite(self.graphx.get_colored(35, color.red, color.visiniu),
-                                         tile.x*ts, tile.y*ts,
-                                         batch=self.batch_t))
+                    pyglet.sprite.Sprite(
+                        self.graphx.get_colored(35,
+                                                color.BRICK_LIGHT.get_color(),
+                                                color.BRICK_DARK.get_color()),
+                        tile.x*ts, tile.y*ts, batch=self.batch_t))
 
             elif tile.symbol == '.':
                 self.tiles_sprites.append(
-                    pyglet.sprite.Sprite(self.graphx.get_colored(43, color.sand, color.sanddark),
-                                         tile.x*ts, tile.y*ts,
-                                         batch=self.batch_t))
+                    pyglet.sprite.Sprite(
+                        self.graphx.get_colored(43,
+                                                color.WOOD_LIGHT.get_color(),
+                                                color.WOOD_DARK.get_color()),
+                        tile.x*ts, tile.y*ts, batch=self.batch_t))
 
             elif tile.symbol == ')':
                 self.tiles_sprites.append(

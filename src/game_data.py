@@ -52,16 +52,18 @@ class GraphxData:
         ''' This returns a tile image, with the coresponding id.'''
         return self.tile_set[id]
 
-    def get_colored(self, id, primary=color.black, secondary=color.white):
+    def get_colored(self, id,
+                    primary=color.BLACK.get_color(),
+                    secondary=color.WHITE.get_color()):
         ''' This returns the tile image with the given colors. '''
         image_tile = self.tile_set[id]
         image_data = image_tile.image_data.get_data('RGBA', image_tile.width*4)
         image_pixels = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
         image_background = [p for p in range(len(image_pixels))
-                            if image_pixels[p] == color.black]
+                            if image_pixels[p] == color.BLACK.get_color()]
         image_foreground = [p for p in range(len(image_pixels))
-                            if image_pixels[p] == color.white]
+                            if image_pixels[p] == color.WHITE.get_color()]
 
         for pixel in image_background:
             image_pixels[pixel] = primary
