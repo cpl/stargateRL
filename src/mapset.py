@@ -1,128 +1,74 @@
-import pyglet
-import config
+class Tile:
 
-from pyglet.window import key
+    def __init__(self, x, y, symbol, tags=[]):
+        self.x = x
+        self.y = y
+        self.symbol = symbol
+        self.tags = tags
 
-
-class Tile():
-
-    def __init__(self, ascii, x, y, image_path,
-                 is_walkable=False,
-                 has_entity=False):
-
-        self._ascii = ascii
-        self._x = x
-        self._y = y
-        self._is_walkable = is_walkable
-
-        self._entity = None
-
-        self._image_path = image_path
-        self._image = pyglet.image.load(image_path)
-        self._sprite = pyglet.sprite.Sprite(self._image,
-                                            x * config.mapdata['tile_size'],
-                                            y * config.mapdata['tile_size'])
-
-    def __str__(self):
-        if self._entity is not None:
-            return self._entity._ascii
-        else:
-            return self._ascii
+    def __repr__(self):
+        return '''Tile(Position:({:3},{:3}),Symbol:{})\
+               '''.format(self.x, self.y, self.symbol)
 
     def save(self):
-        jsonObject = {'ascii': self._ascii, 'x': self._x, 'y': self._y,
-                      'imagePath': self._image_path}
-
-        if self._entity is not None:
-            jsonObject.update({'entity': self._entity.save()})
-
-        return jsonObject
+        return {'x': self.x, 'y': self.y, 'symbol': self.symbol}
 
 
-class Map():
+class Map:
 
-    def __init__(self, len_x=0, len_y=0, name='SG_MAP'):
-        self._tiles = [['' for _ in range(len_x)] for _ in range(len_y)]
-        self._len_x = len_x
-        self._len_y = len_y
-        self._name = name
+    def __init__(self, size_x=0, size_y=0, tiles=[]):
+        self.size_x = size_x
+        self.size_y = size_y
+        self.tiles = tiles
 
-    def __str__(self):
-        string = ''
-        for row in reversed(self._tiles):
-            string += '\n'
-            for tile in row:
-                string += str(tile)
-        return string
+    def __repr__(self):
+        _string = ''
+        for col in self.tiles:
+            for tile in col:
+                _string += '\n' + str(tile)
 
-    def set_batch(self, batch):
-        for row in self._tiles:
-            for tile in row:
-                tile._sprite.batch = batch
+        return 'Map(Size:({},{}),Tiles:({}))'.format(self.size_x,
+                                                     self.size_y,
+                                                     _string+'\n')
 
-    def load_map(self, file, json=False):
-        with open(file, 'r') as input_file:
-            for y, line in enumerate(reversed(input_file.readlines())):
-                for x, tile in enumerate(line):
-                    if tile == '#':
-                        self._tiles[y][x] = Tile(tile, x, y,
-                                                 config.graphx['wall'])
-                    elif tile == '.':
-                        self._tiles[y][x] = Tile(tile, x, y,
-                                                 config.graphx['floor'], True)
-                    elif tile == ']':
-                        self._tiles[y][x] = Tile(tile, x, y,
-                                                 config.graphx['door_c'])
-                    elif tile == ')':
-                        self._tiles[y][x] = Tile(tile, x, y,
-                                                 config.graphx['door_o'], True)
+    def load(self, file_path, mode=0):
+        with open(file_path, 'r') as file_map:
+            if mode == 0:
+                self.size_x = 0
+                self.size_y = 0
+
+                lines = file_map.readlines()
+                for line in lines:
+                    self.size_y += 1
+                for char in line.strip('\n'):
+                    self.size_x += 1
+                self.tiles = [[None for _ in range(self.size_x)]
+                              for _ in range(self.size_y)]
+
+                for y, line in enumerate(reversed(lines)):
+                    for x, char in enumerate(line):
+                        if char != '\n':
+                            self.set_tile(Tile(x, y, char))
 
     def save(self):
-        jsonObject = []
+        return {'size_x': self.size_x, 'size_y': self.size_y,
+                'tiles': [tile.save() for tile in self.get_all()]}
 
-        for row in self._tiles:
-            jsonRow = []
+    def get_tile(self, x, y):
+        return self.tiles[y][x]
+
+    def set_tile(self, tile):
+        self.tiles[tile.y][tile.x] = tile
+
+    def get_all(self):
+        _tiles = []
+        for row in self.tiles:
             for tile in row:
-                jsonRow.append(tile.save())
-            jsonObject.append(jsonRow)
+                _tiles.append(tile)
+        return _tiles
 
-        return {'tiles': jsonObject, 'name': self._name}
-
-
-class Selector():
-
-    def __init__(self, image_path):
-        self._x = 0
-        self._y = 0
-
-        self._image_path = image_path
-        self._image = pyglet.image.load(image_path)
-
-        self._sprite = pyglet.sprite.Sprite(self._image, self._x, self._y)
-
-    def set_position(self, x, y):
-        self._x = x
-        self._y = y
-        self._sprite.set_position(self._x*config.mapdata['tile_size'],
-                                  self._y*config.mapdata['tile_size'])
-
-        self.get_info()
-
-    def move(self, symbol):
-        if symbol == key.W and self._y < self._map._len_y-1:
-            self.set_position(self._x, self._y+1)
-        elif symbol == key.S and self._y > 0:
-            self.set_position(self._x, self._y-1)
-        elif symbol == key.D and self._x < self._map._len_x-1:
-            self.set_position(self._x+1, self._y)
-        elif symbol == key.A and self._x > 0:
-            self.set_position(self._x-1, self._y)
-
-    def get_info(self):
-        print self._map._tiles[self._y][self._x].save()
-
-    def on_mouse_motion(self, x, y, dx, dy):
-        if config.mouse['enabled']:
-            self.set_position(
-                x/config.mapdata['tile_size'],
-                y/config.mapdata['tile_size'])
+    def display(self):
+        for row in reversed(self.tiles):
+            for tile in row:
+                print tile.symbol,
+            print

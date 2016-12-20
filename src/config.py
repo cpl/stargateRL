@@ -1,27 +1,17 @@
+import os
 
-root = {'graphx': 'bin/graphics/',
-        'map_ascii': 'data/map_ascii/',
-        'map_json': 'data/map_json/'}
+dir_src = os.path.dirname(__file__)
+dir_root = os.path.join(dir_src, os.path.pardir)
+dir_root = os.path.abspath(dir_root)
 
-graphx = {'demon': root['graphx']+'demon.gif',
-          'door_c': root['graphx']+'door12.gif',
-          'floor': root['graphx']+'floor12.gif',
-          'door_o': root['graphx']+'openDoor12.gif',
-          'priest': root['graphx']+'priest.gif',
-          'wall': root['graphx']+'wall12.gif',
-          'selector': root['graphx']+'selection.png'}
+dir_bin = os.path.join(dir_root, 'bin')
+dir_gfx = os.path.join(dir_bin, 'graphics')
 
-mapdata = {'len_x': 20,
-           'len_y': 14,
-           'tile_size': 32}
+gfx_tilesize = 16
 
-gui = {'right': 192}
+map_size_x = 20
+map_size_y = 14
 
-window = {'camera_follow': False,
-          'fullscreen': False,
-          'resizable': True,
-          'width': mapdata['len_x']*mapdata['tile_size']+gui['right'],
-          'height': mapdata['len_y']*mapdata['tile_size']}
-
-mouse = {'visible': False,
-         'enabled': False}
+window_width = map_size_x * gfx_tilesize
+window_height = map_size_y * gfx_tilesize
+window_caption = 'Stargate Rogue Like'
