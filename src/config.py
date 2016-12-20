@@ -1,3 +1,6 @@
+''' The following is a set of runtime constants, that can be modified by
+the user in order to change the gameplay. '''
+
 import os
 
 dir_src = os.path.dirname(__file__)

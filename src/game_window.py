@@ -6,7 +6,7 @@ from game_data import GraphxData
 
 
 class GameWindow(pyglet.window.Window):
-
+    ''' In charge of rendering everything from given game data. '''
     def __init__(self, width, height, **kargs):
         super(GameWindow, self).__init__(width, height, **kargs)
 
@@ -29,34 +29,42 @@ class GameWindow(pyglet.window.Window):
             player.x*ts, player.y*ts, batch=self.batch_p)
 
     def update_player(self, x, y):
+        # TODO: Add player update inside @event.on_key_press()
         self.player_sprite.set_position(x*config.gfx_tilesize,
                                         y*config.gfx_tilesize)
 
     def render_mapset(self, tiles):
         ts = config.gfx_tilesize
 
+        # TODO: Improve tile detection and rendering
+
         self.tiles_sprites = []
         for tile in tiles:
+
             if tile.symbol == '#':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.get_colored(35, color.red, color.visiniu),
                                          tile.x*ts, tile.y*ts,
                                          batch=self.batch_t))
+
             elif tile.symbol == '.':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.get_colored(43, color.sand, color.sanddark),
                                          tile.x*ts, tile.y*ts,
                                          batch=self.batch_t))
+
             elif tile.symbol == ')':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.get_tile(41),
                                          tile.x*ts, tile.y*ts,
                                          batch=self.batch_t))
+
             elif tile.symbol == ']':
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.get_tile(41),
                                          tile.x*ts, tile.y*ts,
                                          batch=self.batch_t))
+
             else:
                 self.tiles_sprites.append(
                     pyglet.sprite.Sprite(self.graphx.tile_set[1],

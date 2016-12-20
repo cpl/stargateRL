@@ -11,15 +11,13 @@
 # List of emojis!
 # http://www.webpagefx.com/tools/emoji-cheat-sheet/
 
+
+
 Title goes here
 
-# A description of the changes from the initial project.
-# EX:
-# If implemented this commit will:
-#   + Change X to Y
-#   + Remove unused imports
-#   + Fix Issue#23
-#   + Refactor code in File1, File2
 
 If implemented this commit will:
+  +
+
+TODO:
   +

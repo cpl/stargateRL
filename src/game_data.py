@@ -4,7 +4,9 @@ import color
 
 
 class GameData:
-
+    ''' This class is all that has to be saved in order to generated a
+    game save state/snapshot. The GameData class only stores the given data,
+    and allows access to it (read/write) to the program. '''
     def __init__(self, root_map=None, player=None, entities=None):
         self.root_map = root_map
         self.player = player
@@ -19,6 +21,7 @@ class GameData:
                                                  _entities)
 
     def save(self):
+        ''' JSON save method. '''
         _entities = []
         for entity in self.entities:
             _entities.append(entity.save())
@@ -31,7 +34,8 @@ class GameData:
 
 
 class GraphxData:
-
+    ''' GraphxData calculates and loads the graphical resources at runtime,
+    that will be used troughtout the run of the program. '''
     pyglet.resource.path = [config.dir_gfx]
 
     def __init__(self, path, size):
@@ -45,10 +49,11 @@ class GraphxData:
         self.tile_set = [tile for row in self.tile_set for tile in row]
 
     def get_tile(self, id):
+        ''' This returns a tile image, with the coresponding id.'''
         return self.tile_set[id]
 
     def get_colored(self, id, primary=color.black, secondary=color.white):
-
+        ''' This returns the tile image with the given colors. '''
         image_tile = self.tile_set[id]
         image_data = image_tile.image_data.get_data('RGBA', image_tile.width*4)
         image_pixels = [image_data[p:p+4] for p in range(0, len(image_data), 4)]

@@ -1,3 +1,7 @@
+''' color.py contains a set of variables (bytestrings) representing
+    color values used within GraphxData, get_colored() method.
+'''
+
 black = b'\xff\xff\xff\xff'
 white = b'\x00\x00\x00\xff'
 

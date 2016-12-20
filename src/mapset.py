@@ -1,10 +1,12 @@
 class Tile:
-
+    ''' Basic tile representation. '''
     def __init__(self, x, y, symbol, tags=[]):
         self.x = x
         self.y = y
         self.symbol = symbol
         self.tags = tags
+
+        # TODO: Create a basic list of tags and coresponding graphx
 
     def __repr__(self):
         return '''Tile(Position:({:3},{:3}),Symbol:{})\
@@ -15,7 +17,7 @@ class Tile:
 
 
 class Map:
-
+    ''' A set of tiles with helper methods. '''
     def __init__(self, size_x=0, size_y=0, tiles=[]):
         self.size_x = size_x
         self.size_y = size_y

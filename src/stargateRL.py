@@ -12,7 +12,7 @@ from pyglet.window import key
 
 
 class StarGateRL:
-
+    ''' The main script, and story. '''
     def __init__(self, gm_window=None, gm_data=None, gm_logic=None):
         self.gm_window = gm_window
         self.gm_data = gm_data
@@ -23,6 +23,8 @@ class StarGateRL:
 
 
 if __name__ == '__main__':
+
+    # TODO: Add menu interface!!!
 
     my_map = mapset.Map()
     my_map.load('data/map_ascii/test1.map')
