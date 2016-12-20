@@ -56,3 +56,23 @@ WOOD_LIGHT = Color('#bb9977', 'ff')
 
 BRICK_DARK = Color('#773333', 'ff')
 BRICK_LIGHT = Color('#cc5555', 'ff')
+
+
+# def val_256():
+#     _combinations = []
+#     _final = []
+#     for h1 in '0123456789abcdef':
+#         for h2 in '0123456789abcdef':
+#             _combinations.append(chr(int(str(h1+h2), 16)))
+#     for c1 in _combinations:
+#         for c2 in _combinations:
+#             for c3 in _combinations:
+#                 _final.append(c1+c2+c3)
+#     return _final
+#
+#
+# import cPickle
+#
+# colorlist = val_256()
+# with open('colorlist.pkl', 'w+') as color_file:
+#     cPickle.dump(colorlist, color_file)
