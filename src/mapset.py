@@ -5,12 +5,13 @@ class Tile:
         self.y = y
         self.symbol = symbol
         self.tags = tags
+        self.entity = None
 
         # TODO: Create a basic list of tags and coresponding graphx
 
     def __repr__(self):
-        return '''Tile(Position:({:3},{:3}),Symbol:{})\
-               '''.format(self.x, self.y, self.symbol)
+        return '''Tile(Position:({:3},{:3}),Symbol:{},{})\
+               '''.format(self.x, self.y, self.symbol, self.entity)
 
 
 class Map:
@@ -66,7 +67,12 @@ class Map:
     def check_tile(self, player_position, direction):
         if 'walkable' in self.get_tile(player_position[0] + direction[0],
                                        player_position[1] + direction[1]).tags:
-            return True
+            if self.get_tile(
+                 player_position[0] + direction[0],
+                 player_position[1] + direction[1]).entity is None:
+                return True
+            else:
+                return False
         else:
             return False
 

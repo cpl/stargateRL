@@ -40,8 +40,16 @@ class GameWindow(pyglet.window.Window):
             self.graphx.get_colored(64, '\x00\x00\x00\xff', '\x88\x88\x88\x88'),
             player.x*ts, player.y*ts, batch=self.batch_p)
 
+    def render_entities(self, entities):
+        ts = config.gfx_tilesize
+        self.entities_sprites = []
+        for entity in entities:
+            self.entities_sprites.append(
+                pyglet.sprite.Sprite(self.graphx.get_tile(1),
+                                     entity.x*ts, entity.y*ts,
+                                     batch=self.batch_e))
+
     def update_player(self, x, y):
-        # TODO: Add player update inside @event.on_key_press()
         self.player_sprite.set_position(x*config.gfx_tilesize,
                                         y*config.gfx_tilesize)
 
@@ -90,5 +98,6 @@ class GameWindow(pyglet.window.Window):
     def on_draw(self):
         self.clear()
         self.batch_t.draw()
+        self.batch_e.draw()
         self.batch_p.draw()
         self.selector.sprite.draw()

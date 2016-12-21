@@ -10,10 +10,16 @@ class GameData:
     ''' This class is all that has to be saved in order to generated a
     game save state/snapshot. The GameData class only stores the given data,
     and allows access to it (read/write) to the program. '''
-    def __init__(self, root_map=None, player=None, entities=None):
+    def __init__(self, root_map=None, player=None, entities=[]):
         self.root_map = root_map
+
         self.player = player
+        self.root_map.get_tile(player.x,
+                               player.y).entity = self.player
+
         self.entities = entities
+        for entity in entities:
+            self.root_map.get_tile(entity.x, entity.y).entity = entity
 
     def __repr__(self):
         _entities = ''
@@ -36,6 +42,8 @@ class GameData:
             self.root_map = loaded_game_data.root_map
             self.player = loaded_game_data.player
             self.entities = loaded_game_data.entities
+
+            del(loaded_game_data)
 
 
 class GraphxData:
@@ -94,11 +102,14 @@ class GraphxSelector:
         self.x += direction[0]
         self.y += direction[1]
 
-    def get_info(self, root_map):
-        print root_map.get_tile(self.x, self.y)
+    def get_info(self, gm_data):
+        print gm_data.root_map.get_tile(self.x, self.y)
 
+        # if gm_data.player.get_position() == (self.x, self.y):
+        #     print gm_data.player
 
-if __name__ == '__main__':
-    gfxd = GraphxData('tileset.png', config.gfx_tilesize)
-    if gfxd.tile_image.__str__() == '<Texture 256x256>':
-        assert True
+    def mouse(self, x, y):
+        if self.x != x/config.gfx_tilesize:
+            self.x = x/config.gfx_tilesize
+        if self.y != y/config.gfx_tilesize:
+            self.y = y/config.gfx_tilesize

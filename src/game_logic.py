@@ -28,22 +28,45 @@ class GameLogic:
                self.game_data.player.get_position(),
                STANDARD_DIRECTIONS[command]):
 
+                self.game_data.root_map.get_tile(
+                    self.game_data.player.x,
+                    self.game_data.player.y).entity = None
+
                 self.game_data.player.move(STANDARD_DIRECTIONS[command])
+
+                self.game_data.root_map.get_tile(
+                    self.game_data.player.x,
+                    self.game_data.player.y).entity = self.game_data.player
+
         elif modifiers == 576:
             if self.game_data.root_map.check_tile(
                self.game_data.player.get_position(),
                MODIFIER_DIRECTIONS[command]):
 
+                self.game_data.root_map.get_tile(
+                    self.game_data.player.x,
+                    self.game_data.player.y).entity = None
+
                 self.game_data.player.move(MODIFIER_DIRECTIONS[command])
+
+                self.game_data.root_map.get_tile(
+                    self.game_data.player.x,
+                    self.game_data.player.y).entity = self.game_data.player
 
         self.game_window.update_player(self.game_data.player.x,
                                        self.game_data.player.y)
 
     def move_selector(self, command, modifiers):
+
         if modifiers == 644:
             self.game_window.selector.move(STANDARD_DIRECTIONS[command])
         elif modifiers == 645:
             self.game_window.selector.move(MULTIPLIED_DIRECTIONS[command])
 
-        self.game_window.selector.get_info(self.game_data.root_map)
+        self.game_window.selector.get_info(self.game_data)
+        self.game_window.update_selector()
+
+    def mouse_selector(self, x, y):
+        self.game_window.selector.mouse(x, y)
+        self.game_window.selector.get_info(self.game_data)
         self.game_window.update_selector()
