@@ -4,6 +4,7 @@ the user in order to change the gameplay. '''
 import os
 
 dir_src = os.path.dirname(__file__)
+dir_src = os.path.abspath(os.path.join(dir_src, os.path.pardir))
 dir_root = os.path.join(dir_src, os.path.pardir)
 dir_root = os.path.abspath(dir_root)
 

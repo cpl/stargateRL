@@ -1,12 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/python -B
 
 from manager import game_data
 from manager import game_window
 from manager import game_logic
 
 import mapset
+import entity
 
-from utility import entity
 from utility import config
 
 import pyglet
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         if symbol == key.S:
             gm_data.save()
         if symbol == key.L:
-            gm_data.load('791271')
+            gm_data.load('c75501')
             gm_wind.render_mapset(gm_data.root_map.get_all())
             gm_wind.render_player(gm_data.player)
 

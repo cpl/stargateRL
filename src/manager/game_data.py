@@ -45,8 +45,6 @@ class GameData:
             self.player = loaded_game_data.player
             self.entities = loaded_game_data.entities
 
-            del(loaded_game_data)
-
 
 class GraphxData:
     ''' GraphxData calculates and loads the graphical resources at runtime,
