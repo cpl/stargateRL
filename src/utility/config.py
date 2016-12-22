@@ -33,6 +33,8 @@ window_resizeable = False
 
 window_mouse_display = False
 
+controls_layout = 'vikeys'
+
 selector_show = True
 selector_mouse = False
 selector_keyboard = False

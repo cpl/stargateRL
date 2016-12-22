@@ -53,14 +53,13 @@ if __name__ == '__main__':
     @gm_wind.event
     def on_key_press(symbol, modifiers):
 
-        if symbol in [key.UP, key.DOWN, key.LEFT, key.RIGHT]:
-            # TODO: Separate player movement from selector movement
-            gm_logic.move_player(symbol, modifiers)
-            gm_logic.move_selector(symbol, modifiers)
+        # TODO: Separate player movement from selector movement
+        gm_logic.move_player(symbol, modifiers)
+        gm_logic.move_selector(symbol, modifiers)
 
-        if symbol == key.S:
+        if symbol == key.E:
             gm_data.save()
-        if symbol == key.L:
+        if symbol == key.Q:
             gm_data.load('c75501')
             gm_wind.render_mapset(gm_data.root_map.get_all())
             gm_wind.render_player(gm_data.player)
