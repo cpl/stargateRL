@@ -1,6 +1,8 @@
 import pyglet
-import config
-import color
+
+from utility import config
+from utility import color
+
 import hashlib
 import os
 import cPickle as pickel

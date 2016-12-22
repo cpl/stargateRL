@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
-import game_data
-import game_window
-import game_logic
+from manager import game_data
+from manager import game_window
+from manager import game_logic
 
 import mapset
-import entity
-import config
+
+from utility import entity
+from utility import config
 
 import pyglet
 

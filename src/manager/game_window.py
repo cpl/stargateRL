@@ -1,9 +1,10 @@
 import pyglet
-import config
-import color
 
-from game_data import GraphxData
-from game_data import GraphxSelector
+from utility import config
+from utility import color
+
+from manager.game_data import GraphxData
+from manager.game_data import GraphxSelector
 
 
 class GameWindow(pyglet.window.Window):

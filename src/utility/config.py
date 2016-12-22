@@ -15,6 +15,8 @@ dir_test = os.path.join(dir_root, 'test')
 dir_gfx = os.path.join(dir_bin, 'graphics')
 dir_saves = os.path.join(dir_data, 'saves')
 
+# ---------------------------------------------------------------------------- #
+
 gfx_tilesize = 16
 
 map_size_x = 20
@@ -22,4 +24,14 @@ map_size_y = 14
 
 window_width = map_size_x * gfx_tilesize
 window_height = map_size_y * gfx_tilesize
+
 window_caption = 'Stargate Rogue Like'
+
+window_fullscreen = False
+window_resizeable = False
+
+window_mouse_display = False
+
+selector_show = True
+selector_mouse = False
+selector_keyboard = False
