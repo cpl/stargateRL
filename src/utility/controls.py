@@ -28,12 +28,6 @@ LAYOUT_NUMPAD = {key.NUM_8: DIRECTIONS['N'],
 # TODO: Add Laptop layout keys!
 LAYOUT_ARROWS = {key.UP: DIRECTIONS['N']}
 
-# TODO: Put in use Selector keys
-LAYOUT_SELECT = {key.MOD_ALT+key.UP: DIRECTIONS['N'],
-                 key.MOD_ALT+key.RIGHT: DIRECTIONS['E'],
-                 key.MOD_ALT+key.DOWN: DIRECTIONS['S'],
-                 key.MOD_ALT+key.LEFT: DIRECTIONS['W']}
-
 LAYOUTS = {'vikeys': LAYOUT_VIKEYS,
            'numpad': LAYOUT_NUMPAD}
 

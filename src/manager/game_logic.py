@@ -31,15 +31,13 @@ class GameLogic:
                 self.game_data.player.x,
                 self.game_data.player.y).entity = self.game_data.player
 
-        self.game_window.update_player(self.game_data.player.x,
-                                       self.game_data.player.y)
+            self.game_window.update_player(self.game_data.player.x,
+                                           self.game_data.player.y)
 
     def move_selector(self, command, modifiers):
 
-        # if modifiers == 644:
-        #     self.game_window.selector.move(STANDARD_DIRECTIONS[command])
-        # elif modifiers == 645:
-        #     self.game_window.selector.move(MULTIPLIED_DIRECTIONS[command])
+        self.game_window.selector.move(
+            controls.LAYOUT[command])
 
         self.game_window.selector.get_info(self.game_data)
         self.game_window.update_selector()
