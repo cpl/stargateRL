@@ -30,6 +30,11 @@
 *.sql
 *.sqlite
 
+# VIM #
+#######
+*.swp
+*~
+
 # OS generated files #
 ######################
 .DS_Store

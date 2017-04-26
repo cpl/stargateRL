@@ -1,5 +1,4 @@
 # Modified Simple Machine License
-
 ### Definitions
 
 1. This Package is defined as all of the files within any archive
