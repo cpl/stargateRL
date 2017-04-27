@@ -27,7 +27,7 @@ def read(*names, **kwargs):
 
 
 setup(
-    name='coalition',
+    name='stargateRL',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -70,7 +70,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='coalition contacts wallet passwords office business',
+    keywords='stargateRL stargate scifi sci-fi rouge-like rougelike game',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().

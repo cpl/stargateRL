@@ -15,3 +15,11 @@ class Tile(object):
             raise AttributeError('The tile positions must be natural numbers.')
 
         self.position = (x, y, z)
+
+    def __str__(self):
+        """Return a string representation of Tile."""
+        return 'Tile(Position{})'.format(self.position)
+
+    def __repr__(self):
+        """Return the __str__ method output."""
+        return self.__str__()

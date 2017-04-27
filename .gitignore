@@ -48,3 +48,9 @@ Thumbs.db
 # TEMP FOLDER #
 ###############
 tmp/
+
+# PYTHON #
+##########
+build/
+dist/
+*.egg-info

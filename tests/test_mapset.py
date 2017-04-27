@@ -21,6 +21,14 @@ class TestTile(unittest.TestCase):
             tile.position[0] = 5
         self.assertEqual(tile.position[0], 1)
 
+    def test_str_repr(self):
+        """Test the __str__ and __repr__ methods."""
+        tile = tiles.Tile(1, 2, 0)
+        tile_repr = 'Tile(Position(1, 2, 0))'
+        self.assertTrue(str(tile) == repr(tile))
+        self.assertTrue(str(tile) == tile_repr)
+        self.assertTrue(repr(tile) == tile_repr)
+
     def test_invalid_attriute(self):
         """Try creating invalid map."""
         tiles.Tile(0, 0, 0)
@@ -49,6 +57,14 @@ class TestMap(unittest.TestCase):
         with self.assertRaises(TypeError):
             mymap.dimensions[0] = 0
         self.assertEqual(mymap.dimensions[0], 100)
+
+    def test_str_repr(self):
+        """Test __repr__ and __str__."""
+        mymap = mapset.Map(123, 321, 30, 'TestName')
+        mymap_repr = 'Map(Name:TestName, Dimensions(123, 321, 30))'
+        self.assertTrue(str(mymap) == repr(mymap))
+        self.assertTrue(str(mymap) == mymap_repr)
+        self.assertTrue(repr(mymap) == mymap_repr)
 
     def test_invalid_attriute(self):
         """Try creating invalid map."""
