@@ -25,14 +25,12 @@ class TestTile(unittest.TestCase):
         """Try creating invalid map."""
         tiles.Tile(0, 0, 0)
         with self.assertRaises(AttributeError):
-            mapset.Map(-1, -1, -2)
-        with self.assertRaises(AttributeError):
-            mapset.Map(0, 100, 10)
+            tiles.Tile(-1, -2, -3)
 
     def test_invalid_type(self):
         """Try creating invalid map."""
         with self.assertRaises(TypeError):
-            mapset.Map('0a', 'b', 2)
+            tiles.Tile('0a', 'b', 2)
 
 
 class TestMap(unittest.TestCase):
@@ -65,7 +63,3 @@ class TestMap(unittest.TestCase):
         """Try creating invalid map."""
         with self.assertRaises(TypeError):
             mapset.Map('0a', 'b', 2)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -13,4 +13,5 @@ class Tile(object):
 
         if x < 0 or y < 0 or z < 0:
             raise AttributeError('The tile positions must be natural numbers.')
+
         self.position = (x, y, z)
