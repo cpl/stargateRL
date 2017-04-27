@@ -1,0 +1,10 @@
+strictness: veryhigh
+ignore-paths:
+  - dist
+  - data
+python-targets:
+  - 2
+pep8:
+  full: true
+doc-warnings: true
+test-warnings: true
