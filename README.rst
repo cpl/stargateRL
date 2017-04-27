@@ -6,7 +6,7 @@ StargateRL |pypi| |travis| |landscape| |coveralls|
 .. |landscape| image:: https://landscape.io/github/thee-engineer/stargateRL/master/landscape.svg?style=flat
    :target: https://landscape.io/github/thee-engineer/stargateRL/master
    :alt: Code Health
-.. |travis| image:: https://travis-ci.org/thee-engineer/stargateRL.svg?branch=master
+.. |travis| image:: https://travis-ci.org/thee-engineer/stargateRL.svg?branch=refactor
     :target: https://travis-ci.org/thee-engineer/stargateRL
     :alt: Travis-CI
 .. |pypi| image:: https://badge.fury.io/py/stargateRL.svg
