@@ -45,6 +45,10 @@
 ehthumbs.db
 Thumbs.db
 
+# OTHER #
+#########
+.vscode
+
 # TEMP FOLDER #
 ###############
 tmp/

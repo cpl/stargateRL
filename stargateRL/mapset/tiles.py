@@ -4,7 +4,7 @@
 class Tile(object):
     """A class representation of a tile logic."""
 
-    def __init__(self, x, y, z):
+    def __init__(self, x, y, z, tags=[]):
         """Construct a tile."""
         if not isinstance(x, int) or\
            not isinstance(y, int) or\

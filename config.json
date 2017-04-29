@@ -1,6 +1,17 @@
 {
     "caption": "StargateRL",
     "graphics": {
-
+        "size": 16,
+        "screen": {
+            "width": 1000,
+            "height": 500,
+            "fullscreen": false,
+            "resizable": true,
+            "style": "tool"
+        }
+    },
+    "resources": {
+        "tileset": "tileset.png",
+        "selection": "selection.png"
     }
 }
