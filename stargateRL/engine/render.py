@@ -9,11 +9,35 @@ from pyglet.window import Window
 class GameWindow(Window):
     """Manager for the pyglet game window."""
 
-    def __init__(self, width, height, tileset_gx, **kargs):
+    def __init__(self, width, height, **kargs):
         """Init GameWindow as Pyglet Window."""
         super(GameWindow, self).__init__(width, height, **kargs)
+        self.widgets = []
 
+    def add_widget(self, widget):
+        """Append a Widget to be rendered."""
+        self.widgets.append(widget)
+
+    def on_draw(self):
+        """Call Pyglet window draw method."""
+        self.clear()
+        for widget in self.widgets:
+            widget.draw()
+
+    def on_resize(self, width, height):
+        """Update all widgets on screen resize."""
+        # TODO: Change widget structure to support this
+
+
+class LevelRender(object):
+    """Render manager for the Level (map, player, critters, etc...)."""
+
+    def __init__(self, width, height, tileset_gx, **kargs):
+        """Construct the Level Renderer."""
         self.tileset = tileset_gx
+
+        self.width = width
+        self.height = height
 
         self.batch_terrain = Batch()   # Tiles
         self.batch_entities = Batch()  # NPCs
@@ -27,16 +51,14 @@ class GameWindow(Window):
         tile_size = self.tileset.size
         for row in map_logic.tiles:
             for tile in row:
-                self.terrain_sprites.append(Sprite(self.tileset.get_tile(0, 0),
+                self.terrain_sprites.append(Sprite(self.tileset.get_tile(2, 1),
                                                    tile.position[0]*tile_size,
                                                    tile.position[1]*tile_size,
                                                    batch=self.batch_terrain))
-        print len(self.terrain_sprites)
 
     def on_draw(self):
         """Call the pyglet window draws on each batch."""
-        self.clear()
-
+        # Always clear() before rendering this
         # Order matters!
         self.batch_terrain.draw()  # Layer: Bottom
         self.batch_entities.draw()

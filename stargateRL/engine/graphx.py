@@ -30,6 +30,6 @@ class GxTileset(object):
     def get_tile(self, x, y):
         """Get the tile of coordinates x, y."""
         if x >= self.columns or y >= self.rows:
-            raise Exception('Argument is out of bounds.')
+            raise IndexError('Argument is out of bounds.')
 
-        return self.tile_set[x+y*self.size]
+        return self.tile_set[x+y*self.rows]

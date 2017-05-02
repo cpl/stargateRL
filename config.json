@@ -3,8 +3,8 @@
     "graphics": {
         "size": 16,
         "screen": {
-            "width": 1000,
-            "height": 500,
+            "width": 1120,
+            "height": 512,
             "fullscreen": false,
             "resizable": true,
             "style": "tool"
