@@ -2,7 +2,7 @@
     "caption": "StargateRL",
     "graphics": {
         "size": 16,
-        "screen": {
+        "window": {
             "width": 1120,
             "height": 512,
             "fullscreen": false,

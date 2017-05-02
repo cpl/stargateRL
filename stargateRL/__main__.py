@@ -1,33 +1,22 @@
 """Main method for stargateRL."""
 
 import pyglet
-import engine
-import mapset
+from engine.screen import GameWindow
+from engine.graphx import GxTileset
 
 import json
 
+gxTileset = GxTileset('tileset.png', 16)
 
-def run():
-    """Run stargateRL."""
-    # Load config file
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
+# Load config file
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
 
-    # Create the game window
-    screen_config = config['graphics']['screen']
-    window = engine.render.GameWindow(screen_config['width'],
-                                      screen_config['height'],
-                                      resizable=screen_config['resizable'],
-                                      fullscreen=screen_config['fullscreen'],
-                                      style=screen_config['style'])
+# Create the game window
+windowConfig = config['graphics']['window']
+window = GameWindow(windowConfig['width'], windowConfig['height'], gxTileset,
+                    fullscreen=windowConfig['fullscreen'],
+                    resizable=windowConfig['resizable'],
+                    style=windowConfig['style'])
 
-    window.widgets['border'] = (engine.widgets.BorderWidget(window.width,
-                                                            window.height,
-                                                            16))
-
-    # Run the pyglet app
-    pyglet.app.run()
-
-
-if __name__ == '__main__':
-    run()
+pyglet.app.run()
