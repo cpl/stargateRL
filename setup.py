@@ -32,7 +32,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.0dev0',
+    version='0.0.0dev1',
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
     long_description=long_description,
@@ -112,7 +112,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'stargateRL=stargateRL:main',
+            'stargateRL=stargateRL',
         ],
     },
 )

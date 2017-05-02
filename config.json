@@ -7,7 +7,7 @@
             "height": 512,
             "fullscreen": false,
             "resizable": true,
-            "style": "tool"
+            "style": "default"
         }
     },
     "resources": {

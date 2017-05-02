@@ -21,11 +21,9 @@ def run():
                                       fullscreen=screen_config['fullscreen'],
                                       style=screen_config['style'])
 
-    window.add_widget(engine.widgets.BorderWidget(0, 0,
-                                                  window.width/16,
-                                                  window.height/16,
-                                                  16))
-    window.add_widget(engine.widgets.MenuWidget(4, 4, 3, 5, 16))
+    window.widgets['border'] = (engine.widgets.BorderWidget(window.width,
+                                                            window.height,
+                                                            16))
 
     # Run the pyglet app
     pyglet.app.run()
