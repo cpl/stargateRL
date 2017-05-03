@@ -1,8 +1,10 @@
 """Main method for stargateRL."""
 
 import pyglet
-from stargateRL.engine.screen import GameWindow
-from stargateRL.engine.graphx import GxTileset
+
+from engine.screen import GameWindow
+from engine.graphx import GxTileset
+from engine import widgets
 
 import json
 
@@ -20,9 +22,10 @@ window_config = config['graphics']['window']
 
 window = GameWindow(window_config['width'],
                     window_config['height'],
-                    gx_tileset,
                     fullscreen=window_config['fullscreen'],
                     resizable=window_config['resizable'],
                     style=window_config['style'])
+
+window.push_widget(widgets.SelectionMenu('a', 'b', 'c'))
 
 pyglet.app.run()

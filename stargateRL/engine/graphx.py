@@ -3,9 +3,6 @@
 import pyglet
 from os import path
 
-from pyglet.image import ImageGrid
-from pyglet.resource import image
-
 pyglet.resource.path = [(path.abspath(path.join('bin')))]
 
 
@@ -35,15 +32,17 @@ class GxTileset(object):
 
     def __init__(self, resource_path, tile_size):
         """Construct the tileset manager."""
-        self.source_image = image(resource_path)
+        self.source_image = pyglet.resource.image(resource_path)
 
         self.tile_size = tile_size
         self.x_tiles_count = self.source_image.width/tile_size
         self.y_tiles_count = self.source_image.height/tile_size
 
-        self.tileset_grid = ImageGrid(self.source_image,
-                                      self.x_tiles_count,
-                                      self.y_tiles_count)
+        self.tileset_grid = pyglet.image.ImageGrid(self.source_image,
+                                                   self.x_tiles_count,
+                                                   self.y_tiles_count)
+
+        self.alphabet = self.tileset_grid[142:209]
 
     def get(self, tile_id):
         """Return a Image from the ImageGrid of the tileset."""
@@ -73,5 +72,9 @@ class GxTileset(object):
         for pixel in image_pxls:
             combined_pixels += pixel
 
-        return pyglet.image.ImageData(image.width, image.height,
+        return pyglet.image.ImageData(tile_image.width, tile_image.height,
                                       'RGBA', combined_pixels)
+
+    def string_to_sprites(self, string):
+        """Convert a string to a set of sprites, using the tileset letters."""
+        pass
