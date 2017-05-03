@@ -18,10 +18,10 @@ class Color(object):
 
     def __call__(self):
         """Return the color only."""
-        colorString = ''
+        color_string = ''
         for atr in self.color:
-            colorString += chr(atr)
-        return colorString
+            color_string += chr(atr)
+        return color_string
 
 
 COLORS = {'black': Color(0, 0, 0, 255), 'white': Color(255, 255, 255, 255),
@@ -33,45 +33,45 @@ COLORS = {'black': Color(0, 0, 0, 255), 'white': Color(255, 255, 255, 255),
 class GxTileset(object):
     """A image grid composing the Tileset resource."""
 
-    def __init__(self, resourcePath, tileSize):
+    def __init__(self, resource_path, tile_size):
         """Construct the tileset manager."""
-        self.sourceImage = image(resourcePath)
+        self.source_image = image(resource_path)
 
-        self.tileSize = tileSize
-        self.xTilesCount = self.sourceImage.width/tileSize
-        self.yTilesCount = self.sourceImage.height/tileSize
+        self.tile_size = tile_size
+        self.x_tiles_count = self.source_image.width/tile_size
+        self.y_tiles_count = self.source_image.height/tile_size
 
-        self.tilesetGrid = ImageGrid(self.sourceImage,
-                                     self.xTilesCount,
-                                     self.yTilesCount)
+        self.tileset_grid = ImageGrid(self.source_image,
+                                      self.x_tiles_count,
+                                      self.y_tiles_count)
 
-    def get(self, tileId):
+    def get(self, tile_id):
         """Return a Image from the ImageGrid of the tileset."""
-        return self.tilesetGrid[tileId]
+        return self.tileset_grid[tile_id]
 
-    def getByPosition(self, x, y):
+    def get_by_position(self, x, y):
         """Return the Image from x, y inside ImageGrid."""
-        return self.tilesetGrid[x+y*self.yTilesCount]
+        return self.tileset_grid[x+y*self.y_tiles_count]
 
-    def getColored(self, tileId, background, foreground):
+    def get_colored(self, tile_id, background, foreground):
         """Return a tile with the given colors."""
-        image = self.get(tileId)
-        imageData = image.image_data.get_data('RGBA', image.width*4)
-        imagePixels = [imageData[p:p+4] for p in range(0, len(imageData), 4)]
+        tile_image = self.get(tile_id)
+        image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
+        image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
-        imageBackground = [p for p in range(len(imagePixels))
-                           if imagePixels[p] == COLORS['black']()]
-        imageForeground = [p for p in range(len(imagePixels))
-                           if imagePixels[p] == COLORS['white']()]
+        image_background = [p for p in range(len(image_pxls))
+                            if image_pxls[p] == COLORS['black']()]
+        image_foreground = [p for p in range(len(image_pxls))
+                            if image_pxls[p] == COLORS['white']()]
 
-        for pixel in imageBackground:
-            imagePixels[pixel] = background()
-        for pixel in imageForeground:
-            imagePixels[pixel] = foreground()
+        for pixel in image_background:
+            image_pxls[pixel] = background()
+        for pixel in image_foreground:
+            image_pxls[pixel] = foreground()
 
-        combinedPixels = b''
-        for pixel in imagePixels:
-            combinedPixels += pixel
+        combined_pixels = b''
+        for pixel in image_pxls:
+            combined_pixels += pixel
 
         return pyglet.image.ImageData(image.width, image.height,
-                                      'RGBA', combinedPixels)
+                                      'RGBA', combined_pixels)

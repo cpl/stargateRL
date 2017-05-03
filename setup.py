@@ -7,14 +7,13 @@ https://github.com/thee-engineer/stargateRL
 import io
 
 from setuptools import setup, find_packages
-from codecs import open
 from os import path
 
-here = path.abspath(path.dirname(__file__))
+cwd = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
-    long_description = long_description.replace("\r", "")
+with open(path.join(cwd, 'README.rst'), encoding='utf-8') as f:
+    LONG_DESCRIPTION = f.read()
+    LONG_DESCRIPTION = LONG_DESCRIPTION.replace("\r", "")
 
 
 def read(*names, **kwargs):
@@ -22,8 +21,8 @@ def read(*names, **kwargs):
     with io.open(
         path.join(path.dirname(__file__), *names),
         encoding=kwargs.get("encoding", "utf8")
-    ) as fp:
-        return fp.read()
+    ) as FP:
+        return FP.read()
 
 
 setup(
@@ -35,7 +34,7 @@ setup(
     version='0.0.0dev1',
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
 
     # The project's main homepage.
     url='https://github.com/thee-engineer/stargateRL',

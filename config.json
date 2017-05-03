@@ -3,10 +3,10 @@
     "graphics": {
         "size": 16,
         "window": {
-            "width": 1120,
-            "height": 512,
-            "fullscreen": false,
-            "resizable": true,
+            "width": 1440,
+            "height": 900,
+            "fullscreen": true,
+            "resizable": false,
             "style": "default"
         }
     },

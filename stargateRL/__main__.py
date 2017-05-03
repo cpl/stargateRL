@@ -1,22 +1,28 @@
 """Main method for stargateRL."""
 
 import pyglet
-from engine.screen import GameWindow
-from engine.graphx import GxTileset
+from stargateRL.engine.screen import GameWindow
+from stargateRL.engine.graphx import GxTileset
 
 import json
-
-gxTileset = GxTileset('tileset.png', 16)
 
 # Load config file
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
+
+# Load the tileset
+gx_tileset = GxTileset(config['resources']['tileset'],
+                       config['graphics']['size'])
+
 # Create the game window
-windowConfig = config['graphics']['window']
-window = GameWindow(windowConfig['width'], windowConfig['height'], gxTileset,
-                    fullscreen=windowConfig['fullscreen'],
-                    resizable=windowConfig['resizable'],
-                    style=windowConfig['style'])
+window_config = config['graphics']['window']
+
+window = GameWindow(window_config['width'],
+                    window_config['height'],
+                    gx_tileset,
+                    fullscreen=window_config['fullscreen'],
+                    resizable=window_config['resizable'],
+                    style=window_config['style'])
 
 pyglet.app.run()
