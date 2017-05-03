@@ -1,4 +1,4 @@
-StargateRL |pypi| |travis| |landscape| |coveralls|
+StargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
 ==================================================
 .. |coveralls| image:: https://coveralls.io/repos/github/thee-engineer/stargateRL/badge.svg?branch=refactor
   :target: https://coveralls.io/github/thee-engineer/stargateRL?branch=refactor
@@ -12,3 +12,6 @@ StargateRL |pypi| |travis| |landscape| |coveralls|
 .. |pypi| image:: https://badge.fury.io/py/stargateRL.svg
     :target: https://badge.fury.io/py/stargateRL
     :alt: PyPi Project Page
+.. |gitter| image:: https://img.shields.io/gitter/room/nwjs/nw.js.svg
+    :target: https://gitter.im/stargateRL/Lobby
+    :alt: Gitter Chat
