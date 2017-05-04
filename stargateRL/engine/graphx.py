@@ -2,8 +2,7 @@
 
 import pyglet
 from os import path
-
-pyglet.resource.path = [(path.abspath(path.join('bin')))]
+from stargateRL.utils import *
 
 
 class Color(object):
@@ -81,17 +80,3 @@ class GxTileset(object):
 
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
                                       'RGBA', combined_pixels)
-
-    def string_to_sprites(self, string, x, y, color,
-                          batch=None, order_group=None):
-        """Convert a string to a set of sprites, using the tileset letters."""
-        sprites = []
-        ts = self.tile_size
-        for index, letter in enumerate(string):
-            print letter
-            sprites.append(
-                pyglet.sprite.Sprite(self.get_colored(ord(letter),
-                                     'transparent', color),
-                                     (x+index-(len(string)+1)/2)*ts, y*ts,
-                                     batch=batch))
-        return sprites

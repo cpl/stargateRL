@@ -3,6 +3,7 @@
 from pyglet.sprite import Sprite
 from pyglet.graphics import Batch
 from pyglet.window import key as win_key
+from stargateRL.utils import *
 
 
 class Widget(object):
