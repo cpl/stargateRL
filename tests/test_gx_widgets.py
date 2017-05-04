@@ -25,12 +25,23 @@ window = GameWindow(window_config['width'],
                     fullscreen=window_config['fullscreen'],
                     resizable=window_config['resizable'],
                     style=window_config['style'])
-window.set_mouse_visible(window_config['mouse'])
 
-screen_border = widgets.BorderWidget(gx_tileset, 0, 0,
-                                     window.width/16,
-                                     window.height/16,
-                                     'border')
-window.push_widget(screen_border)
+main_menu = widgets.SelectionMenu(gx_tileset, 'Options')
+red_box = widgets.FilledBoxWidget(gx_tileset, 1, 1, 10, 10, 'red')
+blu_box = widgets.FilledBoxWidget(gx_tileset, 5, 5, 12, 20, 'blue')
+grn_box = widgets.FilledBoxWidget(gx_tileset, 1, 1, 50, 5, 'green')
+
+window.push_widget(red_box)
+window.push_widget(grn_box)
+window.push_widget(blu_box)
+
+window.pop_widget()
+
+
+@window.event
+def on_key_press(symbol, modifiers):
+    """Remove a widget on key press."""
+    window.pop_widget()
+
 
 pyglet.app.run()

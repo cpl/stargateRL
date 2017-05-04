@@ -7,11 +7,12 @@ https://github.com/thee-engineer/stargateRL
 import io
 
 from setuptools import setup, find_packages
+from codecs import open as copen
 from os import path
 
 CWD = path.abspath(path.dirname(__file__))
 
-with open(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
+with copen(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
     LONG_DESCRIPTION = LONG_DESCRIPTION.replace("\r", "")
 
@@ -31,7 +32,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.0dev1',
+    version='0.0.0dev3',
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
     long_description=LONG_DESCRIPTION,

@@ -13,11 +13,14 @@ class GameWindow(pyglet.window.Window):
 
     def push_widget(self, widget):
         """Put a widget on top of the widget stack."""
-        self._widgets.insert(0, widget)
+        self._widgets.append(widget)
 
     def pop_widget(self):
         """Pop the widget on top of the widget stack."""
-        self._widgets.pop(0)
+        if self._widgets:
+            self._widgets.pop()
+
+    # Window events
 
     def on_resize(self, width, height):
         """Pyglet on window size change."""
