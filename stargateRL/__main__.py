@@ -3,7 +3,7 @@ import pyglet
 
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine import widgets
-from stargateRL.utils import CONFIG, GX_TILESETS
+from stargateRL.utils import CONFIG
 
 # Create the game window
 window_config = CONFIG['graphics']['window']
@@ -15,10 +15,8 @@ window = GameWindow(window_config['width'],
                     style=window_config['style'])
 window.set_mouse_visible(window_config['mouse'])
 
-screen_border = widgets.BorderWidget(GX_TILESETS['MAIN'], 0, 0,
-                                     window.width/16,
-                                     window.height/16,
-                                     'border')
+screen_border = widgets.BorderWidget(0, 0, window.width/16, window.height/16,
+                                     'border', 'transparent')
 
 
 # main_menu = widgets.SelectionMenuWidget(GX_TILESET,
