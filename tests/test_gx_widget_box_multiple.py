@@ -1,12 +1,14 @@
 """Graphical test for Box Widget."""
 
 import pyglet
+import cProfile
 
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.graphx import TileColor
 from stargateRL.engine import widgets
 from stargateRL.utils import CONFIG
 
+pyglet.options['debug_gl'] = False
 
 # Create the game window
 window_config = CONFIG['graphics']['window']
@@ -27,4 +29,4 @@ for x in range(0, window_config['width']/16, 8):
 grn_box = widgets.FilledBoxWidget(10, 10, 20, 5, TileColor('red', 'border'))
 window.push_widget(grn_box)
 
-pyglet.app.run()
+cProfile.run('pyglet.app.run()')

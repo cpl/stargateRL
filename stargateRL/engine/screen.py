@@ -10,6 +10,7 @@ class GameWindow(pyglet.window.Window):
         """Construct the window manager."""
         super(GameWindow, self).__init__(width, height, **kargs)
         self._widgets = []
+        self._testing_batch = pyglet.graphics.Batch()
         self.fps = pyglet.clock.ClockDisplay()
 
     def push_widget(self, widget):
@@ -30,6 +31,7 @@ class GameWindow(pyglet.window.Window):
     def on_draw(self):
         """Pyglet Window draw method."""
         self.clear()
+        self._testing_batch.draw()
         for widget in self._widgets:
             widget.draw()
         self.fps.draw()
