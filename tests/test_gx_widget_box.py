@@ -3,6 +3,7 @@
 import pyglet
 
 from stargateRL.engine.screen import GameWindow
+from stargateRL.engine.graphx import TileColor
 from stargateRL.engine import widgets
 from stargateRL.utils import CONFIG
 
@@ -16,9 +17,9 @@ window = GameWindow(window_config['width'],
                     resizable=window_config['resizable'],
                     style=window_config['style'])
 
-red_box = widgets.FilledBoxWidget(1, 1, 10, 10, 'border', 'red')
-blu_box = widgets.FilledBoxWidget(10, 5, 2, 10, 'blue', 'gold')
-grn_box = widgets.FilledBoxWidget(10, 10, 20, 5, 'green', 'green')
+red_box = widgets.FilledBoxWidget(1, 1, 10, 10, TileColor('border', 'red'))
+blu_box = widgets.FilledBoxWidget(10, 5, 2, 10, TileColor('blue', 'gold'))
+grn_box = widgets.FilledBoxWidget(10, 10, 20, 5, TileColor('green', 'green'))
 
 window.push_widget(red_box)
 window.push_widget(grn_box)
