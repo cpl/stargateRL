@@ -36,9 +36,8 @@ class GameWindow(pyglet.window.Window):
 
     def on_key_press(self, symbol, modifiers):
         """Whenever a key is pressed (there is also a release method)."""
-        print('S:{} M:{}'.format(symbol, modifiers))
         if self._widgets:
             if not self._widgets[-1].on_key_press(symbol, modifiers):
                 self.pop_widget()
         else:
-            pass
+            super(GameWindow, self).on_key_press(symbol, modifiers)
