@@ -35,8 +35,8 @@ class GxTileset(object):
         self.source_image = pyglet.resource.image(resource_path)
 
         self.tile_size = tile_size
-        self.x_tiles_count = self.source_image.width/tile_size
-        self.y_tiles_count = self.source_image.height/tile_size
+        self.x_tiles_count = self.source_image.width / tile_size
+        self.y_tiles_count = self.source_image.height / tile_size
 
         self.tileset_grid = pyglet.image.ImageGrid(self.source_image,
                                                    self.x_tiles_count,
@@ -50,7 +50,7 @@ class GxTileset(object):
 
     def get_by_position(self, x, y):
         """Return the Image from x, y inside ImageGrid."""
-        return self.tileset_grid[x+y*self.y_tiles_count]
+        return self.tileset_grid[x + y * self.y_tiles_count]
 
     def get_colored(self, tile_id, background, foreground):
         """Return a tile with the given colors."""

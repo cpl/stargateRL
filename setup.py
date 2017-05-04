@@ -9,9 +9,9 @@ import io
 from setuptools import setup, find_packages
 from os import path
 
-cwd = path.abspath(path.dirname(__file__))
+CWD = path.abspath(path.dirname(__file__))
 
-with open(path.join(cwd, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
     LONG_DESCRIPTION = LONG_DESCRIPTION.replace("\r", "")
 
@@ -21,8 +21,8 @@ def read(*names, **kwargs):
     with io.open(
         path.join(path.dirname(__file__), *names),
         encoding=kwargs.get("encoding", "utf8")
-    ) as FP:
-        return FP.read()
+    ) as fp:
+        return fp.read()
 
 
 setup(
