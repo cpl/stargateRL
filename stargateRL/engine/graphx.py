@@ -18,6 +18,35 @@ class Color(object):
         return color_string
 
 
+class TileColor(object):
+    """A class holding two colors (foreground and background)."""
+
+    def __init__(self, foreground_color, background_color):
+        """Construct the color for the tile."""
+        self._foreground_color = foreground_color
+        self._background_color = background_color
+
+    def __call__(self):
+        """Return the names of the colors."""
+        return (self._foreground_color, self._background_color)
+
+    def set_background(self, color):
+        """Set the background color."""
+        self._background_color = color
+
+    def set_foreground(self, color):
+        """Set the foreground color."""
+        self._foreground_color = color
+
+    def get_background(self):
+        """Return the background color."""
+        return self._background_color
+
+    def get_foreground(self):
+        """Return the foreground color."""
+        return self._foreground_color
+
+
 COLORS = {'black': Color(0, 0, 0, 255), 'white': Color(255, 255, 255, 255),
           'blue': Color(0, 0, 255, 255), 'red': Color(255, 0, 0, 255),
           'green': Color(0, 255, 0, 255), 'transparent': Color(0, 0, 0, 0),

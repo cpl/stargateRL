@@ -135,16 +135,17 @@ class BorderWidget(Widget):
 class SelectionMenuWidget(BorderWidget):
     """A menu of options."""
 
-    def __init__(self, tileset, x, y, x_tiles, y_tiles, border_color,
-                 color_inactive, color_active, *options, **kargs):
+    def __init__(self, x, y, x_tiles, y_tiles, border_foreground,
+                 border_background, foreground_color, background_color,
+                 color_active, *options, **kargs):
         """Construct a selction menu."""
-        super(SelectionMenuWidget, self).__init__(tileset, x, y,
-                                                  x_tiles, y_tiles,
-                                                  border_color, **kargs)
+        super(SelectionMenuWidget, self).__init__(x, y, x_tiles, y_tiles,
+                                                  border_background,
+                                                  border_foreground, **kargs)
+
         self.active = 0
         self._text_sprites = []
         self.options = options
-        self.tileset = tileset
         self.colors = (color_inactive, color_active)
         self.draw()
 
