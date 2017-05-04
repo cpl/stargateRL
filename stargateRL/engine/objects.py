@@ -43,4 +43,7 @@ class SpriteText(SpriteObject):
                   letter_start=0, letter_end=-1):
         """Change the color of the text or some letters only."""
         for index, letter in enumerate(self.string[letter_start:letter_end]):
-            self._sprites[index].image = GX_TILESETS['MAIN'].get_colored(ord(letter), background_color, foreground_color)
+            self._sprites[index].image =\
+                GX_TILESETS['MAIN'].get_colored(ord(letter),
+                                                background_color,
+                                                foreground_color)

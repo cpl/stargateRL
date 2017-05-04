@@ -83,12 +83,8 @@ class GxTileset(object):
         """Return the Image from x, y inside ImageGrid."""
         return self.tileset_grid[row][column]
 
-    def get_colored(self, tile_id, background, foreground):
+    def get_colored(self, tile_id, tile_color):
         """Return a tile with the given colors."""
-        if not isinstance(background, str) or not isinstance(foreground, str):
-            print background, foreground
-            print type(background), type(foreground)
-            raise Exception('{} {} {}'.format(tile_id, background, foreground))
         tile_image = self.get_by_id(tile_id)
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
@@ -99,9 +95,9 @@ class GxTileset(object):
                             if image_pxls[p] == COLORS['white']()]
 
         for pixel in image_background:
-            image_pxls[pixel] = COLORS[background]()
+            image_pxls[pixel] = COLORS[tile_color.get_background()]()
         for pixel in image_foreground:
-            image_pxls[pixel] = COLORS[foreground]()
+            image_pxls[pixel] = COLORS[tile_color.get_foreground()]()
 
         combined_pixels = b''
         for pixel in image_pxls:
