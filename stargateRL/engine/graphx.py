@@ -1,8 +1,6 @@
 """Graphical resource manager."""
 
 import pyglet
-from os import path
-from stargateRL.utils import *
 
 
 class Color(object):
@@ -59,6 +57,8 @@ class GxTileset(object):
     def get_colored(self, tile_id, background, foreground):
         """Return a tile with the given colors."""
         if not isinstance(background, str) or not isinstance(foreground, str):
+            print background, foreground
+            print type(background), type(foreground)
             raise Exception('{} {} {}'.format(tile_id, background, foreground))
         tile_image = self.get_by_id(tile_id)
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)

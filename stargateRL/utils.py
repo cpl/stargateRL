@@ -1,9 +1,14 @@
 """Contains useful methods and global variables."""
 import os
 import json
+import pyglet
+
 from stargateRL.engine.graphx import GxTileset
 
 __all__ = ['CONFIG', 'GX_TILESETS']
+
+# Define resource path
+pyglet.resource.path = [(os.path.abspath(os.path.join('bin')))]
 
 
 def load_config():
@@ -16,9 +21,8 @@ def load_config():
         return json.load(config_file)
 
 
+# Load the config
 CONFIG = load_config()
 # Load the tileset
 GX_TILESETS = {'MAIN': GxTileset(CONFIG['resources']['tileset'],
-                       CONFIG['graphics']['size'])
-			  }
-
+                                 CONFIG['graphics']['size'])}

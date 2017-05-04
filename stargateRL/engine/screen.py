@@ -1,7 +1,6 @@
 """Window/Screen manager."""
 
 import pyglet
-from stargateRL.utils import * 
 
 
 class GameWindow(pyglet.window.Window):
@@ -11,7 +10,6 @@ class GameWindow(pyglet.window.Window):
         """Construct the window manager."""
         super(GameWindow, self).__init__(width, height, **kargs)
         self._widgets = []
-
         self.fps = pyglet.clock.ClockDisplay()
 
     def push_widget(self, widget):
@@ -35,6 +33,7 @@ class GameWindow(pyglet.window.Window):
         for widget in self._widgets:
             widget.draw()
         self.fps.draw()
+        self.b.draw()
 
     def on_key_press(self, symbol, modifiers):
         """Whenever a key is pressed (there is also a release method)."""

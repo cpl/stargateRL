@@ -1,15 +1,9 @@
 """Main method for stargateRL."""
-import os
-import json
 import pyglet
-# Define resource path
-pyglet.resource.path = [(os.path.abspath(os.path.join('bin')))]
 
 from stargateRL.engine.screen import GameWindow
-from stargateRL.engine.graphx import GxTileset
 from stargateRL.engine import widgets
-from stargateRL.utils import *
-
+from stargateRL.utils import CONFIG, GX_TILESETS
 
 # Create the game window
 window_config = CONFIG['graphics']['window']
@@ -25,6 +19,7 @@ screen_border = widgets.BorderWidget(GX_TILESETS['MAIN'], 0, 0,
                                      window.width/16,
                                      window.height/16,
                                      'border')
+
 
 # main_menu = widgets.SelectionMenuWidget(GX_TILESET,
 #                                         window.width/64,
