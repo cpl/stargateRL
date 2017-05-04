@@ -26,7 +26,6 @@ window = GameWindow(window_config['width'],
                     resizable=window_config['resizable'],
                     style=window_config['style'])
 
-main_menu = widgets.SelectionMenu(gx_tileset, 'Options')
 red_box = widgets.FilledBoxWidget(gx_tileset, 1, 1, 10, 10, 'red')
 blu_box = widgets.FilledBoxWidget(gx_tileset, 5, 5, 12, 20, 'blue')
 grn_box = widgets.FilledBoxWidget(gx_tileset, 1, 1, 50, 5, 'green')

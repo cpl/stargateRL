@@ -11,6 +11,8 @@ class GameWindow(pyglet.window.Window):
         super(GameWindow, self).__init__(width, height, **kargs)
         self._widgets = []
 
+        self.fps = pyglet.clock.ClockDisplay()
+
     def push_widget(self, widget):
         """Put a widget on top of the widget stack."""
         self._widgets.append(widget)
@@ -31,3 +33,13 @@ class GameWindow(pyglet.window.Window):
         self.clear()
         for widget in self._widgets:
             widget.draw()
+        self.fps.draw()
+
+    def on_key_press(self, symbol, modifiers):
+        """Whenever a key is pressed (there is also a release method)."""
+        print('S:{} M:{}'.format(symbol, modifiers))
+        if self._widgets:
+            if not self._widgets[-1].on_key_press(symbol, modifiers):
+                self.pop_widget()
+        else:
+            pass
