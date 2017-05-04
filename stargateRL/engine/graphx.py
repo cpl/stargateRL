@@ -1,9 +1,6 @@
 """Graphical resource manager."""
 
 import pyglet
-from os import path
-
-pyglet.resource.path = [(path.abspath(path.join('bin')))]
 
 
 class Color(object):
@@ -19,6 +16,35 @@ class Color(object):
         for atr in self.color:
             color_string += chr(atr)
         return color_string
+
+
+class TileColor(object):
+    """A class holding two colors (foreground and background)."""
+
+    def __init__(self, foreground_color, background_color):
+        """Construct the color for the tile."""
+        self._foreground_color = foreground_color
+        self._background_color = background_color
+
+    def __call__(self):
+        """Return the names of the colors."""
+        return (self._foreground_color, self._background_color)
+
+    def set_background(self, color):
+        """Set the background color."""
+        self._background_color = color
+
+    def set_foreground(self, color):
+        """Set the foreground color."""
+        self._foreground_color = color
+
+    def get_background(self):
+        """Return the background color."""
+        return self._background_color
+
+    def get_foreground(self):
+        """Return the foreground color."""
+        return self._foreground_color
 
 
 COLORS = {'black': Color(0, 0, 0, 255), 'white': Color(255, 255, 255, 255),
@@ -57,10 +83,8 @@ class GxTileset(object):
         """Return the Image from x, y inside ImageGrid."""
         return self.tileset_grid[row][column]
 
-    def get_colored(self, tile_id, background, foreground):
+    def get_colored(self, tile_id, tile_color):
         """Return a tile with the given colors."""
-        if not isinstance(background, str) or not isinstance(foreground, str):
-            raise Exception('{} {} {}'.format(tile_id, background, foreground))
         tile_image = self.get_by_id(tile_id)
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
@@ -71,9 +95,9 @@ class GxTileset(object):
                             if image_pxls[p] == COLORS['white']()]
 
         for pixel in image_background:
-            image_pxls[pixel] = COLORS[background]()
+            image_pxls[pixel] = COLORS[tile_color.get_background()]()
         for pixel in image_foreground:
-            image_pxls[pixel] = COLORS[foreground]()
+            image_pxls[pixel] = COLORS[tile_color.get_foreground()]()
 
         combined_pixels = b''
         for pixel in image_pxls:
@@ -81,17 +105,3 @@ class GxTileset(object):
 
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
                                       'RGBA', combined_pixels)
-
-    def string_to_sprites(self, string, x, y, color,
-                          batch=None, order_group=None):
-        """Convert a string to a set of sprites, using the tileset letters."""
-        sprites = []
-        ts = self.tile_size
-        for index, letter in enumerate(string):
-            print letter
-            sprites.append(
-                pyglet.sprite.Sprite(self.get_colored(ord(letter),
-                                     'transparent', color),
-                                     (x+index-(len(string)+1)/2)*ts, y*ts,
-                                     batch=batch))
-        return sprites

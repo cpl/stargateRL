@@ -16,12 +16,12 @@ window = GameWindow(window_config['width'],
                     resizable=window_config['resizable'],
                     style=window_config['style'])
 
-red_box = widgets.FilledBoxWidget(1, 1, 10, 10, 'border', 'red')
-blu_box = widgets.FilledBoxWidget(10, 5, 2, 10, 'blue', 'gold')
-grn_box = widgets.FilledBoxWidget(10, 10, 20, 5, 'green', 'green')
+for x in range(0, window_config['width']/16, 8):
+    for y in range(0, window_config['height']/16, 8):
+        window.push_widget(widgets.FilledBoxWidget(x, y, 8, 8, 'blue',
+                                                   'transparent', 0))
 
-window.push_widget(red_box)
+grn_box = widgets.FilledBoxWidget(10, 10, 20, 5, 'green', 'green')
 window.push_widget(grn_box)
-window.push_widget(blu_box)
 
 pyglet.app.run()
