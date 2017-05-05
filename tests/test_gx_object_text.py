@@ -34,7 +34,7 @@ Aliquam voluptatibus id non voluptate quia laudantium architecto sequi.\
 Totam ipsum laudantium commodi voluptatem voluptates asperiores illum\
 pariatur. Sed quisquam occaecati quo distinctio quaerat reiciendis.
 """
-st = SpriteText(LONG_TEXT, 5, 20, None, None,
+st = SpriteText(LONG_TEXT, 1, window.y_tiles-2, 50, None,
                 TileColor('red', 'gold'), window._batch)
 
 pyglet.app.run()

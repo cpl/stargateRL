@@ -5,7 +5,7 @@
         "window": {
             "width": 1440,
             "height": 900,
-            "fullscreen": false,
+            "fullscreen": true,
             "resizable": true,
             "style": "default",
             "mouse": false

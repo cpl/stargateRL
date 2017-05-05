@@ -27,13 +27,22 @@ class SpriteText(SpriteObject):
         # Create sprites from string
         ts = GX_TILESETS['MAIN'].tile_size
         self._sprites = []
-        for index, letter in enumerate(string):
+        (x_mod, y_mod) = (0, 0)
+        for letter in string:
+            letter_ord = ord(letter)
+            if letter_ord == 10:
+                y_mod -= 1
+                x_mod = 0
+                continue
+            elif x_tiles is not None and x_mod >= x_tiles:
+                y_mod -= 1
+                x_mod = 0
+
+            x_mod += 1
             self._sprites.append(
                 Sprite(
-                    GX_TILESETS['MAIN'].get_colored(ord(letter),
-                                                    tile_color),
-                    (x + index - (len(string) + 1) / 2) * ts,
-                    y * ts,
+                    GX_TILESETS['MAIN'].get_colored(letter_ord, tile_color),
+                    (x+x_mod)*ts, (y+y_mod)*ts,
                     batch=self._batch, group=self._group_order))
 
     def set_color(self, tile_color=TileColor(), start=0, end=-1):
