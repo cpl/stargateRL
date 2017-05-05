@@ -22,6 +22,16 @@ window.set_icon(pyglet.resource.image(CONFIG['resources']['icon']))
 # Render screen border
 screen_border = widgets.BorderWidget(0, 0, window.x_tiles, window.y_tiles,
                                      TileColor('border', 'transparent'))
+
+selection_menu =\
+    widgets.SelectionMenuWidget(window.x_tiles / 4, window.y_tiles / 2,
+                                window.x_tiles / 2, window.y_tiles / 4,
+                                TileColor('gold', 'transparent'),
+                                TileColor('white', 'transparent'),
+                                TileColor('red', 'gold'),
+                                'Settings', 'Exit')
+
 window.push_widget(screen_border)
+window.push_widget(selection_menu)
 
 pyglet.app.run()
