@@ -20,7 +20,7 @@ window.set_mouse_visible(window_config['mouse'])
 window.set_icon(pyglet.resource.image(CONFIG['resources']['icon']))
 
 # Render screen border
-screen_border = widgets.BorderWidget(0, 0, window.width/16, window.height/16,
+screen_border = widgets.BorderWidget(0, 0, window.x_tiles, window.y_tiles,
                                      TileColor('border', 'transparent'))
 window.push_widget(screen_border)
 

@@ -8,14 +8,11 @@ class Color(object):
 
     def __init__(self, r, g, b, a):
         """Create a color."""
-        self.color = (r, g, b, a)
+        self._color = (r, g, b, a)
 
     def __call__(self):
         """Return the color only."""
-        color_string = ''
-        for atr in self.color:
-            color_string += chr(atr)
-        return color_string
+        return bytes(bytearray(self._color))
 
 
 class TileColor(object):
@@ -61,9 +58,9 @@ class GxTileset(object):
         """Construct the tileset manager."""
         self.source_image = pyglet.resource.image(resource_path)
 
-        self.tile_size = tile_size
-        self.x_tiles_count = self.source_image.width / tile_size
-        self.y_tiles_count = self.source_image.height / tile_size
+        self.tile_size = int(tile_size)
+        self.x_tiles_count = int(self.source_image.width / tile_size)
+        self.y_tiles_count = int(self.source_image.height / tile_size)
 
         self.tileset_grid = pyglet.image.ImageGrid(self.source_image,
                                                    self.x_tiles_count,
@@ -71,8 +68,8 @@ class GxTileset(object):
 
         # Normalize Pyglet's strange way of indexing ImageGrids
         self.tileset_grid = \
-            [self.tileset_grid[x:x+tile_size]
-             for x in range(0, len(self.tileset_grid), tile_size)]
+            [self.tileset_grid[x:x+self.tile_size]
+             for x in range(0, len(self.tileset_grid), self.tile_size)]
         self.tileset_grid = self.tileset_grid[::-1]
 
     def get_by_id(self, tile_id):

@@ -12,6 +12,8 @@ python-targets:
 pylint:
   disable:
     - C0103
+    - R0903
+    - R0913
 pep8:
   full: true
 doc-warnings: true

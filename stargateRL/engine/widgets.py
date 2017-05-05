@@ -1,6 +1,5 @@
 """Widget support."""
 
-import pyglet
 from pyglet.sprite import Sprite
 from pyglet.graphics import Batch
 from pyglet.window import key as wkey
@@ -60,6 +59,9 @@ class BorderWidget(Widget):
         B_EDGE = kargs.get('B_EDGE', 35)
         L_EDGE = kargs.get('L_EDGE', 35)
         R_EDGE = kargs.get('R_EDGE', 35)
+
+        x_tiles = int(x_tiles)
+        y_tiles = int(y_tiles)
 
         # Left, bottom, corner
         self._sprites.append(
