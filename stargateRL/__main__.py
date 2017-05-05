@@ -14,7 +14,9 @@ window = GameWindow(window_config['width'],
                     fullscreen=window_config['fullscreen'],
                     resizable=window_config['resizable'],
                     style=window_config['style'])
+
 window.set_mouse_visible(window_config['mouse'])
+window.set_icon(pyglet.resource.image(CONFIG['resources']['icon']))
 
 screen_border = widgets.BorderWidget(0, 0, window.width/16, window.height/16,
                                      TileColor('border', 'transparent'))
