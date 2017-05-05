@@ -45,7 +45,7 @@ class SpriteText(SpriteObject):
                     (x+x_mod)*ts, (y+y_mod)*ts,
                     batch=self._batch, group=self._group_order))
 
-    def set_color(self, tile_color=TileColor(), start=0, end=-1):
+    def set_color(self, tile_color=TileColor(), start=0, end=None):
         """Change the color of the text or part of the text."""
         for index, sprite in enumerate(self._sprites[start:end]):
             sprite.image =\
@@ -57,7 +57,7 @@ class SpriteText(SpriteObject):
         for sprite in self._sprites:
             sprite.batch = batch
 
-    def set_group(self, group_order=None, start=0, end=-1):
+    def set_group(self, group_order=None, start=0, end=None):
         """Set the group of the sprites."""
         for sprite in self._sprites[start:end]:
             sprite.group = group_order

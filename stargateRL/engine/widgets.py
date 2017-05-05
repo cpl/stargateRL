@@ -1,8 +1,11 @@
 """Widget support."""
 
+import pyglet
 from pyglet.sprite import Sprite
 from pyglet.graphics import Batch
+from pyglet.window import key as wkey
 
+from stargateRL.engine.objects import SpriteText
 from stargateRL.utils import GX_TILESETS
 
 
@@ -19,7 +22,7 @@ class Widget(object):
         self._batch.draw()
 
     def on_key_press(self, symbol, modifiers):
-        """Get called on window.event on_key_press."""
+        """Returning false removes the widget from stack, true keeps it."""
         return False
 
 
@@ -109,10 +112,55 @@ class BorderWidget(Widget):
         return True
 
 
+# TODO: SelectionMenu should have some sort of way performing an action
+# when `wkey.RETURN` is pressed on the current active option `self._active`
+# Possibly a dictionary of methods? Where the keys are integers?
+# eg: self.ACTIONS[self._active] %params%
+# This would have another method to set the ACTIONS
 class SelectionMenuWidget(BorderWidget):
     """A menu of options."""
 
-    # TODO: Finish this class
-    # def __init__(self, x, y, x_tiles, y_tiles,
-    #              border_color, tile_color, active_color,
-    #              *options, **kargs):
+    def __init__(self, x, y, x_tiles, y_tiles,
+                 border_color, tile_color, active_color,
+                 *options, **kargs):
+        """Construct the selection menu."""
+        super(SelectionMenuWidget, self).__init__(x, y, x_tiles, y_tiles,
+                                                  border_color, **kargs)
+
+        # Store options and active option
+        self._options = options
+        self._active = 0
+        self._text_objects = []
+        self._colors = (tile_color, active_color)
+
+        op_lenght = len(options)
+        for index, option in enumerate(options):
+            word_length = len(option)
+            self._text_objects.append(
+                SpriteText(option, x+x_tiles/2-word_length/2,
+                           y+y_tiles/2-index+op_lenght,
+                           None, None, tile_color, self._batch))
+        self._text_objects[self._active].set_color(self._colors[1])
+
+    def on_key_press(self, symbol, modifiers):
+        """Get called on window.event on_key_press."""
+        if symbol == wkey.UP:
+            if self._active <= 0:
+                self._text_objects[self._active].set_color(self._colors[0])
+                self._active = len(self._options)-1
+                self._text_objects[self._active].set_color(self._colors[1])
+            else:
+                self._text_objects[self._active].set_color(self._colors[0])
+                self._active -= 1
+                self._text_objects[self._active].set_color(self._colors[1])
+        elif symbol == wkey.DOWN:
+            if self._active >= len(self._options)-1:
+                self._text_objects[self._active].set_color(self._colors[0])
+                self._active = 0
+                self._text_objects[self._active].set_color(self._colors[1])
+            else:
+                self._text_objects[self._active].set_color(self._colors[0])
+                self._active += 1
+                self._text_objects[self._active].set_color(self._colors[1])
+
+        return True
