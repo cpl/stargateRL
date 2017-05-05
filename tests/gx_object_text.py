@@ -34,7 +34,26 @@ Aliquam voluptatibus id non voluptate quia laudantium architecto sequi.\
 Totam ipsum laudantium commodi voluptatem voluptates asperiores illum\
 pariatur. Sed quisquam occaecati quo distinctio quaerat reiciendis.
 """
-st = SpriteText(LONG_TEXT, 1, window.y_tiles-2, 50, None,
-                TileColor('red', 'gold'), window._batch)
+
+MORE_TEXT = """Aliquam voluptatibus id non voluptate quia laudantium\
+architecto sequi.Totam ipsum laudantium commodi voluptatem voluptates\
+asperiores illum pariatur. Sed quisquam occaecati quo distinctio quaerat\
+reiciendis."""
+
+
+st1 = SpriteText(LONG_TEXT, 1, window.y_tiles-2, 50, None,
+                 TileColor('red', 'gold'), window._batch)
+
+st2 = SpriteText(MORE_TEXT, 10, 20, 20, None,
+                 TileColor('blue', 'gold'), window._batch)
+
+
+@window.event
+def on_key_press(symbol, modifers):
+    """Keypress."""
+    st2.set_color(TileColor('gold', 'blue'), 0, 20)
+    st2.set_color(TileColor('gold', 'red'), 20, 30)
+    st2.set_color(TileColor(), 40)
+
 
 pyglet.app.run()
