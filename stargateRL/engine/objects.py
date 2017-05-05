@@ -1,49 +1,54 @@
 """Contains classes for all sorts of objects (TOTALLY ripped from Unity)."""
 
-import pyglet
+from pyglet.sprite import Sprite
+
 from stargateRL.utils import GX_TILESETS
+from stargateRL.engine.graphx import TileColor
 
 
 class SpriteObject(object):
-    """TODO: Docstring."""
+    """Spriteobject are objects made out of sprites."""
 
     def __init__(self, batch=None, group_order=None):
-        """Spriteobject are objects made out of sprites."""
+        """Construct sprite object."""
         pass
 
 
 class SpriteText(SpriteObject):
-    """TODO: Docstring."""
+    """This can be a single word, a line of text or even a block of text."""
 
-    def __init__(self, string, pos_x, pos_y,
-                 foreground_color='white', background_color='transparent',
-                 batch=None, group_order=None):
-        """Convert a string to a set of sprites, using the tileset letters."""
+    def __init__(self, string, x, y, x_tiles=None, y_tiles=None,
+                 tile_color=TileColor(), batch=None, group_order=None):
+        """Construct the text out of sprites."""
         self._string = string
         self._batch = batch
         self._group_order = group_order
-        self.set_text(string, pos_x, pos_y, foreground_color, background_color)
 
-    def set_text(self, string, pos_x, pos_y, foreground_color='transparent',
-                 background_color='white'):
-        """Change the text of the current SpriteObject."""
+        # Create sprites from string
         ts = GX_TILESETS['MAIN'].tile_size
         self._sprites = []
         for index, letter in enumerate(string):
             self._sprites.append(
-                pyglet.sprite.Sprite(
+                Sprite(
                     GX_TILESETS['MAIN'].get_colored(ord(letter),
-                                                    background_color,
-                                                    foreground_color),
-                    (pos_x+index-(len(string)+1)/2)*ts,
-                    pos_y * ts, batch=self._batch))
+                                                    tile_color),
+                    (x + index - (len(string) + 1) / 2) * ts,
+                    y * ts,
+                    batch=self._batch, group=self._group_order))
 
-    def set_color(self, foreground_color='white',
-                  background_color='transparent',
-                  letter_start=0, letter_end=-1):
-        """Change the color of the text or some letters only."""
-        for index, letter in enumerate(self.string[letter_start:letter_end]):
-            self._sprites[index].image =\
-                GX_TILESETS['MAIN'].get_colored(ord(letter),
-                                                background_color,
-                                                foreground_color)
+    def set_color(self, tile_color=TileColor(), start=0, end=-1):
+        """Change the color of the text or part of the text."""
+        for index, sprite in enumerate(self._sprites[start:end]):
+            sprite.image =\
+                GX_TILESETS['MAIN'].get_colored(ord(self._string[index+start]),
+                                                tile_color)
+
+    def set_batch(self, batch=None):
+        """Set the batch of the sprites."""
+        for sprite in self._sprites:
+            sprite.batch = batch
+
+    def set_group(self, group_order=None, start=0, end=-1):
+        """Set the group of the sprites."""
+        for sprite in self._sprites[start:end]:
+            sprite.group = group_order

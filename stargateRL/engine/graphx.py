@@ -21,7 +21,8 @@ class Color(object):
 class TileColor(object):
     """A class holding two colors (foreground and background)."""
 
-    def __init__(self, foreground_color, background_color):
+    def __init__(self, foreground_color='white',
+                 background_color='transparent'):
         """Construct the color for the tile."""
         self._foreground_color = foreground_color
         self._background_color = background_color
