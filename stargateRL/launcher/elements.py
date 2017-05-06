@@ -4,9 +4,9 @@ import tkinter as tk
 import tkinter.font as tkFont
 
 
-SUBFRAMES_TITLES = ['GRAPHICS', 'WINDOW', 'RESOURCES']
 # First color is the background, second color is the foreground
 HEADER_COLORS = ('#37343E', '#F5EDEA')
+VALUE_COLORS = ('', '#F5EDEA')
 SUBFRAME_COLORS = ('#7E7F7F', '')
 
 
@@ -33,6 +33,7 @@ class SubFrame(tk.Frame):
         """Construct the sub frame."""
         tk.Frame.__init__(self, master, bg=SUBFRAME_COLORS[0])
         self.pack(side=tk.TOP, fill=tk.BOTH)
+        self.options = []
 
         header_font = tkFont.Font(family='Serif', size=18, weight=tkFont.BOLD)
         self._label = tk.Label(master=self, text='# '+label, anchor=tk.NW,
@@ -70,7 +71,8 @@ class IntegerInput(Input):
         self._value = tk.StringVar(value=value)
         self._entry = tk.Entry(master=self, textvariable=self._value,
                                bg=SUBFRAME_COLORS[0], relief=tk.FLAT,
-                               highlightbackground=SUBFRAME_COLORS[0])
+                               highlightbackground=SUBFRAME_COLORS[0],
+                               fg=VALUE_COLORS[1])
         self._entry.pack(fill=tk.X, side=tk.RIGHT)
 
     def get_value(self):
@@ -93,4 +95,23 @@ class BooleanInput(Input):
 
     def get_value(self):
         """Return the value from the entry."""
+        return self._value.get()
+
+
+class StringInput(Input):
+    """Input a string."""
+
+    def __init__(self, master, label, value):
+        """Construct the string input."""
+        super(StringInput, self).__init__(master, label)
+
+        self._value = tk.StringVar(value=value)
+        self._entry = tk.Entry(master=self, textvariable=self._value,
+                               bg=SUBFRAME_COLORS[0], relief=tk.FLAT,
+                               highlightbackground=SUBFRAME_COLORS[0],
+                               fg=VALUE_COLORS[1])
+        self._entry.pack(fill=tk.X, side=tk.RIGHT)
+
+    def get_value(self):
+        """Return the value from the input."""
         return self._value.get()

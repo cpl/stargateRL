@@ -1,19 +1,18 @@
 {
-    "caption": "StargateRL",
-    "graphics": {
-        "size": 16,
-        "window": {
-            "width": 1440,
-            "height": 900,
-            "fullscreen": true,
-            "resizable": true,
-            "style": "default",
-            "mouse": false
-        }
-    },
+    "window": {
+        "fullscreen": true, 
+        "style": "default", 
+        "resizable": true, 
+        "height": 900, 
+        "width": 1440, 
+        "mouse": false,
+        "caption": "StargateRL"
+    }, 
     "resources": {
-        "tileset": "tileset.png",
-        "selection": "selection.png",
-        "icon": "icon.png"
-    }
+        "selection": "selection.png", 
+        "tileset": "tileset.png", 
+        "icon": "icon.png", 
+        "size": 16
+    }, 
+    "graphics": {}
 }

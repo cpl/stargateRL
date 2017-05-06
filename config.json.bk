@@ -1,0 +1,19 @@
+{
+    "caption": "StargateRL",
+    "graphics": {
+        "size": 16,
+        "window": {
+            "width": 1440,
+            "height": 900,
+            "fullscreen": true,
+            "resizable": true,
+            "style": "default",
+            "mouse": false
+        }
+    },
+    "resources": {
+        "tileset": "tileset.png",
+        "selection": "selection.png",
+        "icon": "icon.png"
+    }
+}
