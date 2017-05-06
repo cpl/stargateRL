@@ -41,19 +41,27 @@ asperiores illum pariatur. Sed quisquam occaecati quo distinctio quaerat\
 reiciendis."""
 
 
+window.test_batch = pyglet.graphics.Batch()
 st1 = SpriteText(LONG_TEXT, 1, window.y_tiles-2, 50, None,
-                 TileColor('red', 'gold'), window._batch)
+                 TileColor('red', 'gold'), window.test_batch)
 
 st2 = SpriteText(MORE_TEXT, 10, 20, 20, None,
-                 TileColor('blue', 'gold'), window._batch)
+                 TileColor('blue', 'gold'), window.test_batch)
 
 
 @window.event
 def on_key_press(symbol, modifers):
     """Keypress."""
+    print((symbol, modifers))
     st2.set_color(TileColor('gold', 'blue'), 0, 20)
     st2.set_color(TileColor('gold', 'red'), 20, 30)
     st2.set_color(TileColor(), 40)
+
+
+@window.event
+def on_draw():
+    """Draw."""
+    window.test_batch.draw()
 
 
 pyglet.app.run()

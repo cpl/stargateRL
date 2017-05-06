@@ -50,6 +50,7 @@ class BorderWidget(Widget):
         super(BorderWidget, self).__init__()
         ts = GX_TILESETS['MAIN'].tile_size
 
+        # TODO: better way of defining border tiles
         LT_CORNER = kargs.get('LT_CORNER', 178)
         LB_CORNER = kargs.get('LB_CORNER', 178)
         RB_CORNER = kargs.get('RB_CORNER', 178)

@@ -13,12 +13,12 @@ class MainFrame(tk.Frame):
         tk.Frame.__init__(self, master)
         self.pack(fill=tk.BOTH)
 
-        self._subframes = {}
+        self.subframes = {}
 
     def make_subframes(self, frames):
         """Generate empty subframes for the settings."""
         for frame in frames:
-            self._subframes[frame] = SubFrame(self, frame)
+            self.subframes[frame] = SubFrame(self, frame)
 
 
 class SubFrame(tk.Frame):
