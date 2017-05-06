@@ -14,5 +14,8 @@
         "icon": "icon.png", 
         "size": 16
     }, 
-    "graphics": {}
+    "graphics": {
+        "vsync": false,
+        "max frames": 60
+    }
 }

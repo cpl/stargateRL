@@ -27,9 +27,35 @@ def save_config(config_dictionary):
         json.dump(config_dictionary, config_file, indent=4)
 
 
-def set_config(section, key, value):
-    """Set the value of the section."""
-    CONFIG[section][key] = value
+def save():
+    """Method called by the Apply button."""
+    pass
+
+
+def default():
+    """Change the configs back to the default."""
+    pass
+
+
+def close():
+    """Method called by the Close button."""
+    popup = tk.Toplevel(master=None)
+    popup.title('Are you sure?')
+    popup.resizable(0, 0)
+
+    popup.grab_set()
+
+    label = tk.Label(popup, anchor=tk.N,
+                     text='Are you sure you want to exit without saving?')
+    label.pack(side=tk.TOP, fill=tk.X)
+
+    tk.Button(popup, anchor=tk.CENTER, text='Yes',
+              command=root.destroy).pack(side=tk.LEFT)
+    tk.Button(popup, anchor=tk.CENTER, text='No',
+              command=popup.destroy).pack(side=tk.LEFT)
+
+    popup.mainloop()
+    popup.destroy()
 
 
 root = tk.Tk()
@@ -58,9 +84,12 @@ for section in CONFIG.keys():
             mf.subframes[section].options.append(
                 elements.StringInput(mf.subframes[section], key, value))
 
-tk.Button(mf, text='Apply', fg='#DF6140').pack(side=tk.LEFT, fill=tk.X)
-tk.Button(mf, text='Cancel', fg='#DF6140').pack(side=tk.LEFT, fill=tk.X)
-
+tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
+          text='Apply').pack(side=tk.LEFT, fill=tk.X)
+tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
+          text='Cancel', command=close).pack(side=tk.LEFT, fill=tk.X)
+tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
+          text='Default', command=default).pack(side=tk.LEFT, fill=tk.X)
 
 # GUI goes above this line
 root.mainloop()

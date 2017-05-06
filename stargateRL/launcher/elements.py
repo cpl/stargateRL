@@ -7,6 +7,7 @@ import tkinter.font as tkFont
 # First color is the background, second color is the foreground
 HEADER_COLORS = ('#37343E', '#F5EDEA')
 VALUE_COLORS = ('', '#F5EDEA')
+MAINFRAME_COLORS = ('#37343E', '')
 SUBFRAME_COLORS = ('#7E7F7F', '')
 
 
@@ -15,7 +16,7 @@ class MainFrame(tk.Frame):
 
     def __init__(self, master):
         """Construct the main frame."""
-        tk.Frame.__init__(self, master)
+        tk.Frame.__init__(self, master, bg=MAINFRAME_COLORS[0])
         self.pack(fill=tk.BOTH)
 
         self.subframes = {}
