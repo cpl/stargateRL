@@ -1,10 +1,12 @@
 """The main launcher for changing the configurations."""
 
-from Tkinter import Tk
+from tkinter import Tk
 from stargateRL.launcher import elements
 
 
 root = Tk()
+root.resizable(0, 0)
+root.wm_title('StargateRL Launcher')
 # GUI goes bellow this line
 
 mf = elements.MainFrame(root)
