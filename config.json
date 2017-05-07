@@ -15,8 +15,8 @@
         "icon": "icon.png"
     }, 
     "graphics": {
-        "max frames": 60, 
         "scale": 1, 
+        "fps limit": 60, 
         "vsync": false
     }
 }

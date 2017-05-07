@@ -14,7 +14,8 @@ window = GameWindow(window_config['width'],
                     window_config['height'],
                     fullscreen=window_config['fullscreen'],
                     resizable=window_config['resizable'],
-                    style=window_config['style'])
+                    style=window_config['style'],
+                    vsync=CONFIG['graphics']['vsync'])
 
 # Configurate window
 window.set_mouse_visible(window_config['mouse'])

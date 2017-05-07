@@ -18,7 +18,8 @@ class GameWindow(pyglet.window.Window):
         self.x_tiles = int(width/GX_TILESETS['MAIN'].tile_size)
         self.y_tiles = int(height/GX_TILESETS['MAIN'].tile_size)
 
-        # DEBUG
+        # DEBUG, used in testing and other
+        # TODO: Remove this is production
         self._batch = pyglet.graphics.Batch()
 
     def push_widget(self, widget):
