@@ -1,6 +1,5 @@
 """Widget support."""
 
-import pyglet
 from pyglet.sprite import Sprite
 from pyglet.graphics import Batch
 from pyglet.window import key as wkey

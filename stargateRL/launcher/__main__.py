@@ -29,7 +29,7 @@ def save_config(config_dictionary):
             os.path.join(os.path.dirname(__file__),
                          os.pardir, os.pardir, 'config.json'))
     with open(config_file_name, 'w') as config_file:
-        json.dump(config_dictionary, config_file, indent=4)
+        json.dump(config_dictionary, config_file, indent=4, sort_keys=True)
 
 
 def save():
