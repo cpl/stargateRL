@@ -25,9 +25,9 @@ def load_config():
 
 def save_config(config_dictionary):
     """Save the config changes."""
-    config_file_name = 'config.json'
-    if os.path.isfile('config.local.json'):
-        config_file_name = 'config.local.json'
+    config_file_name = os.path.abspath(
+            os.path.join(os.path.dirname(__file__),
+                         os.pardir, os.pardir, 'config.json'))
     with open(config_file_name, 'w') as config_file:
         json.dump(config_dictionary, config_file, indent=4)
 
