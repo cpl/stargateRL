@@ -1,8 +1,9 @@
 """Window/Screen manager."""
 
 import pyglet
+from pyglet import gl
 
-from stargateRL.utils import GX_TILESETS
+from stargateRL.utils import GX_TILESETS, GL_SCALING
 
 
 class GameWindow(pyglet.window.Window):
@@ -37,13 +38,14 @@ class GameWindow(pyglet.window.Window):
 
     def on_draw(self):
         """Pyglet Window draw method."""
+        # OpenGL Settings
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+        gl.glLoadIdentity()
+        gl.glScaled(GL_SCALING, GL_SCALING, 1)
+
         self.clear()
         for widget in self._widgets:
             widget.draw()
-
-        # DEBUG
-        self._batch.draw()
-
         self.fps.draw()
 
     def on_key_press(self, symbol, modifiers):

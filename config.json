@@ -4,18 +4,19 @@
         "style": "default", 
         "resizable": true, 
         "caption": "stargateRL", 
-        "height": 900, 
-        "width": 1000, 
+        "height": 500, 
+        "width": 800, 
         "mouse": false
     }, 
     "resources": {
-        "size": 16, 
+        "size": 32, 
         "selection": "selection.png", 
-        "tileset": "tileset.png", 
+        "tileset": "tileset32.png", 
         "icon": "icon.png"
     }, 
     "graphics": {
         "max frames": 60, 
+        "scale": 1, 
         "vsync": false
     }
 }

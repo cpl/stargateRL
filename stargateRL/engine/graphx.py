@@ -68,14 +68,14 @@ class GxTileset(object):
 
         # Normalize Pyglet's strange way of indexing ImageGrids
         self.tileset_grid = \
-            [self.tileset_grid[x:x+self.tile_size]
-             for x in range(0, len(self.tileset_grid), self.tile_size)]
+            [self.tileset_grid[x:x+self.x_tiles_count]
+             for x in range(0, len(self.tileset_grid), self.y_tiles_count)]
         self.tileset_grid = self.tileset_grid[::-1]
 
     def get_by_id(self, tile_id):
         """Return a Image from the ImageGrid of the tileset."""
-        row = self.tileset_grid[int(tile_id / self.tile_size)]
-        return row[tile_id % self.tile_size]
+        row = self.tileset_grid[int(tile_id / self.x_tiles_count)]
+        return row[tile_id % self.y_tiles_count]
 
     def get(self, row, column):
         """Return the Image from x, y inside ImageGrid."""

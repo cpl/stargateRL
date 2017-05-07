@@ -6,6 +6,7 @@ from stargateRL.engine.graphx import TileColor
 from stargateRL.engine import widgets
 from stargateRL.utils import CONFIG
 
+
 # Create the game window
 window_config = CONFIG['window']
 
