@@ -1,5 +1,6 @@
 """Widget support."""
 
+import pyglet
 from pyglet.sprite import Sprite
 from pyglet.graphics import Batch
 from pyglet.window import key as wkey
@@ -138,16 +139,19 @@ class SelectionMenuWidget(BorderWidget):
 
         op_lenght = len(options)
         for index, option in enumerate(options):
-            word_length = len(option)
+            word_length = len(option[0])
             self._text_objects.append(
-                SpriteText(option, x+x_tiles/2-word_length/2,
-                           y+y_tiles/2-index+op_lenght,
+                SpriteText(option[0], x+x_tiles/2-word_length/2,
+                           y+y_tiles-index-op_lenght/2,
                            None, None, tile_color, self._batch))
         self._text_objects[self._active].set_color(self._colors[1])
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""
-        if symbol == wkey.UP:
+        if symbol == wkey.ENTER:
+            getattr(self._options[self._active][1],
+                    self._options[self._active][2])()
+        elif symbol == wkey.UP:
             if self._active <= 0:
                 self._text_objects[self._active].set_color(self._colors[0])
                 self._active = len(self._options)-1

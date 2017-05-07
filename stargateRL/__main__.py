@@ -31,7 +31,13 @@ selection_menu =\
                                 TileColor('gold', 'transparent'),
                                 TileColor('white', 'transparent'),
                                 TileColor('red', 'gold'),
-                                'Settings', 'Exit')
+                                # Menu options
+                                ('Compile World', None, None),
+                                ('Testing Area', None, None),
+                                ('Saves/Worlds', None, None),
+                                ('Settings', None, None),
+                                ('Credits/About', None, None),
+                                ('Exit', pyglet.app, 'exit'))
 
 window.push_widget(screen_border)
 window.push_widget(selection_menu)
