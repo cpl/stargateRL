@@ -25,4 +25,4 @@ def load_config():
 CONFIG = load_config()
 # Load the tileset
 GX_TILESETS = {'MAIN': GxTileset(CONFIG['resources']['tileset'],
-                                 CONFIG['graphics']['size'])}
+                                 CONFIG['resources']['size'])}

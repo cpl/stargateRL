@@ -7,7 +7,7 @@ from stargateRL.engine import widgets
 from stargateRL.utils import CONFIG
 
 # Create the game window
-window_config = CONFIG['graphics']['window']
+window_config = CONFIG['window']
 
 window = GameWindow(window_config['width'],
                     window_config['height'],

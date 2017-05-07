@@ -32,7 +32,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.1',
+    version='0.0.1dev1',
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
     long_description=LONG_DESCRIPTION,
@@ -54,9 +54,17 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: Other Audience',
+        'Intended Audience :: End Users/Desktop',
+        'Intended Audience :: Developers',
 
         # Topics
         'Topic :: Games/Entertainment',
+        'Topic :: Multimedia :: Graphics',
+
+        # Environment
+        'Environment :: X11 Applications',
+        'Environment :: MacOS X',
+        'Environment :: Win32 (MS Windows)',
 
         # Pick your license as you wish (should match "license" above)
         'License :: Other/Proprietary License',
@@ -67,6 +75,7 @@ setup(
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
     ],
 
     # What does your project relate to?
@@ -103,9 +112,8 @@ setup(
     # need to place data files outside of your packages. See:
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=[('maps', ['data/maps/*.map']),
-                ('pngs', ['bin/*.png']),
-                ('config', ['config.json'])],
+    data_files=[('config', ['config.json']),
+                ('bins', ['bin/icon.png', 'bin/tileset.png'])],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow

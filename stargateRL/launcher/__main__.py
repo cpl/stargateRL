@@ -8,6 +8,12 @@ import tkinter as tk
 from stargateRL.launcher import elements
 
 
+def launch():
+    """Start the stargateRL.__main__ method."""
+    root.destroy()
+    import stargateRL.__main__
+
+
 def load_config():
     """Load the config file."""
     # Check local config first
@@ -33,7 +39,7 @@ def save():
     for section in CONFIG.keys():
         for key, value in CONFIG[section].items():
             config_dictionary[section][key] =\
-                mf.subframes[section].options[key].get_value()
+                config_frame.subframes[section].options[key].get_value()
     save_config(config_dictionary)
 
 
@@ -65,36 +71,41 @@ def close():
 
 root = tk.Tk()
 root.resizable(0, 0)
-root.wm_title('StargateRL Launcher')
+root.wm_title('stargateRL Launcher')
 
 CONFIG = load_config()
 
 # GUI goes bellow this line
-
 # Generate the sections
-mf = elements.MainFrame(root)
-mf.make_subframes(CONFIG.keys())
+config_frame = elements.MainFrame(root)
+config_frame.make_subframes(CONFIG.keys())
 
 # Fill the sections with options
 for section in CONFIG.keys():
     for key, value in CONFIG[section].items():
         value_type = type(value)
         if value_type == int:
-            mf.subframes[section].options[key] =\
-                elements.IntegerInput(mf.subframes[section], key, value)
+            config_frame.subframes[section].options[key] =\
+                elements.IntegerInput(
+                    config_frame.subframes[section], key, value)
         elif value_type == bool:
-            mf.subframes[section].options[key] =\
-                elements.BooleanInput(mf.subframes[section], key, value)
+            config_frame.subframes[section].options[key] =\
+                elements.BooleanInput(
+                    config_frame.subframes[section], key, value)
         elif value_type == str or value_type == unicode:
-            mf.subframes[section].options[key] =\
-                elements.StringInput(mf.subframes[section], key, value)
+            config_frame.subframes[section].options[key] =\
+                elements.StringInput(
+                    config_frame.subframes[section], key, value)
 
-tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
+tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
           text='Apply', command=save).pack(side=tk.LEFT, fill=tk.X)
-tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
+tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
           text='Cancel', command=close).pack(side=tk.LEFT, fill=tk.X)
-tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
+tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
           text='Default', command=default).pack(side=tk.LEFT, fill=tk.X)
+
+tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
+          text='Launch', command=launch).pack(side=tk.RIGHT, fill=tk.X)
 
 # GUI goes above this line
 root.mainloop()
