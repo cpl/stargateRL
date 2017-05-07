@@ -8,15 +8,14 @@ from stargateRL.engine.graphx import GxTileset
 __all__ = ['CONFIG', 'GX_TILESETS']
 
 # Define resource path
-pyglet.resource.path = [(os.path.abspath(os.path.join('bin')))]
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+pyglet.resource.path = [(os.path.abspath(os.path.join(ROOT_DIR, 'bin')))]
 
 
 def load_config():
     """Load the config file."""
-    # Check local config first
-    config_file_name = 'config.json'
-    if os.path.isfile('config.local.json'):
-        config_file_name = 'config.local.json'
+    config_file_name = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), os.pardir, 'config.json'))
     with open(config_file_name, 'r') as config_file:
         return json.load(config_file)
 
