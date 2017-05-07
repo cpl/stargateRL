@@ -34,7 +34,7 @@ class SubFrame(tk.Frame):
         """Construct the sub frame."""
         tk.Frame.__init__(self, master, bg=SUBFRAME_COLORS[0])
         self.pack(side=tk.TOP, fill=tk.BOTH)
-        self.options = []
+        self.options = {}
 
         header_font = tkFont.Font(family='Serif', size=18, weight=tkFont.BOLD)
         self._label = tk.Label(master=self, text='# '+label, anchor=tk.NW,

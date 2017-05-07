@@ -29,7 +29,12 @@ def save_config(config_dictionary):
 
 def save():
     """Method called by the Apply button."""
-    pass
+    config_dictionary = CONFIG
+    for section in CONFIG.keys():
+        for key, value in CONFIG[section].items():
+            config_dictionary[section][key] =\
+                mf.subframes[section].options[key].get_value()
+    save_config(config_dictionary)
 
 
 def default():
@@ -75,17 +80,17 @@ for section in CONFIG.keys():
     for key, value in CONFIG[section].items():
         value_type = type(value)
         if value_type == int:
-            mf.subframes[section].options.append(
-                elements.IntegerInput(mf.subframes[section], key, value))
+            mf.subframes[section].options[key] =\
+                elements.IntegerInput(mf.subframes[section], key, value)
         elif value_type == bool:
-            mf.subframes[section].options.append(
-                elements.BooleanInput(mf.subframes[section], key, value))
+            mf.subframes[section].options[key] =\
+                elements.BooleanInput(mf.subframes[section], key, value)
         elif value_type == str or value_type == unicode:
-            mf.subframes[section].options.append(
-                elements.StringInput(mf.subframes[section], key, value))
+            mf.subframes[section].options[key] =\
+                elements.StringInput(mf.subframes[section], key, value)
 
 tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
-          text='Apply').pack(side=tk.LEFT, fill=tk.X)
+          text='Apply', command=save).pack(side=tk.LEFT, fill=tk.X)
 tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],
           text='Cancel', command=close).pack(side=tk.LEFT, fill=tk.X)
 tk.Button(mf, highlightbackground=elements.MAINFRAME_COLORS[0],

@@ -3,19 +3,19 @@
         "fullscreen": true, 
         "style": "default", 
         "resizable": true, 
+        "caption": "StargateRL", 
         "height": 900, 
         "width": 1440, 
-        "mouse": false,
-        "caption": "StargateRL"
+        "mouse": false
     }, 
     "resources": {
+        "size": 16, 
         "selection": "selection.png", 
         "tileset": "tileset.png", 
-        "icon": "icon.png", 
-        "size": 16
+        "icon": "icon.png"
     }, 
     "graphics": {
-        "vsync": false,
-        "max frames": 60
+        "max frames": 60, 
+        "vsync": false
     }
 }
