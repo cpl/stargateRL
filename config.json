@@ -1,11 +1,11 @@
 {
     "window": {
-        "fullscreen": false, 
+        "fullscreen": true, 
         "style": "default", 
-        "resizable": true, 
+        "resizable": false, 
         "caption": "stargateRL", 
-        "height": 500, 
-        "width": 800, 
+        "height": 900, 
+        "width": 1440, 
         "mouse": false
     }, 
     "resources": {
@@ -17,6 +17,6 @@
     "graphics": {
         "scale": 1, 
         "fps limit": 60, 
-        "vsync": false
+        "vsync": true
     }
 }

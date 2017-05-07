@@ -5,7 +5,7 @@ import pyglet
 
 from stargateRL.engine.graphx import GxTileset
 
-__all__ = ['CONFIG', 'GX_TILESETS', 'GL_SCALING']
+__all__ = ['CONFIG', 'GX_TILESETS', 'GL_SCALING', 'INTENDED_SIZE']
 
 # Define resource path
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
@@ -29,5 +29,5 @@ GX_TILESETS = {'MAIN': GxTileset(CONFIG['resources']['tileset'],
 # Graphical settings
 INTENDED_SIZE = 16
 GL_SCALING =\
-    (INTENDED_SIZE / float(CONFIG['resources']['size']))*CONFIG['graphics']['scale']
-print GL_SCALING, INTENDED_SIZE, CONFIG['resources']['size'], CONFIG['graphics']['scale']
+    (INTENDED_SIZE / float(CONFIG['resources']['size']))\
+    * CONFIG['graphics']['scale']

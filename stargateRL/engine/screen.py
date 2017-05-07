@@ -3,7 +3,7 @@
 import pyglet
 from pyglet import gl
 
-from stargateRL.utils import GX_TILESETS, GL_SCALING
+from stargateRL.utils import GL_SCALING, INTENDED_SIZE
 
 
 class GameWindow(pyglet.window.Window):
@@ -15,8 +15,8 @@ class GameWindow(pyglet.window.Window):
         self._widgets = []
         self.fps = pyglet.clock.ClockDisplay()
 
-        self.x_tiles = int(width/GX_TILESETS['MAIN'].tile_size)
-        self.y_tiles = int(height/GX_TILESETS['MAIN'].tile_size)
+        self.x_tiles = int(width/INTENDED_SIZE)
+        self.y_tiles = int(height/INTENDED_SIZE)
 
         # DEBUG, used in testing and other
         # TODO: Remove this is production
