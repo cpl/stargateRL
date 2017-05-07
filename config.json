@@ -9,9 +9,9 @@
         "mouse": false
     }, 
     "resources": {
-        "size": 32, 
+        "size": 20, 
         "selection": "selection.png", 
-        "tileset": "tileset32.png", 
+        "tileset": "tileset20.png", 
         "icon": "icon.png"
     }, 
     "graphics": {
