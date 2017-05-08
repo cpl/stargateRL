@@ -19,8 +19,8 @@ def normalize(min_value, max_value, value):
 
 def continent(elevation, center, edges, water, nx, ny):
     """Transform the terrain into continents."""
-    distance = 2*max(abs(nx), abs(ny))
-    return (elevation + center) * (edges - 1.0*math.pow(distance, water))
+    distance = 2 * max(abs(nx), abs(ny))
+    return (elevation + center) * (edges - 1.0 * math.pow(distance, water))
 
 
 def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
@@ -81,6 +81,9 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
     for y in range(height):
         for x in range(width):
             noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
+            noise_map[x][y] = continent(noise_map[x][y], 0.05, 1.0, 1.5,
+                                        float(x) / width - 0.5,
+                                        float(y) / height - 0.5)
             noise_map[x][y] = math.pow(noise_map[x][y], exponent)
             if terraces != 1.0:
                 noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
@@ -102,7 +105,14 @@ def create_pgm(noise_map, file_name):
 # my_seed = getrandbits(21)
 my_seed = 21
 print my_seed
-create_pgm(generate_noise_map(width=1000, height=1000, scale=200.0, octaves=8,
-                              persistance=0.4, lacunarity=1.87, terraces=1.0,
-                              exponent=7, seed=my_seed),
-           '{}.pgm'.format(my_seed))
+
+for i in range(5):
+    my_seed = getrandbits(21)
+    create_pgm(generate_noise_map(width=500, height=500, scale=250.0, octaves=8,
+                                persistance=0.4, lacunarity=1.87, terraces=64.0,
+                                exponent=4, seed=my_seed),
+            'r{}x{}_scale{}_o{}_p{}_l{}_tr{}_exp{}_seed{}c.pgm'.format(500, 500,
+                                                                        250.0, 8,
+                                                                        0.4, 1.87,
+                                                                        64.0, 4,
+                                                                        my_seed))
