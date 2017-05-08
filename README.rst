@@ -1,7 +1,7 @@
-|logo|
-~~~~~~~~~
+|mylogo|
+~~~~~~~~
 StargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
-==================================================
+===========================================================
 .. |coveralls| image:: https://coveralls.io/repos/github/thee-engineer/stargateRL/badge.svg?branch=refactor
   :target: https://coveralls.io/github/thee-engineer/stargateRL?branch=refactor
   :alt: Coveralls
@@ -17,5 +17,10 @@ StargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
 .. |gitter| image:: https://img.shields.io/gitter/room/nwjs/nw.js.svg
     :target: https://gitter.im/stargateRL/Lobby
     :alt: Gitter Chat
-.. |logo| image:: https://github.com/thee-engineer/stargateRL/blob/refactor/bin/icon.png
-  :alt: Logo
+.. |mylogo| image:: http://i.imgur.com/LKfqDNV.png
+
+-----------------------------------------------------------
+
+===========
+Description
+===========
