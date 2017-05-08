@@ -115,11 +115,6 @@ class BorderWidget(Widget):
         return True
 
 
-# TODO: SelectionMenu should have some sort of way performing an action
-# when `wkey.RETURN` is pressed on the current active option `self._active`
-# Possibly a dictionary of methods? Where the keys are integers?
-# eg: self.ACTIONS[self._active] %params%
-# This would have another method to set the ACTIONS
 class SelectionMenuWidget(BorderWidget):
     """A menu of options."""
 
