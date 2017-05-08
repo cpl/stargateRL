@@ -1,8 +1,9 @@
 """Terrain generation and more."""
 
 
-from noise import pnoise2 as noise2
+from noise import snoise2 as noise2
 import random
+import math
 from random import getrandbits
 
 
@@ -16,8 +17,14 @@ def normalize(min_value, max_value, value):
     return float(value - min_value) / (max_value + min_value)
 
 
+def continent(elevation, center, edges, water, nx, ny):
+    """Transform the terrain into continents."""
+    distance = 2*max(abs(nx), abs(ny))
+    return (elevation + center) * (edges - 1.0*math.pow(distance, water))
+
+
 def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
-                       seed=0):
+                       terraces, exponent, seed=0):
     """Generate a 2D map of noise."""
     random.seed(seed)
 
@@ -31,6 +38,8 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
         lacunarity = 1
     if octaves < 0:
         octaves = 0
+    if terraces < 1:
+        terraces = 1.0
 
     noise_map = [[0 for y in range(height)] for x in range(width)]
 
@@ -72,8 +81,9 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
     for y in range(height):
         for x in range(width):
             noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
-            import math
-            noise_map[x][y] = math.pow(noise_map[x][y], 7)
+            noise_map[x][y] = math.pow(noise_map[x][y], exponent)
+            if terraces != 1.0:
+                noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
 
     return noise_map
 
@@ -92,6 +102,7 @@ def create_pgm(noise_map, file_name):
 # my_seed = getrandbits(21)
 my_seed = 21
 print my_seed
-create_pgm(generate_noise_map(width=1024, height=1024, scale=250.0, octaves=4,
-                              persistance=0.4, lacunarity=1.87, seed=my_seed),
+create_pgm(generate_noise_map(width=1000, height=1000, scale=200.0, octaves=8,
+                              persistance=0.4, lacunarity=1.87, terraces=1.0,
+                              exponent=7, seed=my_seed),
            '{}.pgm'.format(my_seed))
