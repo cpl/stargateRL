@@ -82,31 +82,20 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
     for y in range(height):
         for x in range(width):
             noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
+            noise_map[x][y] = continent(noise_map[x][y], 0.0, 1.0, 5.0,
+                                        float(x) / width - 0.5,
+                                        float(y) / height - 0.5)
             noise_map[x][y] = math.pow(noise_map[x][y], exponent)
-            # noise_map[x][y] = continent(noise_map[x][y], 0.001, 2.0, 10.0,
-            #                             float(x) / width - 0.5,
-            #                             float(y) / height - 0.5)
             if terraces != 1.0:
                 noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
 
     return noise_map
 
 
-# def create_pgm(noise_map, file_name):
-#     """Create PGM heightmap."""
-#     with open(file_name, 'w') as pmg:
-#         pmg.write('P2\n')
-#         pmg.write('{} {}\n'.format(len(noise_map), len(noise_map[0])))
-#         pmg.write('255\n')
-#         for row in noise_map:
-#             for noise in row:
-#                 pmg.write('{}\n'.format(int(noise * 255.0)))
-
-
 # my_seed = getrandbits(21)
 
-for i in range(1):
-    my_seed = 21
+for i in range(5):
+    my_seed = getrandbits(21)
     nm = generate_noise_map(width=500, height=500, scale=150.0, octaves=5,
                             persistance=0.5, lacunarity=2.1, terraces=32.0,
                             exponent=4.5, seed=my_seed)
