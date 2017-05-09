@@ -5,6 +5,7 @@ from noise import snoise2 as noise2
 import random
 import math
 from random import getrandbits
+from PIL import Image
 
 
 def noise(x, y, width, height):
@@ -81,38 +82,60 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
     for y in range(height):
         for x in range(width):
             noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
-            noise_map[x][y] = continent(noise_map[x][y], 0.05, 1.0, 1.5,
-                                        float(x) / width - 0.5,
-                                        float(y) / height - 0.5)
             noise_map[x][y] = math.pow(noise_map[x][y], exponent)
+            # noise_map[x][y] = continent(noise_map[x][y], 0.001, 2.0, 10.0,
+            #                             float(x) / width - 0.5,
+            #                             float(y) / height - 0.5)
             if terraces != 1.0:
                 noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
 
     return noise_map
 
 
-def create_pgm(noise_map, file_name):
-    """Create PGM heightmap."""
-    with open(file_name, 'w') as pmg:
-        pmg.write('P2\n')
-        pmg.write('{} {}\n'.format(len(noise_map), len(noise_map[0])))
-        pmg.write('255\n')
-        for row in noise_map:
-            for noise in row:
-                pmg.write('{}\n'.format(int(noise * 255.0)))
+# def create_pgm(noise_map, file_name):
+#     """Create PGM heightmap."""
+#     with open(file_name, 'w') as pmg:
+#         pmg.write('P2\n')
+#         pmg.write('{} {}\n'.format(len(noise_map), len(noise_map[0])))
+#         pmg.write('255\n')
+#         for row in noise_map:
+#             for noise in row:
+#                 pmg.write('{}\n'.format(int(noise * 255.0)))
 
 
 # my_seed = getrandbits(21)
-my_seed = 21
-print my_seed
 
-for i in range(5):
-    my_seed = getrandbits(21)
-    create_pgm(generate_noise_map(width=500, height=500, scale=250.0, octaves=8,
-                                persistance=0.4, lacunarity=1.87, terraces=64.0,
-                                exponent=4, seed=my_seed),
-            'r{}x{}_scale{}_o{}_p{}_l{}_tr{}_exp{}_seed{}c.pgm'.format(500, 500,
-                                                                        250.0, 8,
-                                                                        0.4, 1.87,
-                                                                        64.0, 4,
-                                                                        my_seed))
+for i in range(1):
+    my_seed = 21
+    nm = generate_noise_map(width=500, height=500, scale=150.0, octaves=5,
+                            persistance=0.5, lacunarity=2.1, terraces=32.0,
+                            exponent=4.5, seed=my_seed)
+
+    pixels = []
+    graymap = []
+    for row in nm:
+        for val in row:
+            graymap.append((int(255*val), int(255*val), int(255*val)))
+            if val < 0.05:
+                pixels.append((0, 0, 33))
+            elif val < 0.1:
+                pixels.append((0, 0, 125))
+            elif val < 0.14:
+                pixels.append((100, 127, 33))
+            elif val < 0.3:
+                pixels.append((0, 255, 0))
+            elif val < 0.7:
+                pixels.append((0, 255, 0))
+            elif val < 0.8:
+                pixels.append((56, 88, 20))
+            else:
+                pixels.append((int(val*255), int(val*255), int(val*255)))
+
+    blank_image = Image.new('RGB', (500, 500))
+    gimg = Image.new('RGB', (500, 500))
+    gimg.putdata(graymap)
+    gimg.save('{}graymap.jpg'.format(i))
+    blank_image.putdata(pixels)
+    blank_image.save('{}drawn_image.jpg'.format(i))
+
+    print 'DONE_', i
