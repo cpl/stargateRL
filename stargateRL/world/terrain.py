@@ -15,9 +15,7 @@ def noise(x, y, width, height):
 
 def normalize(min_value, max_value, value):
     """Normalize the given value between 0.0 and 1.0."""
-    v = float(value - min_value) / float(max_value + min_value)
-    # print min_value, max_value, v, value
-    return v
+    return float(value - min_value) / float(max_value + min_value)
 
 
 def continent(elevation, center, edges, water, nx, ny):
@@ -75,10 +73,10 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
                 amplitude *= persistance
                 frequency *= lacunarity
 
-            # if noise_height > max_noise or max_noise is None:
-            #     max_noise = noise_height
-            # if noise_height < min_noise or min_noise is None:
-            #     min_noise = noise_height
+            if noise_height > max_noise:
+                max_noise = noise_height
+            if noise_height < min_noise:
+                min_noise = noise_height
 
             noise_map[x][y] = noise_height
 
