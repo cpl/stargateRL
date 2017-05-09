@@ -15,7 +15,7 @@ def noise(x, y, width, height):
 
 def normalize(min_value, max_value, value):
     """Normalize the given value between 0.0 and 1.0."""
-    return float(value - min_value) / (max_value + min_value)
+    return float(value - min_value) / float(max_value + min_value)
 
 
 def continent(elevation, center, edges, water, nx, ny):
@@ -82,10 +82,11 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
     for y in range(height):
         for x in range(width):
             noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
+            noise_map[x][y] = math.pow(noise_map[x][y], exponent)
             noise_map[x][y] = continent(noise_map[x][y], 0.0, 1.0, 5.0,
                                         float(x) / width - 0.5,
                                         float(y) / height - 0.5)
-            noise_map[x][y] = math.pow(noise_map[x][y], exponent)
+            # noise_map[x][y] = math.pow(noise_map[x][y], exponent)
             if terraces != 1.0:
                 noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
 
@@ -97,34 +98,36 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
 for i in range(5):
     my_seed = getrandbits(21)
     nm = generate_noise_map(width=500, height=500, scale=150.0, octaves=5,
-                            persistance=0.5, lacunarity=2.1, terraces=32.0,
-                            exponent=4.5, seed=my_seed)
+                            persistance=0.5, lacunarity=2.1, terraces=1.0,
+                            exponent=5, seed=my_seed)
 
     pixels = []
     graymap = []
     for row in nm:
         for val in row:
             graymap.append((int(255*val), int(255*val), int(255*val)))
-            if val < 0.05:
-                pixels.append((0, 0, 33))
-            elif val < 0.1:
-                pixels.append((0, 0, 125))
-            elif val < 0.14:
-                pixels.append((100, 127, 33))
+            if val <= 0.08:
+                pixels.append((22, 41, 85))  # deep water
+            elif val <= 0.13:
+                pixels.append((46, 65, 114))  # water
+            elif val < 0.15:
+                pixels.append((255, 206, 107))  # sand
             elif val < 0.3:
-                pixels.append((0, 255, 0))
-            elif val < 0.7:
-                pixels.append((0, 255, 0))
+                pixels.append((61, 205, 61))  # grass
+            elif val < 0.6:
+                pixels.append((59, 111, 59))  # dark grass
             elif val < 0.8:
-                pixels.append((56, 88, 20))
+                pixels.append((64, 55, 43))  # hilly
+            elif val > 0.99:
+                pixels.append((255, 0, 255))  # debug magenta
             else:
-                pixels.append((int(val*255), int(val*255), int(val*255)))
+                pixels.append((255, 255, 255))
 
     blank_image = Image.new('RGB', (500, 500))
     gimg = Image.new('RGB', (500, 500))
     gimg.putdata(graymap)
     gimg.save('{}graymap.jpg'.format(i))
     blank_image.putdata(pixels)
-    blank_image.save('{}drawn_image.jpg'.format(i))
+    blank_image.save('{}drawn_image{}.jpg'.format(i, my_seed))
 
-    print 'DONE_', i
+    print 'DONE', i
