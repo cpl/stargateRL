@@ -15,7 +15,9 @@ def noise(x, y, width, height):
 
 def normalize(min_value, max_value, value):
     """Normalize the given value between 0.0 and 1.0."""
-    return float(value - min_value) / float(max_value + min_value)
+    v = float(value - min_value) / float(max_value + min_value)
+    # print min_value, max_value, v, value
+    return v
 
 
 def continent(elevation, center, edges, water, nx, ny):
@@ -44,8 +46,8 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
 
     noise_map = [[0 for y in range(height)] for x in range(width)]
 
-    max_noise = 0
-    min_noise = 0
+    max_noise = None
+    min_noise = None
 
     octaves_offsets = []
     for o in range(octaves):
@@ -72,23 +74,30 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
                 amplitude *= persistance
                 frequency *= lacunarity
 
-            if noise_height > max_noise:
-                max_noise = noise_height
-            if noise_height < min_noise:
-                min_noise = noise_height
+            # if noise_height > max_noise or max_noise is None:
+            #     max_noise = noise_height
+            # if noise_height < min_noise or min_noise is None:
+            #     min_noise = noise_height
 
             noise_map[x][y] = noise_height
 
     for y in range(height):
         for x in range(width):
-            noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
             noise_map[x][y] = math.pow(noise_map[x][y], exponent)
             noise_map[x][y] = continent(noise_map[x][y], 0.0, 1.0, 5.0,
                                         float(x) / width - 0.5,
                                         float(y) / height - 0.5)
-            # noise_map[x][y] = math.pow(noise_map[x][y], exponent)
             if terraces != 1.0:
                 noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
+
+            if noise_map[x][y] > max_noise or max_noise is None:
+                max_noise = noise_height
+            if noise_map[x][y] < min_noise or min_noise is None:
+                min_noise = noise_height
+
+    for y in range(height):
+        for x in range(width):
+            noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
 
     return noise_map
 
@@ -98,7 +107,7 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
 for i in range(5):
     my_seed = getrandbits(21)
     nm = generate_noise_map(width=500, height=500, scale=150.0, octaves=5,
-                            persistance=0.5, lacunarity=2.1, terraces=1.0,
+                            persistance=0.5, lacunarity=2.5, terraces=1.0,
                             exponent=5, seed=my_seed)
 
     pixels = []
