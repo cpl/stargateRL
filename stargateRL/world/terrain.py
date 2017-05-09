@@ -46,8 +46,9 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
 
     noise_map = [[0 for y in range(height)] for x in range(width)]
 
-    max_noise = None
-    min_noise = None
+    # Bug that helps, it is a feature!
+    max_noise = 0
+    min_noise = 0
 
     octaves_offsets = []
     for o in range(octaves):
@@ -81,31 +82,43 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
 
             noise_map[x][y] = noise_height
 
-    for y in range(height):
-        for x in range(width):
-            noise_map[x][y] = math.pow(noise_map[x][y], exponent)
-            noise_map[x][y] = continent(noise_map[x][y], 0.0, 1.0, 5.0,
-                                        float(x) / width - 0.5,
-                                        float(y) / height - 0.5)
-            if terraces != 1.0:
-                noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
-
-            if noise_map[x][y] > max_noise or max_noise is None:
-                max_noise = noise_height
-            if noise_map[x][y] < min_noise or min_noise is None:
-                min_noise = noise_height
-
+    maxn = None
+    minn = None
     for y in range(height):
         for x in range(width):
             noise_map[x][y] = normalize(min_noise, max_noise, noise_map[x][y])
+
+            # Large
+            noise_map[x][y] = math.pow(noise_map[x][y], exponent)
+
+            noise_map[x][y] = continent(noise_map[x][y], 0.0, 1.0, 5.0,
+                                        float(x) / width - 0.5,
+                                        float(y) / height - 0.5)
+            # Small
+            # noise_map[x][y] = math.pow(noise_map[x][y], exponent)
+
+            if terraces != 1.0:
+                noise_map[x][y] = round(noise_map[x][y] * terraces) / terraces
+
+            if noise_map[x][y] > maxn or maxn is None:
+                maxn = noise_map[x][y]
+            if noise_map[x][y] < minn or minn is None:
+                minn = noise_map[x][y]
+
+    for y in range(height):
+        for x in range(width):
+            noise_map[x][y] = normalize(minn, maxn, noise_map[x][y])
 
     return noise_map
 
 
 # my_seed = getrandbits(21)
 
-for i in range(5):
-    my_seed = getrandbits(21)
+with open('seeds.txt', 'r') as seeds:
+    seed_list = seeds.readlines()
+
+for i in seed_list:
+    my_seed = int(i)
     nm = generate_noise_map(width=500, height=500, scale=150.0, octaves=5,
                             persistance=0.5, lacunarity=2.5, terraces=1.0,
                             exponent=5, seed=my_seed)
@@ -135,8 +148,8 @@ for i in range(5):
     blank_image = Image.new('RGB', (500, 500))
     gimg = Image.new('RGB', (500, 500))
     gimg.putdata(graymap)
-    gimg.save('{}graymap.jpg'.format(i))
+    gimg.save('graymap{}.bmp'.format(my_seed))
     blank_image.putdata(pixels)
-    blank_image.save('{}drawn_image{}.jpg'.format(i, my_seed))
+    blank_image.save('drawn_image{}.bmp'.format(my_seed))
 
     print 'DONE', i
