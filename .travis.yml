@@ -1,7 +1,13 @@
+notifications:
+  email: false
+
 language: python
 python:
   - "2.7"
-install:
-  - pip install -r requirements.txt
-
-script: python src/gui/maprender.py
+install: "pip install -r requirements.txt"
+before_script:
+  - pip install -r tests/test_requirements.txt
+script:
+  - echo "OK"
+after_success:
+  - coveralls

@@ -1,0 +1,20 @@
+strictness: veryhigh
+ignore-paths:
+  - dist
+  - data
+  - bin
+  - docs
+requirements:
+  - requirements.txt
+  - tests/test_requierments.txt
+python-targets:
+  - 2
+pylint:
+  disable:
+    - C0103
+    - R0903
+    - R0913
+pep8:
+  full: true
+doc-warnings: true
+test-warnings: true

@@ -11,6 +11,7 @@
 *.o
 *.so
 *.pyc
+*.pyo
 *__pycache__
 
 # Packages #
@@ -30,6 +31,11 @@
 *.sql
 *.sqlite
 
+# VIM #
+#######
+*.swp
+*~
+
 # OS generated files #
 ######################
 .DS_Store
@@ -40,6 +46,17 @@
 ehthumbs.db
 Thumbs.db
 
+# OTHER #
+#########
+.vscode
+config.local.json
+
 # TEMP FOLDER #
 ###############
 tmp/
+
+# PYTHON #
+##########
+build/
+dist/
+*.egg-info
