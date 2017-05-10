@@ -1,2 +1,3 @@
 pyglet
 noise
+PIL
