@@ -115,11 +115,15 @@ def generate_noise_map(width, height, scale, octaves, persistance, lacunarity,
 with open('seeds.txt', 'r') as seeds:
     seed_list = seeds.readlines()
 
+
+W = 1000
+H = 1000
+
 for i in seed_list:
     my_seed = int(i)
-    nm = generate_noise_map(width=500, height=500, scale=150.0, octaves=5,
-                            persistance=0.5, lacunarity=2.5, terraces=1.0,
-                            exponent=5, seed=my_seed)
+    nm = generate_noise_map(width=W, height=H, scale=300.0, octaves=5,
+                            persistance=0.5, lacunarity=3.0, terraces=1.0,
+                            exponent=4, seed=my_seed)
 
     pixels = []
     graymap = []
@@ -143,8 +147,8 @@ for i in seed_list:
             else:
                 pixels.append((255, 255, 255))
 
-    blank_image = Image.new('RGB', (500, 500))
-    gimg = Image.new('RGB', (500, 500))
+    blank_image = Image.new('RGB', (W, H))
+    gimg = Image.new('RGB', (W, H))
     gimg.putdata(graymap)
     gimg.save('graymap{}.bmp'.format(my_seed))
     blank_image.putdata(pixels)
