@@ -38,9 +38,18 @@ class NoiseGenerator(object):
         self._noise_map = [[None for x in range(width)] for y in range(height)]
 
         # If the seed is -1, use a random seed, if the seed is 0 use seed 0
+        random.seed(None)
         self._seed = random.getrandbits(21) if seed == -1 else seed
         # Assign the seed to the RNG
         random.seed(self._seed)
+
+    def get(self, x, y):
+        """Return the noise value at x, y."""
+        return self._noise_map[x][y]
+
+    def set(self, x, y, value):
+        """Set the noise value at x, y."""
+        self._noise_map[x][y] = value
 
     def generate_special(self, special='megarandom', **kargs):
         """Special custom settings for elevation generation."""
@@ -56,8 +65,8 @@ class NoiseGenerator(object):
         """Store a BMP image of the map, with some naive colors."""
         graymap = []
         file_path =\
-            'gsn_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
-_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}.bmp'
+            'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
+_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_gray.bmp'
 
         for row in self._noise_map:
             for val in row:
@@ -159,7 +168,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}.bmp'
 class WorldData(object):
     """Construct and store all world data."""
 
-    def __init__(self, elevation_noise_map, moisture_noise_map, **options):
+    def __init__(self, elevation_noise_map, moisture_noise_map):
         """Construct the biomes using elevation and moisture."""
         self._elevation_map = elevation_noise_map
         self._moisture_map = moisture_noise_map
@@ -177,24 +186,63 @@ class WorldData(object):
         self._biome_map = [[None for x in range(
             self.width)] for y in range(self.width)]
 
-        self.elevation_range = options.get(
-            'elevation_range', self.elevation_range)
-        self.moisture_range = options.get(
-            'moisture_range', self.moisture_range)
+    def export_elevation(self):
+        """Export the elevation color map."""
+        pixels = []
+        file_path =\
+            'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
+_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_color.bmp'
+        for x in range(self.width):
+            for y in range(self.height):
+                val = self._elevation_map.get(x, y)
+                if val <= 0.08:
+                    pixels.append((22, 41, 85))     # deep water
+                elif val <= 0.13:
+                    pixels.append((46, 65, 114))    # water
+                elif val < 0.15:
+                    pixels.append((255, 206, 107))  # sand
+                elif val < 0.3:
+                    pixels.append((61, 205, 61))    # grass
+                elif val < 0.6:
+                    pixels.append((59, 111, 59))    # dark grass
+                elif val < 0.8:
+                    pixels.append((64, 55, 43))     # hilly
+                elif val > 0.99:
+                    pixels.append((255, 0, 255))    # debug magenta
+                else:
+                    pixels.append((255, 255, 255))  # snow mountain
 
-    def generate_biomes(self, biomes_matrix):
+        image = Image.new('RGB', (self.width, self.height))
+        image.putdata(pixels)
+        image.save(file_path.format(*self._elevation_map._settings))
+
+    def export_moisture(self):
+        """Export moisture color map."""
+        pass
+
+    def generate_biomes(self):
         """Go trough eleavtion and moisture, and generate the biomes."""
         for x in range(self.width):
             for y in range(self.height):
-                print self._elevation_map[x][y], self._moisture_map[x][y]
+                # Add moisture to water areas
+                if self._elevation_map.get(x, y) < 0.15:
+                    self._moisture_map.set(x, y, 1.0)
 
-                if self._elevation_map[x][y] < self.water_line:
-                    self._moisture_map[x][y] = 1.0
 
+elevation_noise_map = NoiseGenerator(500, 500, 21)
+elevation_noise_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
+elevation_noise_map.export_grayscale()
 
-# nm = NoiseGenerator(500, 500, -1)
-# nm.generate_noise_map(150.0, 4, 5, 0.5, 3.0)
-# nm.export_grayscale()
+moisture_noise_map = NoiseGenerator(500, 500, -1)
+moisture_noise_map.generate_noise_map(150.0, 2, 3, 0.5, 2.0,
+                                      continent_filter=False)
+
+world_data = WorldData(elevation_noise_map, moisture_noise_map)
+world_data.generate_biomes()
+world_data._moisture_map.export_grayscale()
+
+world_data.export_elevation()
+world_data.export_moisture()
 
 """
 EL
