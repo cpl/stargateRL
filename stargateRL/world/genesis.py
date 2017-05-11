@@ -52,37 +52,20 @@ class NoiseGenerator(object):
                                     random.uniform(1.0, 10.0),
                                     random.randint(1, 128))
 
-    def save_image(self, file_path):
+    def export_grayscale(self):
         """Store a BMP image of the map, with some naive colors."""
-        # pixels = []
         graymap = []
+        file_path =\
+            'gsn_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
+_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}.bmp'
+
         for row in self._noise_map:
             for val in row:
-                graymap.append(
-                    (int(255 * val), int(255 * val), int(255 * val)))
-                # if val <= 0.08:
-                #     pixels.append((22, 41, 85))     # deep water
-                # elif val <= 0.13:
-                #     pixels.append((46, 65, 114))    # water
-                # elif val < 0.15:
-                #     pixels.append((255, 206, 107))  # sand
-                # elif val < 0.3:
-                #     pixels.append((61, 205, 61))    # grass
-                # elif val < 0.6:
-                #     pixels.append((59, 111, 59))    # dark grass
-                # elif val < 0.8:
-                #     pixels.append((64, 55, 43))     # hilly/mountains
-                # elif val > 0.99:
-                #     pixels.append((255, 0, 255))    # debug magenta
-                # else:
-                #     pixels.append((255, 255, 255))  # snow/mountains
+                graymap.append(int(val*255))
 
-        # blank_image = Image.new('RGB', (self._width, self._height))
-        gimg = Image.new('RGB', (self._width, self._height))
+        gimg = Image.new('L', (self._width, self._height))
         gimg.putdata(graymap)
-        gimg.save('{}noise_{}.bmp'.format(self._seed, file_path))
-        # blank_image.putdata(pixels)
-        # blank_image.save('{}g_{}.bmp'.format(self._seed, file_path))
+        gimg.save(file_path.format(*self._settings))
 
     def generate_noise_map(self, scale, octaves, exponent, persistance,
                            lacunarity, terraces=1.0, continent_filter=True,
@@ -90,6 +73,10 @@ class NoiseGenerator(object):
         """Fill the elevation matrix with noise."""
         max_noise = 0.0
         min_noise = 0.0
+
+        self._settings = (self._seed, self._width, self._height, scale,
+                          octaves, exponent, persistance, lacunarity, terraces,
+                          continent_filter, offset, mode)
 
         # Apply offset to the noise map
         octaves_offsets = []
@@ -204,6 +191,10 @@ class WorldData(object):
                 if self._elevation_map[x][y] < self.water_line:
                     self._moisture_map[x][y] = 1.0
 
+
+# nm = NoiseGenerator(500, 500, -1)
+# nm.generate_noise_map(150.0, 4, 5, 0.5, 3.0)
+# nm.export_grayscale()
 
 """
 EL
