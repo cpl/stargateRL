@@ -28,14 +28,14 @@ def continent(elevation, push, edges, strenght, nx, ny):
     return (elevation + push) * (edges - 1.0 * math.pow(distance, strenght))
 
 
-class HeightMap(object):
+class NoiseGenerator(object):
     """Construct the terrain heightmap."""
 
     def __init__(self, width, height, seed=0):
         """Construct the terrain."""
         self._width = width
         self._height = height
-        self._elevation = [[None for x in range(width)] for y in range(height)]
+        self._noise_map = [[None for x in range(width)] for y in range(height)]
 
         # If the seed is -1, use a random seed, if the seed is 0 use seed 0
         self._seed = random.getrandbits(21) if seed == -1 else seed
@@ -45,7 +45,7 @@ class HeightMap(object):
     def generate_special(self, special='megarandom', **kargs):
         """Special custom settings for elevation generation."""
         if special == 'megarandom':
-            self.generate_elevation(random.uniform(10.0, 1000.0),
+            self.generate_noise_map(random.uniform(10.0, 1000.0),
                                     random.randint(1, 10),
                                     random.randint(2, 14),
                                     random.uniform(0.1, 1.0),
@@ -54,38 +54,39 @@ class HeightMap(object):
 
     def save_image(self, file_path):
         """Store a BMP image of the map, with some naive colors."""
-        pixels = []
+        # pixels = []
         graymap = []
-        for row in self._elevation:
+        for row in self._noise_map:
             for val in row:
-                graymap.append((int(255*val), int(255*val), int(255*val)))
-                if val <= 0.08:
-                    pixels.append((22, 41, 85))  # deep water
-                elif val <= 0.13:
-                    pixels.append((46, 65, 114))  # water
-                elif val < 0.15:
-                    pixels.append((255, 206, 107))  # sand
-                elif val < 0.3:
-                    pixels.append((61, 205, 61))  # grass
-                elif val < 0.6:
-                    pixels.append((59, 111, 59))  # dark grass
-                elif val < 0.8:
-                    pixels.append((64, 55, 43))  # hilly
-                elif val > 0.99:
-                    pixels.append((255, 0, 255))  # debug magenta
-                else:
-                    pixels.append((255, 255, 255))
+                graymap.append(
+                    (int(255 * val), int(255 * val), int(255 * val)))
+                # if val <= 0.08:
+                #     pixels.append((22, 41, 85))     # deep water
+                # elif val <= 0.13:
+                #     pixels.append((46, 65, 114))    # water
+                # elif val < 0.15:
+                #     pixels.append((255, 206, 107))  # sand
+                # elif val < 0.3:
+                #     pixels.append((61, 205, 61))    # grass
+                # elif val < 0.6:
+                #     pixels.append((59, 111, 59))    # dark grass
+                # elif val < 0.8:
+                #     pixels.append((64, 55, 43))     # hilly/mountains
+                # elif val > 0.99:
+                #     pixels.append((255, 0, 255))    # debug magenta
+                # else:
+                #     pixels.append((255, 255, 255))  # snow/mountains
 
-        blank_image = Image.new('RGB', (self._width, self._height))
+        # blank_image = Image.new('RGB', (self._width, self._height))
         gimg = Image.new('RGB', (self._width, self._height))
         gimg.putdata(graymap)
-        gimg.save('{}d_{}.bmp'.format(self._seed, file_path))
-        blank_image.putdata(pixels)
-        blank_image.save('{}g_{}.bmp'.format(self._seed, file_path))
+        gimg.save('{}noise_{}.bmp'.format(self._seed, file_path))
+        # blank_image.putdata(pixels)
+        # blank_image.save('{}g_{}.bmp'.format(self._seed, file_path))
 
-    def generate_elevation(self, scale, octaves, exponent, persistance,
-                           lacunarity, terraces=1.0, offset=(0, 0),
-                           mode='simplex'):
+    def generate_noise_map(self, scale, octaves, exponent, persistance,
+                           lacunarity, terraces=1.0, continent_filter=True,
+                           offset=(0, 0), mode='simplex'):
         """Fill the elevation matrix with noise."""
         max_noise = 0.0
         min_noise = 0.0
@@ -129,7 +130,7 @@ class HeightMap(object):
                 if noise_height < min_noise:
                     min_noise = noise_height
 
-                self._elevation[x][y] = noise_height
+                self._noise_map[x][y] = noise_height
 
         # Prepare for another normalization
         mnoise = None
@@ -137,16 +138,17 @@ class HeightMap(object):
         for y in range(self._height):
             for x in range(self._width):
                 # Normalize heightmap values between 0.0 and 1.0
-                noise_height = normalize(self._elevation[x][y],
+                noise_height = normalize(self._noise_map[x][y],
                                          min_noise, max_noise)
 
                 # Apply exponential filter to clear land mass
                 noise_height = math.pow(noise_height, exponent)
 
                 # Apply continental filter
-                noise_height = continent(noise_height, 0.0, 1.0, 5.0,
-                                         float(x) / self._width - 0.5,
-                                         float(y) / self._height - 0.5)
+                if continent_filter:
+                    noise_height = continent(noise_height, 0.0, 1.0, 5.0,
+                                             float(x) / self._width - 0.5,
+                                             float(y) / self._height - 0.5)
 
                 # Check if terraces were enabled and generate terraces
                 if terraces != 1.0:
@@ -158,16 +160,55 @@ class HeightMap(object):
                 if noise_height < mnoise or mnoise is None:
                     mnoise = noise_height
 
-                self._elevation[x][y] = noise_height
+                self._noise_map[x][y] = noise_height
 
         # Apply final changes
         for y in range(self._height):
             for x in range(self._width):
-                self._elevation[x][y] = normalize(self._elevation[x][y],
+                self._noise_map[x][y] = normalize(self._noise_map[x][y],
                                                   mnoise, xnoise)
 
 
-test_hm = HeightMap(500, 500, -1)
-# test_hm.generate_elevation(150.0, 5, 4, 0.5, 3.0)
-# test_hm.generate_special()
-test_hm.save_image('testing')
+class WorldData(object):
+    """Construct and store all world data."""
+
+    def __init__(self, elevation_noise_map, moisture_noise_map, **options):
+        """Construct the biomes using elevation and moisture."""
+        self._elevation_map = elevation_noise_map
+        self._moisture_map = moisture_noise_map
+
+        # Check width and height to match
+        if elevation_noise_map._width == moisture_noise_map._width:
+            self.width = elevation_noise_map._width
+        else:
+            raise Exception('Elevation and moisture maps width don\'t match.')
+        if elevation_noise_map._height == moisture_noise_map._height:
+            self.height = elevation_noise_map._height
+        else:
+            raise Exception('Elevation and moisture maps height don\'t match.')
+
+        self._biome_map = [[None for x in range(
+            self.width)] for y in range(self.width)]
+
+        self.elevation_range = options.get(
+            'elevation_range', self.elevation_range)
+        self.moisture_range = options.get(
+            'moisture_range', self.moisture_range)
+
+    def generate_biomes(self, biomes_matrix):
+        """Go trough eleavtion and moisture, and generate the biomes."""
+        for x in range(self.width):
+            for y in range(self.height):
+                print self._elevation_map[x][y], self._moisture_map[x][y]
+
+                if self._elevation_map[x][y] < self.water_line:
+                    self._moisture_map[x][y] = 1.0
+
+
+"""
+EL
+0.15--------0.30--------0.60--------0.80--------1.00
+
+MO
+0.00--------0.10--------0.20--------0.40--------0.60--------0.90--------1.00
+"""
