@@ -191,7 +191,7 @@ class WorldData(object):
         pixels = []
         file_path =\
             'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
-_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_color.bmp'
+_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_elevation_color.bmp'
         for x in range(self.width):
             for y in range(self.height):
                 val = self._elevation_map.get(x, y)
@@ -218,7 +218,31 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_color.bmp'
 
     def export_moisture(self):
         """Export moisture color map."""
-        pass
+        pixels = []
+        file_path =\
+            'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
+_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
+        for x in range(self.width):
+            for y in range(self.height):
+                val = self._moisture_map.get(x, y)
+                if self._elevation_map.get(x, y) < 0.15:
+                    pixels.append((0, 0, 0))  # ocean/sea level
+                elif val < 0.05:
+                    pixels.append((162, 178, 190))    # very dry
+                elif val < 0.10:
+                    pixels.append((71, 107, 132))    # medium dry
+                elif val < 0.30:
+                    pixels.append((146, 188, 94))   # little dry
+                elif val < 0.40:
+                    pixels.append((115, 162, 57))  # little wet
+                elif val < 0.65:
+                    pixels.append((255, 152, 76))   # medium wet
+                else:
+                    pixels.append((233, 81, 37))    # very wet
+
+        image = Image.new('RGB', (self.width, self.height))
+        image.putdata(pixels)
+        image.save(file_path.format(*self._moisture_map._settings))
 
     def generate_biomes(self):
         """Go trough eleavtion and moisture, and generate the biomes."""
@@ -229,7 +253,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_color.bmp'
                     self._moisture_map.set(x, y, 1.0)
 
 
-elevation_noise_map = NoiseGenerator(500, 500, 21)
+elevation_noise_map = NoiseGenerator(500, 500, -1)
 elevation_noise_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
 elevation_noise_map.export_grayscale()
 
