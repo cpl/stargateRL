@@ -116,7 +116,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_gray.bmp'
 
                     noise_height += noise_value * amplitude
 
-                    # Update parameters on each octave pass
+                    # Update parameters for each octave
                     amplitude *= persistance
                     frequency *= lacunarity
 
@@ -251,8 +251,68 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
         for x in range(self.width):
             for y in range(self.height):
                 # Add moisture to water areas
-                if self._elevation_map.get(x, y) < 0.15:
+                elevation_value = self._elevation_map.get(x, y)
+                moisture_value = self._moisture_map.get(x, y)
+
+                # Lowest elevation is ignored, moisture is set to max
+                if elevation_value < 0.15:
                     self._moisture_map.set(x, y, 1.0)
+                # Low elevation
+                elif elevation_value < 0.30:
+                    if moisture_value < 0.05:
+                        self._biome_map[x][y] = 0
+                    elif moisture_value < 0.10:
+                        self._biome_map[x][y] = 1
+                    elif moisture_value < 0.25:
+                        self._biome_map[x][y] = 2
+                    elif moisture_value < 0.40:
+                        self._biome_map[x][y] = 2
+                    elif moisture_value < 0.65:
+                        self._biome_map[x][y] = 3
+                    else:
+                        self._biome_map[x][y] = 3
+                # Medium elevation
+                elif elevation_value < 0.60:
+                    if moisture_value < 0.05:
+                        self._biome_map[x][y] = 4
+                    elif moisture_value < 0.10:
+                        self._biome_map[x][y] = 1
+                    elif moisture_value < 0.25:
+                        self._biome_map[x][y] = 1
+                    elif moisture_value < 0.40:
+                        self._biome_map[x][y] = 5
+                    elif moisture_value < 0.65:
+                        self._biome_map[x][y] = 5
+                    else:
+                        self._biome_map[x][y] = 6
+                # High elevation
+                elif elevation_value < 0.80:
+                    if moisture_value < 0.05:
+                        self._biome_map[x][y] = 4
+                    elif moisture_value < 0.10:
+                        self._biome_map[x][y] = 4
+                    elif moisture_value < 0.25:
+                        self._biome_map[x][y] = 7
+                    elif moisture_value < 0.40:
+                        self._biome_map[x][y] = 7
+                    elif moisture_value < 0.65:
+                        self._biome_map[x][y] = 8
+                    else:
+                        self._biome_map[x][y] = 8
+                # Mountains
+                else:
+                    if moisture_value < 0.05:
+                        self._biome_map[x][y] = 9
+                    elif moisture_value < 0.10:
+                        self._biome_map[x][y] = 10
+                    elif moisture_value < 0.25:
+                        self._biome_map[x][y] = 11
+                    elif moisture_value < 0.40:
+                        self._biome_map[x][y] = 12
+                    elif moisture_value < 0.65:
+                        self._biome_map[x][y] = 12
+                    else:
+                        self._biome_map[x][y] = 12
 
 
 elevation_noise_map = NoiseGenerator(500, 500, -1)
