@@ -195,20 +195,22 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_elevation_color.bmp'
         for x in range(self.width):
             for y in range(self.height):
                 val = self._elevation_map.get(x, y)
+                # LOW LEVEL
                 if val <= 0.08:
                     pixels.append((22, 41, 85))     # deep water
                 elif val <= 0.13:
                     pixels.append((46, 65, 114))    # water
                 elif val < 0.15:
                     pixels.append((255, 206, 107))  # sand
+                # MEDIUM LEVEL
                 elif val < 0.3:
                     pixels.append((61, 205, 61))    # grass
                 elif val < 0.6:
                     pixels.append((59, 111, 59))    # dark grass
+                # HIGH LEVEL
                 elif val < 0.8:
                     pixels.append((64, 55, 43))     # hilly
-                elif val > 0.99:
-                    pixels.append((255, 0, 255))    # debug magenta
+                # VERY HIGH LEVEL
                 else:
                     pixels.append((255, 255, 255))  # snow mountain
 
@@ -230,15 +232,15 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
                 elif val < 0.05:
                     pixels.append((162, 178, 190))    # very dry
                 elif val < 0.10:
-                    pixels.append((71, 107, 132))    # medium dry
-                elif val < 0.30:
-                    pixels.append((146, 188, 94))   # little dry
+                    pixels.append((71, 107, 132))     # medium dry
+                elif val < 0.25:
+                    pixels.append((146, 188, 94))     # little dry
                 elif val < 0.40:
-                    pixels.append((115, 162, 57))  # little wet
+                    pixels.append((115, 162, 57))     # little wet
                 elif val < 0.65:
-                    pixels.append((255, 152, 76))   # medium wet
+                    pixels.append((255, 152, 76))     # medium wet
                 else:
-                    pixels.append((233, 81, 37))    # very wet
+                    pixels.append((233, 81, 37))      # very wet
 
         image = Image.new('RGB', (self.width, self.height))
         image.putdata(pixels)
@@ -255,7 +257,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
 
 elevation_noise_map = NoiseGenerator(500, 500, -1)
 elevation_noise_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
-elevation_noise_map.export_grayscale()
+# elevation_noise_map.export_grayscale()
 
 moisture_noise_map = NoiseGenerator(500, 500, -1)
 moisture_noise_map.generate_noise_map(150.0, 2, 3, 0.5, 2.0,
@@ -263,15 +265,7 @@ moisture_noise_map.generate_noise_map(150.0, 2, 3, 0.5, 2.0,
 
 world_data = WorldData(elevation_noise_map, moisture_noise_map)
 world_data.generate_biomes()
-world_data._moisture_map.export_grayscale()
+# world_data._moisture_map.export_grayscale()
 
-world_data.export_elevation()
+# world_data.export_elevation()
 world_data.export_moisture()
-
-"""
-EL
-0.15--------0.30--------0.60--------0.80--------1.00
-
-MO
-0.00--------0.10--------0.20--------0.40--------0.60--------0.90--------1.00
-"""
