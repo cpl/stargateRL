@@ -31,17 +31,12 @@ def continent(elevation, push, edges, strenght, nx, ny):
 class NoiseGenerator(object):
     """Construct the terrain heightmap."""
 
-    def __init__(self, width, height, seed=0):
+    def __init__(self, width, height, seed):
         """Construct the terrain."""
         self._width = width
         self._height = height
         self._noise_map = [[None for x in range(width)] for y in range(height)]
-
-        # If the seed is -1, use a random seed, if the seed is 0 use seed 0
-        random.seed(None)
-        self._seed = random.getrandbits(21) if seed == -1 else seed
-        # Assign the seed to the RNG
-        random.seed(self._seed)
+        self._seed = seed
 
     def get(self, x, y):
         """Return the noise value at x, y."""
@@ -168,8 +163,17 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_gray.bmp'
 class WorldData(object):
     """Construct and store all world data."""
 
-    def __init__(self, elevation_noise_map, moisture_noise_map):
+    def __init__(self, seed=0, width=500, height=500,
+                 elevation_noise_map=None, moisture_noise_map=None):
         """Construct the biomes using elevation and moisture."""
+        seed = random.getrandbits(21) if seed == -1 else seed
+        random.seed(seed)
+
+        if elevation_noise_map is None:
+            elevation_noise_map = NoiseGenerator(width, height, seed)
+        if moisture_noise_map is None:
+            moisture_noise_map = NoiseGenerator(width, height, seed)
+
         self._elevation_map = elevation_noise_map
         self._moisture_map = moisture_noise_map
 
@@ -192,6 +196,7 @@ class WorldData(object):
         file_path =\
             'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
 _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_elevation_color.bmp'
+
         for x in range(self.width):
             for y in range(self.height):
                 val = self._elevation_map.get(x, y)
@@ -224,6 +229,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_elevation_color.bmp'
         file_path =\
             'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
 _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
+
         for x in range(self.width):
             for y in range(self.height):
                 val = self._moisture_map.get(x, y)
@@ -231,11 +237,11 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
                     pixels.append((0, 0, 0))  # ocean/sea level
                 elif val < 0.05:
                     pixels.append((162, 178, 190))    # very dry
-                elif val < 0.10:
+                elif val < 0.1:
                     pixels.append((71, 107, 132))     # medium dry
                 elif val < 0.25:
                     pixels.append((146, 188, 94))     # little dry
-                elif val < 0.40:
+                elif val < 0.4:
                     pixels.append((115, 162, 57))     # little wet
                 elif val < 0.65:
                     pixels.append((255, 152, 76))     # medium wet
@@ -245,6 +251,51 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
         image = Image.new('RGB', (self.width, self.height))
         image.putdata(pixels)
         image.save(file_path.format(*self._moisture_map._settings))
+
+    def export_biomes(self):
+        """Export biome color map."""
+        pixels = []
+        file_path =\
+            'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
+_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_biomes_color.bmp'
+
+        for x in range(self.width):
+            for y in range(self.height):
+                val = self._biome_map[x][y]
+                if val == -1:
+                    pixels.append((0, 0, 0))
+                elif val == 0:
+                    pixels.append((255, 223, 190))
+                elif val == 1:
+                    pixels.append((111, 177, 123))
+                elif val == 2:
+                    pixels.append((166, 207, 130))
+                elif val == 3:
+                    pixels.append((105, 159, 56))
+                elif val == 4:
+                    pixels.append((231, 190, 146))
+                elif val == 5:
+                    pixels.append((206, 168, 104))
+                elif val == 6:
+                    pixels.append((161, 193, 97))
+                elif val == 7:
+                    pixels.append((109, 160, 57))
+                elif val == 8:
+                    pixels.append((189, 184, 152))
+                elif val == 9:
+                    pixels.append((137, 132, 122))
+                elif val == 10:
+                    pixels.append((110, 110, 132))
+                elif val == 11:
+                    pixels.append((62, 62, 75))
+                elif val == 12:
+                    pixels.append((255, 255, 255))
+                else:
+                    raise Exception('Unknow value {!s}'.format(val))
+
+        image = Image.new('RGB', (self.width, self.height))
+        image.putdata(pixels)
+        image.save(file_path.format(*self._elevation_map._settings))
 
     def generate_biomes(self):
         """Go trough eleavtion and moisture, and generate the biomes."""
@@ -257,43 +308,44 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
                 # Lowest elevation is ignored, moisture is set to max
                 if elevation_value < 0.15:
                     self._moisture_map.set(x, y, 1.0)
+                    self._biome_map[x][y] = -1
                 # Low elevation
-                elif elevation_value < 0.30:
+                elif elevation_value < 0.3:
                     if moisture_value < 0.05:
                         self._biome_map[x][y] = 0
-                    elif moisture_value < 0.10:
+                    elif moisture_value < 0.1:
                         self._biome_map[x][y] = 1
                     elif moisture_value < 0.25:
                         self._biome_map[x][y] = 2
-                    elif moisture_value < 0.40:
+                    elif moisture_value < 0.4:
                         self._biome_map[x][y] = 2
                     elif moisture_value < 0.65:
                         self._biome_map[x][y] = 3
                     else:
                         self._biome_map[x][y] = 3
                 # Medium elevation
-                elif elevation_value < 0.60:
+                elif elevation_value < 0.6:
                     if moisture_value < 0.05:
                         self._biome_map[x][y] = 4
-                    elif moisture_value < 0.10:
+                    elif moisture_value < 0.1:
                         self._biome_map[x][y] = 1
                     elif moisture_value < 0.25:
                         self._biome_map[x][y] = 1
-                    elif moisture_value < 0.40:
+                    elif moisture_value < 0.4:
                         self._biome_map[x][y] = 5
                     elif moisture_value < 0.65:
                         self._biome_map[x][y] = 5
                     else:
                         self._biome_map[x][y] = 6
                 # High elevation
-                elif elevation_value < 0.80:
+                elif elevation_value < 0.8:
                     if moisture_value < 0.05:
                         self._biome_map[x][y] = 4
-                    elif moisture_value < 0.10:
+                    elif moisture_value < 0.1:
                         self._biome_map[x][y] = 4
                     elif moisture_value < 0.25:
                         self._biome_map[x][y] = 7
-                    elif moisture_value < 0.40:
+                    elif moisture_value < 0.4:
                         self._biome_map[x][y] = 7
                     elif moisture_value < 0.65:
                         self._biome_map[x][y] = 8
@@ -303,11 +355,11 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
                 else:
                     if moisture_value < 0.05:
                         self._biome_map[x][y] = 9
-                    elif moisture_value < 0.10:
+                    elif moisture_value < 0.1:
                         self._biome_map[x][y] = 10
                     elif moisture_value < 0.25:
                         self._biome_map[x][y] = 11
-                    elif moisture_value < 0.40:
+                    elif moisture_value < 0.4:
                         self._biome_map[x][y] = 12
                     elif moisture_value < 0.65:
                         self._biome_map[x][y] = 12
@@ -315,17 +367,12 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
                         self._biome_map[x][y] = 12
 
 
-elevation_noise_map = NoiseGenerator(500, 500, -1)
-elevation_noise_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
-# elevation_noise_map.export_grayscale()
-
-moisture_noise_map = NoiseGenerator(500, 500, -1)
-moisture_noise_map.generate_noise_map(150.0, 2, 3, 0.5, 2.0,
-                                      continent_filter=False)
-
-world_data = WorldData(elevation_noise_map, moisture_noise_map)
+world_data = WorldData(seed=-1)
+world_data._elevation_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
+world_data._moisture_map.generate_noise_map(150.0, 2, 3, 0.5, 2.0,
+                                            continent_filter=False)
 world_data.generate_biomes()
-# world_data._moisture_map.export_grayscale()
 
-# world_data.export_elevation()
+world_data.export_elevation()
 world_data.export_moisture()
+world_data.export_biomes()
