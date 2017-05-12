@@ -369,9 +369,12 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_biomes_color.bmp'
 
 world_data = WorldData(seed=-1)
 world_data._elevation_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
-world_data._moisture_map.generate_noise_map(150.0, 5, 2, 0.5, 3.0,
+world_data._moisture_map.generate_noise_map(150.0, 5, 3, 0.5, 3.0,
                                             continent_filter=False)
 world_data.generate_biomes()
+
+world_data._elevation_map.export_grayscale()
+world_data._moisture_map.export_grayscale()
 
 world_data.export_elevation()
 world_data.export_moisture()
