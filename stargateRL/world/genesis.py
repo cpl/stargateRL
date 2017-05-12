@@ -233,7 +233,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_moisture_color.bmp'
         for x in range(self.width):
             for y in range(self.height):
                 val = self._moisture_map.get(x, y)
-                if self._elevation_map.get(x, y) < 0.15:
+                if self._elevation_map.get(x, y) < 0.13:
                     pixels.append((0, 0, 0))  # ocean/sea level
                 elif val < 0.05:
                     pixels.append((162, 178, 190))    # very dry
@@ -306,7 +306,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_biomes_color.bmp'
                 moisture_value = self._moisture_map.get(x, y)
 
                 # Lowest elevation is ignored, moisture is set to max
-                if elevation_value < 0.15:
+                if elevation_value < 0.13:
                     self._moisture_map.set(x, y, 1.0)
                     self._biome_map[x][y] = -1
                 # Low elevation
@@ -369,7 +369,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_biomes_color.bmp'
 
 world_data = WorldData(seed=-1)
 world_data._elevation_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
-world_data._moisture_map.generate_noise_map(150.0, 2, 3, 0.5, 2.0,
+world_data._moisture_map.generate_noise_map(150.0, 5, 2, 0.5, 3.0,
                                             continent_filter=False)
 world_data.generate_biomes()
 
