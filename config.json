@@ -19,7 +19,7 @@
     }, 
     "window": {
         "caption": "stargateRL", 
-        "fullscreen": true, 
+        "fullscreen": false, 
         "height": 800, 
         "mouse": true, 
         "resizable": false, 
