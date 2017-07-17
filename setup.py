@@ -32,11 +32,12 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.2dev0',
+    version='0.0.3dev0',
 
     # py2app
     setup_requires=["py2app"],
-    app=["stargateRL/launcher/__main__.py"],
+    options={'py2app': {'iconfile': 'data/bin/icon.png'}},
+    app=["stargateRL/launcher/main.py"],
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
     long_description=LONG_DESCRIPTION,
@@ -116,16 +117,17 @@ setup(
     # need to place data files outside of your packages. See:
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=[('data', ['data/config.json']),
-                ('data/bin', ['data/bin/icon.png', 'data/bin/selection.png']),
-                ('data/bin/tiles', ['data/bin/tiles/tileset16.png'])],
+    data_files=[('stargateRL', ['data/config.json']),
+                ('stargateRL/bin', ['data/bin/icon.png',
+                                    'data/bin/selection.png']),
+                ('stargateRL/bin/tiles', ['data/bin/tiles/tileset16.png'])],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'stargateRL = stargateRL.launcher.__main__',
+            'stargateRL = stargateRL.launcher.main',
         ],
     },
 )

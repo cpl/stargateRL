@@ -1,20 +1,17 @@
 """The main launcher for changing the configurations."""
 
-
-import json
 import os
-import tkinter as tk
+import tkinter as tki
 
 from stargateRL.launcher import elements
-from stargateRL.utils import load_config, save_config
-from stargateRL.utils import CONFIG
+from stargateRL.launcher.utils import load_config, save_config
 from stargateRL.paths import DirectoryPaths
 
 
 def launch():
     """Start the stargateRL.__main__ method."""
     root.destroy()
-    import stargateRL.__main__
+    import stargateRL.main
 
 
 def match():
@@ -44,29 +41,30 @@ def close():
     if match():
         root.destroy()
     else:
-        popup = tk.Toplevel(master=None)
+        popup = tki.Toplevel(master=None)
         popup.title('Are you sure?')
         popup.resizable(0, 0)
 
         popup.grab_set()
 
-        label = tk.Label(popup, anchor=tk.N,
-                         text='Are you sure you want to exit without saving?')
-        label.pack(side=tk.TOP, fill=tk.X)
+        label = tki.Label(popup, anchor=tki.N,
+                          text='Are you sure you want to exit without saving?')
+        label.pack(side=tki.TOP, fill=tki.X)
 
-        tk.Button(popup, anchor=tk.CENTER, text='Yes',
-                  command=root.destroy).pack(side=tk.LEFT)
-        tk.Button(popup, anchor=tk.CENTER, text='No',
-                  command=popup.destroy).pack(side=tk.LEFT)
+        tki.Button(popup, anchor=tki.CENTER, text='Yes',
+                   command=root.destroy).pack(side=tki.LEFT)
+        tki.Button(popup, anchor=tki.CENTER, text='No',
+                   command=popup.destroy).pack(side=tki.LEFT)
 
         popup.mainloop()
         popup.destroy()
 
 
-root = tk.Tk()
+CONFIG = load_config()
+root = tki.Tk()
+
 root.resizable(0, 0)
 root.wm_title('stargateRL Launcher')
-
 
 # GUI goes bellow this line
 # Generate the sections
@@ -90,7 +88,8 @@ for section in CONFIG.keys():
             if key == 'tileset':
                 config_frame.subframes[section].options[key] =\
                     elements.MultipleOptions(
-                        config_frame.subframes[section], key, value, TILESETS)
+                        config_frame.subframes[section],
+                        key, value, TILESETS)
             elif key == 'size':
                 config_frame.subframes[section].options[key] =\
                     elements.MultipleOptions(
@@ -108,15 +107,14 @@ for section in CONFIG.keys():
                     elements.StringInput(
                         config_frame.subframes[section], key, value)
 
-tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
-          text='Apply', command=save).pack(side=tk.LEFT, fill=tk.X)
-tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
-          text='Cancel', command=close).pack(side=tk.LEFT, fill=tk.X)
-tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
-          text='Default', command=default).pack(side=tk.LEFT, fill=tk.X)
-
-tk.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
-          text='Launch', command=launch).pack(side=tk.RIGHT, fill=tk.X)
+tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
+           text='Apply', command=save).pack(side=tki.LEFT, fill=tki.X)
+tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
+           text='Cancel', command=close).pack(side=tki.LEFT, fill=tki.X)
+tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
+           text='Default', command=default).pack(side=tki.LEFT, fill=tki.X)
+tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
+           text='Launch', command=launch).pack(side=tki.RIGHT, fill=tki.X)
 
 # GUI goes above this line
 root.mainloop()
