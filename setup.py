@@ -36,7 +36,7 @@ setup(
 
     # py2app
     setup_requires=["py2app"],
-    options={'py2app': {'iconfile': 'data/bin/icon.png'}},
+    options={'py2app': {'iconfile': 'data/bin/icon.icns'}},
     app=["stargateRL/launcher/main.py"],
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
@@ -117,10 +117,10 @@ setup(
     # need to place data files outside of your packages. See:
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=[('stargateRL', ['data/config.json']),
-                ('stargateRL/bin', ['data/bin/icon.png',
-                                    'data/bin/selection.png']),
-                ('stargateRL/bin/tiles', ['data/bin/tiles/tileset16.png'])],
+    data_files=[('stargateRL/data', ['data/config.json']),
+                ('stargateRL/data/bin', [path.join('data', 'bin', 'icon.png'),
+                                         'data/bin/selection.png']),
+                ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png'])],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow

@@ -12,8 +12,8 @@ from enum import Enum
 class DirectoryPaths(Enum):
     """Create a enum of all relevant directory paths."""
 
-    ROOT = path.abspath(os.path.join(path.dirname(__file__), os.pardir))
-    DATA = path.join(sys.prefix, 'stargateRL')
+    ROOT = path.abspath(os.path.join(sys.prefix, 'stargateRL'))
+    DATA = path.join(ROOT, 'data')
     MAPS = path.join(DATA, 'maps')
     SAVES = path.join(DATA, 'saves')
     BIN = path.join(DATA, 'bin')
