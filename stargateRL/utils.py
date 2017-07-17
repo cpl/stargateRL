@@ -1,32 +1,34 @@
 """Contains useful methods and global variables."""
-import os
 import json
 import pyglet
 
 from stargateRL.engine.graphx import GxTileset
+from stargateRL.paths import DirectoryPaths, FilePaths
 
 __all__ = ['CONFIG', 'GX_TILESETS', 'GL_SCALING', 'INTENDED_SIZE']
 
-# Define resource path
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
+# Reset pyglet resources path then append custom ones
 pyglet.resource.path = []
-pyglet.resource.path.append((os.path.abspath(os.path.join(
-    ROOT_DIR, 'bin'))))
-pyglet.resource.path.append((os.path.abspath(os.path.join(
-    ROOT_DIR, 'bin', 'tiles'))))
+pyglet.resource.path.append((DirectoryPaths.BIN.value))
+pyglet.resource.path.append((DirectoryPaths.TILES.value))
 
 
 def load_config():
     """Load the config file."""
-    config_file_name = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), os.pardir, 'config.json'))
-    with open(config_file_name, 'r') as config_file:
+    with open(FilePaths.CONFIG.value, 'r') as config_file:
         return json.load(config_file)
+
+
+def save_config(config_dictionary):
+    """Save the config changes."""
+    with open(FilePaths.CONFIG.value, 'w') as config_file:
+        json.dump(config_dictionary, config_file, indent=4, sort_keys=True)
 
 
 # Load the config
 CONFIG = load_config()
+
 # Load the tileset
 GX_TILESETS = {'MAIN': GxTileset(CONFIG['resources']['tileset'],
                                  CONFIG['resources']['size'])}

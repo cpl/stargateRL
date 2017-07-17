@@ -6,30 +6,15 @@ import os
 import tkinter as tk
 
 from stargateRL.launcher import elements
+from stargateRL.utils import load_config, save_config
+from stargateRL.utils import CONFIG
+from stargateRL.paths import DirectoryPaths
 
 
 def launch():
     """Start the stargateRL.__main__ method."""
     root.destroy()
     import stargateRL.__main__
-
-
-def load_config():
-    """Load the config file."""
-    config_file_name = os.path.abspath(
-        os.path.join(os.path.dirname(__file__),
-                     os.pardir, os.pardir, 'config.json'))
-    with open(config_file_name, 'r') as config_file:
-        return json.load(config_file)
-
-
-def save_config(config_dictionary):
-    """Save the config changes."""
-    config_file_name = os.path.abspath(
-        os.path.join(os.path.dirname(__file__),
-                     os.pardir, os.pardir, 'config.json'))
-    with open(config_file_name, 'w') as config_file:
-        json.dump(config_dictionary, config_file, indent=4, sort_keys=True)
 
 
 def match():
@@ -82,15 +67,13 @@ root = tk.Tk()
 root.resizable(0, 0)
 root.wm_title('stargateRL Launcher')
 
-CONFIG = load_config()
 
 # GUI goes bellow this line
 # Generate the sections
 config_frame = elements.MainFrame(root)
 config_frame.make_subframes(CONFIG.keys())
 
-TILE_PATH = os.path.abspath(os.path.join(os.path.join(
-    __file__, os.pardir, os.pardir, os.pardir, 'bin', 'tiles')))
+TILE_PATH = DirectoryPaths.TILES.value
 TILESETS = [tile for tile in os.listdir(TILE_PATH) if tile.endswith('.png')]
 SIZES = [16, 20, 32, 64]
 

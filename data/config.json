@@ -14,8 +14,8 @@
     "resources": {
         "icon": "icon.png", 
         "selection": "selection.png", 
-        "size": 64, 
-        "tileset": "tileset64.png"
+        "size": 16, 
+        "tileset": "tileset16.png"
     }, 
     "window": {
         "caption": "stargateRL", 
