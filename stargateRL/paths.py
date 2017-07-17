@@ -13,7 +13,7 @@ class DirectoryPaths(Enum):
     """Create a enum of all relevant directory paths."""
 
     ROOT = path.abspath(os.path.join(path.dirname(__file__), os.pardir))
-    DATA = path.join(ROOT, 'data')
+    DATA = path.join(sys.prefix, 'stargateRL')
     MAPS = path.join(DATA, 'maps')
     SAVES = path.join(DATA, 'saves')
     BIN = path.join(DATA, 'bin')

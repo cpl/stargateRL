@@ -1,3 +1,4 @@
-pyglet
-noise
-PIL
+noise==1.2.2
+olefile==0.44
+Pillow==4.2.1
+pyglet==1.2.4
