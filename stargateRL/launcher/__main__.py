@@ -79,11 +79,17 @@ CONFIG = load_config()
 config_frame = elements.MainFrame(root)
 config_frame.make_subframes(CONFIG.keys())
 
+TILESETS = [tile for tile in os.listdir(os.path.abspath(os.path.join(__file__, os.pardir, os.pardir, os.pardir, 'bin'))) if tile.endswith('.png')]
+
 # Fill the sections with options
 for section in CONFIG.keys():
     for key, value in CONFIG[section].items():
         value_type = type(value)
-        if value_type == int:
+        if key == 'tileset':
+            config_frame.subframes[section].options[key] =\
+                elements.MultipleOptions(
+                    config_frame.subframes[section], key, value, TILESETS)
+        elif value_type == int:
             config_frame.subframes[section].options[key] =\
                 elements.IntegerInput(
                     config_frame.subframes[section], key, value)

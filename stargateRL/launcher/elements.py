@@ -116,3 +116,21 @@ class StringInput(Input):
     def get_value(self):
         """Return the value from the input."""
         return self._value.get()
+
+
+class MultipleOptions(Input):
+    """Multiple choice input."""
+
+    def __init__(self, master, label, value, values):
+        """Construct the multi input."""
+        super(MultipleOptions, self).__init__(master, label)
+
+        self._value = tk.StringVar(master=self)
+        self._value.set(value)
+
+        self._entry = tk.OptionMenu(self, self._value, *values)
+        self._entry.pack(fill=tk.X, side=tk.RIGHT)
+
+    def get_value(self):
+        """Return the value from the input."""
+        return self._value.get()
