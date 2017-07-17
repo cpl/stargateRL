@@ -128,9 +128,43 @@ class MultipleOptions(Input):
         self._value = tk.StringVar(master=self)
         self._value.set(value)
 
+        self._is_int = isinstance(value, int)
+
         self._entry = tk.OptionMenu(self, self._value, *values)
-        self._entry.pack(fill=tk.X, side=tk.RIGHT)
+        self._entry.config(bg=SUBFRAME_COLORS[0], relief=tk.FLAT,
+                           highlightbackground=SUBFRAME_COLORS[0],
+                           fg=VALUE_COLORS[1])
+        self._entry.pack(fill=tk.X, side=tk.LEFT)
 
     def get_value(self):
         """Return the value from the input."""
-        return self._value.get()
+        if self._is_int:
+            return int(self._value.get())
+        else:
+            return self._value.get()
+
+
+class Slider(Input):
+    """Slider int input style."""
+
+    def __init__(self, master, label, value, min, max):
+        """Construct the slider."""
+        super(Slider, self).__init__(master, label)
+
+        if value < min or value > max:
+            raise Exception('Slider value exceedes limits!')
+        else:
+            self._value = tk.StringVar(value=value)
+
+        self._entry = tk.Scale(master=self, from_=min, to=max,
+                               orient=tk.HORIZONTAL)
+        self._entry.config(bg=SUBFRAME_COLORS[0], relief=tk.FLAT,
+                           highlightbackground=SUBFRAME_COLORS[0],
+                           fg=VALUE_COLORS[1])
+
+        self._entry.set(value)
+        self._entry.pack(fill=tk.X, side=tk.LEFT)
+
+    def get_value(self):
+        """Return the value from the entry."""
+        return int(self._entry.get())
