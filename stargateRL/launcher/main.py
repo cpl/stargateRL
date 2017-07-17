@@ -71,7 +71,7 @@ root.wm_title('stargateRL Launcher')
 config_frame = elements.MainFrame(root)
 config_frame.make_subframes(CONFIG.keys())
 
-TILE_PATH = DirectoryPaths.TILES.value
+TILE_PATH = DirectoryPaths.TILES
 TILESETS = [tile for tile in os.listdir(TILE_PATH) if tile.endswith('.png')]
 SIZES = [16, 20, 32, 64]
 

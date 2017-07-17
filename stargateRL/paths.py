@@ -24,7 +24,4 @@ class DirectoryPaths(Enum):
 class FilePaths(Enum):
     """Create an enum of all relevant file paths."""
 
-    CONFIG = path.join(DirectoryPaths.DATA.value, 'config.json')
-
-
-print FilePaths.CONFIG.value
+    CONFIG = path.join(DirectoryPaths.DATA, 'config.json')
