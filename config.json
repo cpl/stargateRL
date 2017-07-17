@@ -14,14 +14,14 @@
     "resources": {
         "icon": "icon.png", 
         "selection": "selection.png", 
-        "size": 20, 
-        "tileset": "tileset20.png"
+        "size": 16, 
+        "tileset": "tileset16.png"
     }, 
     "window": {
         "caption": "stargateRL", 
-        "fullscreen": false, 
+        "fullscreen": true, 
         "height": 800, 
-        "mouse": false, 
+        "mouse": true, 
         "resizable": false, 
         "style": "default", 
         "width": 1200

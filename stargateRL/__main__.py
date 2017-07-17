@@ -7,6 +7,9 @@ from stargateRL.engine import widgets
 from stargateRL.utils import CONFIG
 
 
+print('RAN')
+
+
 # Create the game window
 window_config = CONFIG['window']
 

@@ -9,7 +9,12 @@ __all__ = ['CONFIG', 'GX_TILESETS', 'GL_SCALING', 'INTENDED_SIZE']
 
 # Define resource path
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-pyglet.resource.path = [(os.path.abspath(os.path.join(ROOT_DIR, 'bin')))]
+
+pyglet.resource.path = []
+pyglet.resource.path.append((os.path.abspath(os.path.join(
+    ROOT_DIR, 'bin'))))
+pyglet.resource.path.append((os.path.abspath(os.path.join(
+    ROOT_DIR, 'bin', 'tiles'))))
 
 
 def load_config():
