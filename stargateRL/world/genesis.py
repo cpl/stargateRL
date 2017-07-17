@@ -367,15 +367,24 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_biomes_color.bmp'
                         self._biome_map[x][y] = 12
 
 
+SCALE = 150.0
+OCTAVES = 5
+EXPONENT = 4
+PERSISTANCE = 0.5
+LACUNARITY = 3.0
+TERRACES = 1.0
+
 world_data = WorldData(seed=-1)
-world_data._elevation_map.generate_noise_map(150.0, 5, 4, 0.5, 3.0)
-world_data._moisture_map.generate_noise_map(150.0, 5, 3, 0.5, 3.0,
+world_data._elevation_map.generate_noise_map(SCALE, OCTAVES, EXPONENT,
+                                             PERSISTANCE, LACUNARITY, TERRACES)
+world_data._moisture_map.generate_noise_map(SCALE, OCTAVES, EXPONENT,
+                                            PERSISTANCE, LACUNARITY,
                                             continent_filter=False)
 world_data.generate_biomes()
 
-world_data._elevation_map.export_grayscale()
-world_data._moisture_map.export_grayscale()
+# world_data._elevation_map.export_grayscale()
+# world_data._moisture_map.export_grayscale()
 
 world_data.export_elevation()
-world_data.export_moisture()
+# world_data.export_moisture()
 world_data.export_biomes()

@@ -2,9 +2,9 @@
     "audio": {
         "dialog": 100, 
         "environment": 100, 
-        "master volume": 75, 
+        "master volume": 100, 
         "music": 100, 
-        "sfx": 51
+        "sfx": 100
     }, 
     "graphics": {
         "fps limit": 60, 
@@ -14,8 +14,8 @@
     "resources": {
         "icon": "icon.png", 
         "selection": "selection.png", 
-        "size": 16, 
-        "tileset": "tileset16.png"
+        "size": 64, 
+        "tileset": "tileset64.png"
     }, 
     "window": {
         "caption": "stargateRL", 

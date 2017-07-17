@@ -1,6 +1,6 @@
 |mylogo|
 ~~~~~~~~
-StargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
+stargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
 ===========================================================
 .. |coveralls| image:: https://coveralls.io/repos/github/thee-engineer/stargateRL/badge.svg?branch=refactor
   :target: https://coveralls.io/github/thee-engineer/stargateRL?branch=refactor

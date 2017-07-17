@@ -34,8 +34,7 @@ def save_config(config_dictionary):
 
 def match():
     """Check if the existing config matches the launcher config."""
-    save(False)
-    print CONFIG == load_config()
+    save(write=False)
     return CONFIG == load_config()
 
 
