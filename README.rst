@@ -17,4 +17,4 @@ stargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
 .. |gitter| image:: https://img.shields.io/gitter/room/nwjs/nw.js.svg
     :target: https://gitter.im/stargateRL/Lobby
     :alt: Gitter Chat
-.. |mylogo| image:: http://i.imgur.com/ynL5OI7.png
+.. |mylogo| image:: http://i.imgur.com/MgTkIlm.png
