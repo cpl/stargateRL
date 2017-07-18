@@ -18,9 +18,3 @@ stargateRL |pypi| |travis| |landscape| |coveralls| |gitter|
     :target: https://gitter.im/stargateRL/Lobby
     :alt: Gitter Chat
 .. |mylogo| image:: http://i.imgur.com/ynL5OI7.png
-
------------------------------------------------------------
-
-===========
-Description
-===========
