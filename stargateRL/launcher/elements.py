@@ -147,16 +147,16 @@ class MultipleOptions(Input):
 class Slider(Input):
     """Slider int input style."""
 
-    def __init__(self, master, label, value, min, max):
+    def __init__(self, master, label, value, min_val, max_val):
         """Construct the slider."""
         super(Slider, self).__init__(master, label)
 
-        if value < min or value > max:
+        if value < min_val or value > max_val:
             raise Exception('Slider value exceedes limits!')
         else:
             self._value = tk.StringVar(value=value)
 
-        self._entry = tk.Scale(master=self, from_=min, to=max,
+        self._entry = tk.Scale(master=self, from_=min_val, to=max_val,
                                orient=tk.HORIZONTAL)
         self._entry.config(bg=SUBFRAME_COLORS[0], relief=tk.FLAT,
                            highlightbackground=SUBFRAME_COLORS[0],

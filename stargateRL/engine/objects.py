@@ -11,18 +11,19 @@ class SpriteObject(object):
 
     def __init__(self, batch=None, group_order=None):
         """Construct sprite object."""
-        pass
+        self._batch = batch
+        self._group_order = group_order
 
 
+# TODO: Assign y_tiles to do something.
 class SpriteText(SpriteObject):
     """This can be a single word, a line of text or even a block of text."""
 
     def __init__(self, string, x, y, x_tiles=None, y_tiles=None,
                  tile_color=TileColor(), batch=None, group_order=None):
         """Construct the text out of sprites."""
+        super(SpriteText, self).__init__(batch, group_order)
         self._string = string
-        self._batch = batch
-        self._group_order = group_order
 
         # Create sprites from string
         ts = GX_TILESETS['MAIN'].tile_size

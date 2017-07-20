@@ -31,12 +31,15 @@ def continent(elevation, push, edges, strenght, nx, ny):
 class NoiseGenerator(object):
     """Construct the terrain heightmap."""
 
+    # TODO: Check out _settings, remember what that was all about.
     def __init__(self, width, height, seed):
         """Construct the terrain."""
         self._width = width
         self._height = height
         self._noise_map = [[None for x in range(width)] for y in range(height)]
         self._seed = seed
+
+        self._settings = None
 
     def get(self, x, y):
         """Return the noise value at x, y."""
@@ -46,7 +49,8 @@ class NoiseGenerator(object):
         """Set the noise value at x, y."""
         self._noise_map[x][y] = value
 
-    def generate_special(self, special='megarandom', **kargs):
+    # TODO: Remember what this does... and write better documentation!
+    def generate_special(self, special='megarandom'):
         """Special custom settings for elevation generation."""
         if special == 'megarandom':
             self.generate_noise_map(random.uniform(10.0, 1000.0),
@@ -71,6 +75,7 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_gray.bmp'
         gimg.putdata(graymap)
         gimg.save(file_path.format(*self._settings))
 
+    # TODO: Split this function into more, smaller, easier to test functions!
     def generate_noise_map(self, scale, octaves, exponent, persistance,
                            lacunarity, terraces=1.0, continent_filter=True,
                            offset=(0, 0), mode='simplex'):
@@ -178,6 +183,7 @@ class WorldData(object):
         self._moisture_map = moisture_noise_map
 
         # Check width and height to match
+        # TODO: Make width and height (properties) access methods.
         if elevation_noise_map._width == moisture_noise_map._width:
             self.width = elevation_noise_map._width
         else:
@@ -187,6 +193,7 @@ class WorldData(object):
         else:
             raise Exception('Elevation and moisture maps height don\'t match.')
 
+        # TODO: Improve matrix generation
         self._biome_map = [[None for x in range(
             self.width)] for y in range(self.width)]
 
@@ -223,6 +230,8 @@ _per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_elevation_color.bmp'
         image.putdata(pixels)
         image.save(file_path.format(*self._elevation_map._settings))
 
+    # TODO: Create better EXPORT methods! and move them to a new file (utils?)
+    # TODO: Fix private access!!!
     def export_moisture(self):
         """Export moisture color map."""
         pixels = []
@@ -382,9 +391,9 @@ world_data._moisture_map.generate_noise_map(SCALE, OCTAVES, EXPONENT,
                                             continent_filter=False)
 world_data.generate_biomes()
 
-# world_data._elevation_map.export_grayscale()
-# world_data._moisture_map.export_grayscale()
+world_data._elevation_map.export_grayscale()
+world_data._moisture_map.export_grayscale()
 
 world_data.export_elevation()
-# world_data.export_moisture()
+world_data.export_moisture()
 world_data.export_biomes()

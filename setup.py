@@ -32,7 +32,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.3dev0',
+    version='0.0.3dev1',
 
     # py2app
     setup_requires=["py2app"],
@@ -84,7 +84,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='stargateRL stargate scifi sci-fi rouge-like rougelike game',
+    keywords='stargateRL scifi sci-fi rouge-like rougelike game video-game',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().

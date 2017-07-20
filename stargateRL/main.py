@@ -48,4 +48,5 @@ def main():
     pyglet.app.run()
 
 
-main()
+if __name__ == '__main__':
+    main()
