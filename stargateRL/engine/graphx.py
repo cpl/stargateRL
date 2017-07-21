@@ -2,6 +2,8 @@
 
 import pyglet
 
+from enum import Enum
+
 
 class Color(object):
     """A representation of a color. RGBA."""
@@ -14,12 +16,29 @@ class Color(object):
         """Return the color only."""
         return bytes(bytearray(self._color))
 
+    def rgb(self):
+        """Return a tuple of (R, G, B)."""
+        return self._color[:3]
+
+
+class Colors(Enum):
+    """A collection of constant colors."""
+
+    BLACK = Color(0, 0, 0, 250)
+    WHITE = Color(255, 255, 255, 255)
+    BLUE = Color(0, 0, 255, 255)
+    GREEN = Color(0, 255, 0, 255)
+    RED = Color(255, 0, 0, 255)
+    TRANSPARENT = Color(0, 0, 0, 0)
+    BORDER = Color(70, 76, 84, 255)
+    GOLD = Color(245, 211, 115, 255)
+
 
 class TileColor(object):
     """A class holding two colors (foreground and background)."""
 
-    def __init__(self, foreground_color='white',
-                 background_color='transparent'):
+    def __init__(self, foreground_color=Colors.WHITE,
+                 background_color=Colors.TRANSPARENT):
         """Construct the color for the tile."""
         self._foreground_color = foreground_color
         self._background_color = background_color
@@ -38,17 +57,11 @@ class TileColor(object):
 
     def get_background(self):
         """Return the background color."""
-        return self._background_color
+        return self._background_color()
 
     def get_foreground(self):
         """Return the foreground color."""
-        return self._foreground_color
-
-
-COLORS = {'black': Color(0, 0, 0, 255), 'white': Color(255, 255, 255, 255),
-          'blue': Color(0, 0, 255, 255), 'red': Color(255, 0, 0, 255),
-          'green': Color(0, 255, 0, 255), 'transparent': Color(0, 0, 0, 0),
-          'border': Color(70, 76, 84, 255), 'gold': Color(245, 211, 115, 255)}
+        return self._foreground_color()
 
 
 class GxTileset(object):
@@ -88,14 +101,14 @@ class GxTileset(object):
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
         image_background = [p for p in range(len(image_pxls))
-                            if image_pxls[p] == COLORS['black']()]
+                            if image_pxls[p] == Colors.BLACK()]
         image_foreground = [p for p in range(len(image_pxls))
-                            if image_pxls[p] == COLORS['white']()]
+                            if image_pxls[p] == Colors.WHITE()]
 
         for pixel in image_background:
-            image_pxls[pixel] = COLORS[tile_color.get_background()]()
+            image_pxls[pixel] = tile_color.get_background()
         for pixel in image_foreground:
-            image_pxls[pixel] = COLORS[tile_color.get_foreground()]()
+            image_pxls[pixel] = tile_color.get_foreground()
 
         combined_pixels = b''
         for pixel in image_pxls:

@@ -3,8 +3,11 @@
 
 import math
 import random
+
 from noise import snoise2, pnoise2
 from PIL import Image
+
+from exports import export_image
 
 
 def noise(x, y, width, height, mode='simplex'):
@@ -60,22 +63,6 @@ class NoiseGenerator(object):
                                     random.uniform(1.0, 10.0),
                                     random.randint(1, 128))
 
-    def export_grayscale(self):
-        """Store a BMP image of the map, with some naive colors."""
-        graymap = []
-        file_path =\
-            'map_seed{!s}_size{!s}x{!s}_scale{!s}_octaves{!s}_exponent{!s}\
-_per{!s}_lac{!s}_terraces{!s}_c{!s}_offset{!s}_m{!s}_gray.bmp'
-
-        for row in self._noise_map:
-            for val in row:
-                graymap.append(int(val*255))
-
-        gimg = Image.new('L', (self._width, self._height))
-        gimg.putdata(graymap)
-        gimg.save(file_path.format(*self._settings))
-
-    # TODO: Split this function into more, smaller, easier to test functions!
     def generate_noise_map(self, scale, octaves, exponent, persistance,
                            lacunarity, terraces=1.0, continent_filter=True,
                            offset=(0, 0), mode='simplex'):
@@ -391,9 +378,11 @@ world_data._moisture_map.generate_noise_map(SCALE, OCTAVES, EXPONENT,
                                             continent_filter=False)
 world_data.generate_biomes()
 
-world_data._elevation_map.export_grayscale()
-world_data._moisture_map.export_grayscale()
+# world_data._elevation_map.export_grayscale()
+# world_data._moisture_map.export_grayscale()
 
 world_data.export_elevation()
-world_data.export_moisture()
-world_data.export_biomes()
+# world_data.export_moisture()
+# world_data.export_biomes()
+
+export_image(world_data._elevation_map._noise_map, tone=)

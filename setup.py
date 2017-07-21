@@ -10,6 +10,8 @@ from setuptools import setup, find_packages
 from codecs import open as copen
 from os import path
 
+from stargateRL.paths import FilePaths, DirectoryPaths
+
 CWD = path.abspath(path.dirname(__file__))
 
 with copen(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
@@ -32,7 +34,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.3dev1',
+    version='0.0.3dev2',
 
     # py2app
     setup_requires=["py2app"],
@@ -118,9 +120,10 @@ setup(
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
     data_files=[('stargateRL/data', ['data/config.json']),
-                ('stargateRL/data/bin', [path.join('data', 'bin', 'icon.png'),
-                                         'data/bin/selection.png']),
-                ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png'])],
+                ('stargateRL/data/bin', ['data/bin/icon.png']),
+                ('stargateRL/data/exports', []),
+                ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png'])
+                ],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
