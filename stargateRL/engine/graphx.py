@@ -1,7 +1,6 @@
 """Graphical resource manager."""
 
 import pyglet
-
 from enum import Enum
 
 
@@ -21,27 +20,25 @@ class Color(object):
         return self._color[:3]
 
 
-class Colors(Enum):
-    """A collection of constant colors."""
+class GraphxColors(Enum):
+    """Contains colors used by the tiles or default methods."""
 
-    BLACK = Color(0, 0, 0, 250)
-    WHITE = Color(255, 255, 255, 255)
-    BLUE = Color(0, 0, 255, 255)
-    GREEN = Color(0, 255, 0, 255)
-    RED = Color(255, 0, 0, 255)
-    TRANSPARENT = Color(0, 0, 0, 0)
-    BORDER = Color(70, 76, 84, 255)
-    GOLD = Color(245, 211, 115, 255)
+    DEFAULT_COLORED_FOREGROUND = Color(255, 255, 255, 255)
+    DEFAULT_COLORED_BACKGROUND = Color(0, 0, 0, 0)
+
+    TILE_FOREGROUND = Color(255, 255, 255, 255)
+    TILE_BACKGROUND = Color(0, 0, 0, 255)
 
 
 class TileColor(object):
     """A class holding two colors (foreground and background)."""
 
-    def __init__(self, foreground_color=Colors.WHITE,
-                 background_color=Colors.TRANSPARENT):
+    def __init__(self,
+                 foreground_color=GraphxColors.DEFAULT_COLORED_FOREGROUND,
+                 background_color=GraphxColors.DEFAULT_COLORED_BACKGROUND):
         """Construct the color for the tile."""
-        self._foreground_color = foreground_color
-        self._background_color = background_color
+        self._foreground_color = foreground_color.value
+        self._background_color = background_color.value
 
     def __call__(self):
         """Return the names of the colors."""
@@ -101,9 +98,11 @@ class GxTileset(object):
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
         image_background = [p for p in range(len(image_pxls))
-                            if image_pxls[p] == Colors.BLACK()]
+                            if image_pxls[p] ==
+                            GraphxColors.TILE_BACKGROUND.value()]
         image_foreground = [p for p in range(len(image_pxls))
-                            if image_pxls[p] == Colors.WHITE()]
+                            if image_pxls[p] ==
+                            GraphxColors.TILE_FOREGROUND.value()]
 
         for pixel in image_background:
             image_pxls[pixel] = tile_color.get_background()

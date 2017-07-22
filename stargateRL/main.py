@@ -2,7 +2,8 @@
 import pyglet
 
 from stargateRL.engine.screen import GameWindow
-from stargateRL.engine.graphx import TileColor, Colors
+from stargateRL.engine.graphx import TileColor
+from stargateRL.engine.colors import DefaultColors
 from stargateRL.engine import widgets
 
 from stargateRL.launcher.utils import load_config
@@ -26,14 +27,15 @@ def main():
 
     # Render screen border
     screen_border = widgets.BorderWidget(0, 0, window.x_tiles, window.y_tiles,
-                                         TileColor(Colors.BORDER))
+                                         TileColor(DefaultColors.BORDER))
 
     selection_menu =\
         widgets.SelectionMenuWidget(window.x_tiles / 4, window.y_tiles / 2,
                                     window.x_tiles / 2, window.y_tiles / 4,
-                                    TileColor(Colors.GOLD),
-                                    TileColor(Colors.WHITE),
-                                    TileColor(Colors.RED, Colors.GOLD),
+                                    TileColor(DefaultColors.GOLD),
+                                    TileColor(DefaultColors.WHITE),
+                                    TileColor(DefaultColors.RED,
+                                              DefaultColors.GOLD),
                                     # Menu options
                                     ('Compile World', None, None),
                                     ('Testing Area', None, None),
