@@ -10,7 +10,6 @@ from setuptools import setup, find_packages
 from codecs import open as copen
 from os import path
 
-from stargateRL.paths import FilePaths, DirectoryPaths
 
 CWD = path.abspath(path.dirname(__file__))
 
@@ -34,7 +33,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.3dev2',
+    version='0.0.3dev3',
 
     # py2app
     setup_requires=["py2app"],
@@ -122,6 +121,7 @@ setup(
     data_files=[('stargateRL/data', ['data/config.json']),
                 ('stargateRL/data/bin', ['data/bin/icon.png']),
                 ('stargateRL/data/exports', []),
+                ('stargateRL/data/saves', []),
                 ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png'])
                 ],
 
