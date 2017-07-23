@@ -207,11 +207,3 @@ class WorldData(object):
         with open(path.join(
                 DirectoryPaths.SAVES.value, name + '.pkl'), 'r') as fp:
             return pickel.load(fp)
-
-
-from stargateRL.world.exports import default_export_biomes, monochrome
-
-world_data = WorldData(seed=-1)
-monochrome(world_data.elevation())
-monochrome(world_data.moisture())
-default_export_biomes(world_data.biomes())

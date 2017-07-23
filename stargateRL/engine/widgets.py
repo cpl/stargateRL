@@ -12,7 +12,7 @@ class Widget(object):
     """Standard widget with requierments."""
 
     def __init__(self):
-        """Standard widget construct."""
+        """Widget construct."""
         self._batch = Batch()
         self._sprites = []
 
@@ -21,7 +21,7 @@ class Widget(object):
         self._batch.draw()
 
     def on_key_press(self, symbol, modifiers):
-        """Returning false removes the widget from stack, true keeps it."""
+        """Return false removes the widget from stack, true keeps it."""
         return False
 
 
@@ -143,8 +143,9 @@ class SelectionMenuWidget(BorderWidget):
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""
         if symbol == wkey.ENTER:
-            getattr(self._options[self._active][1],
-                    self._options[self._active][2])()
+            active = self._options[self._active]
+            active[1](*active[2])
+            del active
         elif symbol == wkey.UP:
             if self._active <= 0:
                 self._text_objects[self._active].set_color(self._colors[0])
