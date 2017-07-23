@@ -1,4 +1,5 @@
 """Main method for stargateRL."""
+import pdb
 import pyglet
 
 from stargateRL.engine.screen import GameWindow
@@ -38,7 +39,7 @@ def main():
                                               DefaultColors.GOLD),
                                     # Menu options
                                     ('Compile World', None, None),
-                                    ('Testing Area', None, None),
+                                    ('Testing Area', pdb, 'set_trace'),
                                     ('Saves/Worlds', None, None),
                                     ('Settings', None, None),
                                     ('Credits/About', None, None),
