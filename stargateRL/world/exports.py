@@ -17,7 +17,7 @@ def monochrome(map_data, file_name='map_monochrome', tone=DefaultColors.WHITE):
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
 
-    color = tone.rgb()
+    color = tone.value.rgb()
     for row in map_data:
         for val in row:
             image_data.append((int(color[0]*val),
@@ -53,6 +53,9 @@ def default_export_biomes(map_data, file_name='biomes'):
 
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
+
+    with open('biomes.dat', 'a+') as datafile:
+        datafile.write(str(map_data))
 
     for row in map_data:
         for val in row:

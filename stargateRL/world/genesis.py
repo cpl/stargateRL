@@ -167,6 +167,7 @@ class WorldData(object):
         """Return the biomes matrix only."""
         return self._data_biomes
 
+    # TODO: Fix error where all biomes are 12 (SHRUBLANDS)
     def generate_biomes(self):
         """Go trough eleavtion and moisture, and generate the biomes."""
         biome_matrix =\
@@ -208,7 +209,9 @@ class WorldData(object):
             return pickel.load(fp)
 
 
-from stargateRL.world.exports import default_export_biomes
+from stargateRL.world.exports import default_export_biomes, monochrome
 
 world_data = WorldData(seed=-1)
+monochrome(world_data.elevation())
+monochrome(world_data.moisture())
 default_export_biomes(world_data.biomes())

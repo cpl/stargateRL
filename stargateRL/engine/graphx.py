@@ -92,30 +92,19 @@ class GxTileset(object):
         """Return the Image from x, y inside ImageGrid."""
         return self.tileset_grid[row][column]
 
-    # TODO: Attempt to optimize algorithm
     def get_colored(self, tile_id, tile_color):
         """Return a tile with the given colors."""
         tile_image = self.get_by_id(tile_id)
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
-        # TODO: Improve code complexity by mergin this
-        image_background = [p for p in range(len(image_pxls))
-                            if image_pxls[p] ==
-                            GraphxColors.TILE_BACKGROUND.value()]
-        # with this
-        image_foreground = [p for p in range(len(image_pxls))
-                            if image_pxls[p] ==
-                            GraphxColors.TILE_FOREGROUND.value()]
-        # and this (╯°□°）╯︵ ┻━┻
-        for pixel in image_background:
-            image_pxls[pixel] = tile_color.get_background()
-        for pixel in image_foreground:
-            image_pxls[pixel] = tile_color.get_foreground()
+        for index, pixel in enumerate(image_pxls):
+            if pixel == GraphxColors.TILE_BACKGROUND.value():
+                image_pxls[index] = tile_color.get_background()
+            else:
+                image_pxls[index] = tile_color.get_foreground()
 
-        combined_pixels = b''
-        for pixel in image_pxls:
-            combined_pixels += pixel
+        combined_pixels = b''.join(image_pxls)
 
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
                                       'RGBA', combined_pixels)
