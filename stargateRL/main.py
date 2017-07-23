@@ -14,6 +14,7 @@ from stargateRL.world.exports import default_export_biomes, monochrome
 
 
 # DEBUG
+# TODO: Prepare settings for world generation
 def test_exports(tt):
     """Test export methods."""
     print tt

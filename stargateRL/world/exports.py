@@ -54,9 +54,6 @@ def default_export_biomes(map_data, file_name='biomes'):
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
 
-    with open('biomes.dat', 'a+') as datafile:
-        datafile.write(str(map_data))
-
     for row in map_data:
         for val in row:
             image_data.append(BiomeColors[Biomes(val).name].value.rgb())
