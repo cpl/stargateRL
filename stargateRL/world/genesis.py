@@ -170,28 +170,35 @@ class WorldData(object):
     # TODO: Fix error where all biomes are 12 (SHRUBLANDS)
     def generate_biomes(self):
         """Go trough eleavtion and moisture, and generate the biomes."""
+        # TODO: Move (maybe create a class) for BiomeMapping
+        # Elevation and moisture thresholds
+        elvt = [0.10, 0.13, 0.3, 0.6, 0.8, 2.0]
+        mstt = [0.05, 0.1, 0.25, 0.4, 0.65, 2.0]
+
+        # Biome interpretation matrix
+        binter = [[0, 0, 0, 0, 0, 0],
+                  [1, 1, 1, 1, 1, 1],
+                  [7, 6, 5, 5, 4, 4],
+                  [10, 6, 6, 9, 9, 8],
+                  [10, 10, 12, 12, 11, 11],
+                  [16, 15, 14, 13, 13, 13]]
+
         biome_matrix =\
             [[None for _ in range(self.width)] for _ in range(self.height)]
 
-        # Elevation and moisture thresholds
-        elevation_thresholds = [0.13, 0.3, 0.6, 0.8, 2.0]
-        moisture_thresholds = [0.05, 0.1, 0.25, 0.4, 0.65, 2.0]
-
-        # Biome interpretation matrix
-        biome_interpretation = [[-1, -1, -1, -1, -1, -1],
-                                [0, 1, 2, 2, 3, 3],
-                                [4, 1, 1, 5, 5, 6],
-                                [4, 4, 7, 7, 8, 8],
-                                [9, 10, 11, 12, 12, 12]]
-
         for x in range(self.width):
             for y in range(self.height):
-                for elv_index, elv in enumerate(elevation_thresholds):
-                    if self._generator_elevation.get(x, y) < elv:
-                        for mst_index, mst in enumerate(moisture_thresholds):
-                            if self._generator_moisture.get(x, y) < mst:
-                                biome_matrix[x][y] =\
-                                    biome_interpretation[elv_index][mst_index]
+                elv = self._generator_elevation.get(x, y)
+                for elvi, elvc in enumerate(elvt):
+                    if elv < elvc:
+                        mst = self._generator_moisture.get(x, y)
+                        for msti, mstc in enumerate(mstt):
+                            if mst < mstc:
+                                biome_matrix[x][y] = binter[elvi][msti]
+                                break
+                            else:
+                                continue
+                        break
 
         return biome_matrix
 
