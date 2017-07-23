@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Graphical resource manager."""
 
 import pyglet
@@ -91,19 +92,22 @@ class GxTileset(object):
         """Return the Image from x, y inside ImageGrid."""
         return self.tileset_grid[row][column]
 
+    # TODO: Attempt to optimize algorithm
     def get_colored(self, tile_id, tile_color):
         """Return a tile with the given colors."""
         tile_image = self.get_by_id(tile_id)
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
+        # TODO: Improve code complexity by mergin this
         image_background = [p for p in range(len(image_pxls))
                             if image_pxls[p] ==
                             GraphxColors.TILE_BACKGROUND.value()]
+        # with this
         image_foreground = [p for p in range(len(image_pxls))
                             if image_pxls[p] ==
                             GraphxColors.TILE_FOREGROUND.value()]
-
+        # and this (╯°□°）╯︵ ┻━┻
         for pixel in image_background:
             image_pxls[pixel] = tile_color.get_background()
         for pixel in image_foreground:

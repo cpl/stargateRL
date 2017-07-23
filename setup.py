@@ -122,7 +122,10 @@ setup(
                 ('stargateRL/data/bin', ['data/bin/icon.png']),
                 ('stargateRL/data/exports', []),
                 ('stargateRL/data/saves', []),
-                ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png'])
+                ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png',
+                                               'data/bin/tiles/tileset20.png',
+                                               'data/bin/tiles/tileset32.png',
+                                               'data/bin/tiles/tileset64.png'])
                 ],
 
     # To provide executable scripts, use entry points in preference to the

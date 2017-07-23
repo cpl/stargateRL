@@ -6,12 +6,13 @@ from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.graphx import TileColor
 from stargateRL.engine.colors import DefaultColors
 from stargateRL.engine import widgets
-
 from stargateRL.launcher.utils import load_config
 
 
 def main():
     """Create the game."""
+    pyglet.options['debug_gl'] = False
+
     CONFIG = load_config()
     window_config = CONFIG['window']
 

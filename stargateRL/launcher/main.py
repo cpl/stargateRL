@@ -2,6 +2,7 @@
 
 import os
 import sys
+
 import tkinter as tki
 
 from stargateRL.launcher import elements

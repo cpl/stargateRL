@@ -1,6 +1,7 @@
 """Contains useful methods and global variables."""
 
 import json
+
 from stargateRL.paths import FilePaths
 
 
