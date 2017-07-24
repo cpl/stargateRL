@@ -1,9 +1,8 @@
 """All relevant paths for stargateRL."""
 
 import os
-import sys
-
 import os.path as path
+import sys
 
 from enum import Enum
 
@@ -14,7 +13,7 @@ class DirectoryPaths(Enum):
 
     ROOT = path.abspath(os.path.join(sys.prefix, 'stargateRL'))
     DATA = path.join(ROOT, 'data')
-    MAPS = path.join(DATA, 'maps')
+    EXPORTS = path.join(DATA, 'exports')
     SAVES = path.join(DATA, 'saves')
     BIN = path.join(DATA, 'bin')
     TILES = path.join(BIN, 'tiles')
@@ -24,4 +23,5 @@ class DirectoryPaths(Enum):
 class FilePaths(Enum):
     """Create an enum of all relevant file paths."""
 
-    CONFIG = path.join(DirectoryPaths.DATA, 'config.json')
+    CONFIG = path.join(DirectoryPaths.DATA.value, 'config.json')
+    ICON = path.join(DirectoryPaths.BIN.value, 'icon.png')

@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """Graphical resource manager."""
 
 import pyglet
+from enum import Enum
 
 
 class Color(object):
@@ -14,15 +16,30 @@ class Color(object):
         """Return the color only."""
         return bytes(bytearray(self._color))
 
+    def rgb(self):
+        """Return a tuple of (R, G, B)."""
+        return self._color[:3]
+
+
+class GraphxColors(Enum):
+    """Contains colors used by the tiles or default methods."""
+
+    DEFAULT_COLORED_FOREGROUND = Color(255, 255, 255, 255)
+    DEFAULT_COLORED_BACKGROUND = Color(0, 0, 0, 0)
+
+    TILE_FOREGROUND = Color(255, 255, 255, 255)
+    TILE_BACKGROUND = Color(0, 0, 0, 255)
+
 
 class TileColor(object):
     """A class holding two colors (foreground and background)."""
 
-    def __init__(self, foreground_color='white',
-                 background_color='transparent'):
+    def __init__(self,
+                 foreground_color=GraphxColors.DEFAULT_COLORED_FOREGROUND,
+                 background_color=GraphxColors.DEFAULT_COLORED_BACKGROUND):
         """Construct the color for the tile."""
-        self._foreground_color = foreground_color
-        self._background_color = background_color
+        self._foreground_color = foreground_color.value
+        self._background_color = background_color.value
 
     def __call__(self):
         """Return the names of the colors."""
@@ -38,17 +55,11 @@ class TileColor(object):
 
     def get_background(self):
         """Return the background color."""
-        return self._background_color
+        return self._background_color()
 
     def get_foreground(self):
         """Return the foreground color."""
-        return self._foreground_color
-
-
-COLORS = {'black': Color(0, 0, 0, 255), 'white': Color(255, 255, 255, 255),
-          'blue': Color(0, 0, 255, 255), 'red': Color(255, 0, 0, 255),
-          'green': Color(0, 255, 0, 255), 'transparent': Color(0, 0, 0, 0),
-          'border': Color(70, 76, 84, 255), 'gold': Color(245, 211, 115, 255)}
+        return self._foreground_color()
 
 
 class GxTileset(object):
@@ -87,19 +98,13 @@ class GxTileset(object):
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
         image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
-        image_background = [p for p in range(len(image_pxls))
-                            if image_pxls[p] == COLORS['black']()]
-        image_foreground = [p for p in range(len(image_pxls))
-                            if image_pxls[p] == COLORS['white']()]
+        for index, pixel in enumerate(image_pxls):
+            if pixel == GraphxColors.TILE_BACKGROUND.value():
+                image_pxls[index] = tile_color.get_background()
+            else:
+                image_pxls[index] = tile_color.get_foreground()
 
-        for pixel in image_background:
-            image_pxls[pixel] = COLORS[tile_color.get_background()]()
-        for pixel in image_foreground:
-            image_pxls[pixel] = COLORS[tile_color.get_foreground()]()
-
-        combined_pixels = b''
-        for pixel in image_pxls:
-            combined_pixels += pixel
+        combined_pixels = b''.join(image_pxls)
 
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
                                       'RGBA', combined_pixels)

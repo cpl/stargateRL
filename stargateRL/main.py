@@ -1,15 +1,33 @@
 """Main method for stargateRL."""
+import pdb
 import pyglet
 
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.graphx import TileColor
+from stargateRL.engine.colors import DefaultColors
 from stargateRL.engine import widgets
-
 from stargateRL.launcher.utils import load_config
+
+
+from stargateRL.world.genesis import WorldData
+from stargateRL.world.exports import default_export_biomes, monochrome
+
+
+# DEBUG
+# TODO: Prepare settings for world generation
+def test_exports(tt):
+    """Test export methods."""
+    print tt
+    world_data = WorldData(seed=-1)
+    monochrome(world_data.elevation(), 'elevation')
+    monochrome(world_data.moisture(), 'moisture')
+    default_export_biomes(world_data.biomes())
 
 
 def main():
     """Create the game."""
+    pyglet.options['debug_gl'] = False
+
     CONFIG = load_config()
     window_config = CONFIG['window']
 
@@ -26,21 +44,22 @@ def main():
 
     # Render screen border
     screen_border = widgets.BorderWidget(0, 0, window.x_tiles, window.y_tiles,
-                                         TileColor('border', 'transparent'))
+                                         TileColor(DefaultColors.BORDER))
 
     selection_menu =\
         widgets.SelectionMenuWidget(window.x_tiles / 4, window.y_tiles / 2,
                                     window.x_tiles / 2, window.y_tiles / 4,
-                                    TileColor('gold', 'transparent'),
-                                    TileColor('white', 'transparent'),
-                                    TileColor('red', 'gold'),
+                                    TileColor(DefaultColors.GOLD),
+                                    TileColor(DefaultColors.WHITE),
+                                    TileColor(DefaultColors.RED,
+                                              DefaultColors.GOLD),
                                     # Menu options
-                                    ('Compile World', None, None),
-                                    ('Testing Area', None, None),
-                                    ('Saves/Worlds', None, None),
-                                    ('Settings', None, None),
-                                    ('Credits/About', None, None),
-                                    ('Exit', pyglet.app, 'exit'))
+                                    ('Compile World', test_exports, [None]),
+                                    ('Testing Area', pdb.set_trace, []),
+                                    ('Saves/Worlds', None, []),
+                                    ('Settings', None, []),
+                                    ('Credits/About', []),
+                                    ('Exit', pyglet.app.exit, []))
 
     window.push_widget(screen_border)
     window.push_widget(selection_menu)
@@ -48,4 +67,5 @@ def main():
     pyglet.app.run()
 
 
-main()
+if __name__ == '__main__':
+    main()

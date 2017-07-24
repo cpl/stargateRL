@@ -1,6 +1,8 @@
 """The main launcher for changing the configurations."""
 
 import os
+import sys
+
 import tkinter as tki
 
 from stargateRL.launcher import elements
@@ -11,7 +13,10 @@ from stargateRL.paths import DirectoryPaths
 def launch():
     """Start the stargateRL.__main__ method."""
     root.destroy()
+
+    # TODO: Make a top import of main() and use it here
     import stargateRL.main
+    stargateRL.main.main()
 
 
 def match():
@@ -23,10 +28,10 @@ def match():
 def save(write=True):
     """Method called by the Apply button."""
     config_dictionary = CONFIG
-    for section in CONFIG.keys():
-        for key, value in CONFIG[section].items():
-            config_dictionary[section][key] =\
-                config_frame.subframes[section].options[key].get_value()
+    for _section in CONFIG.keys():
+        for _key in CONFIG[_section].keys():
+            config_dictionary[_section][_key] =\
+                config_frame.subframes[_section].options[_key].get_value()
     if write:
         save_config(config_dictionary)
 
@@ -57,7 +62,10 @@ def close():
                    command=popup.destroy).pack(side=tki.LEFT)
 
         popup.mainloop()
-        popup.destroy()
+        try:
+            popup.destroy()
+        except Exception:
+            sys.exit()
 
 
 CONFIG = load_config()
@@ -71,7 +79,7 @@ root.wm_title('stargateRL Launcher')
 config_frame = elements.MainFrame(root)
 config_frame.make_subframes(CONFIG.keys())
 
-TILE_PATH = DirectoryPaths.TILES
+TILE_PATH = DirectoryPaths.TILES.value
 TILESETS = [tile for tile in os.listdir(TILE_PATH) if tile.endswith('.png')]
 SIZES = [16, 20, 32, 64]
 
@@ -118,4 +126,7 @@ tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
 
 # GUI goes above this line
 root.mainloop()
-root.destroy()
+try:
+    root.destroy()
+except Exception:
+    sys.exit()

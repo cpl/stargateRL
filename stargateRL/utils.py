@@ -7,8 +7,8 @@ from stargateRL.launcher.utils import load_config
 
 # Reset pyglet resources path then append custom ones
 pyglet.resource.path = []
-pyglet.resource.path.append((DirectoryPaths.BIN))
-pyglet.resource.path.append((DirectoryPaths.TILES))
+pyglet.resource.path.append((DirectoryPaths.BIN.value))
+pyglet.resource.path.append((DirectoryPaths.TILES.value))
 
 
 # Load the config
