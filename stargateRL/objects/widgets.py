@@ -4,7 +4,7 @@ from pyglet.sprite import Sprite
 from pyglet.graphics import Batch
 from pyglet.window import key as wkey
 
-from stargateRL.engine.objects import SpriteText
+from stargateRL.objects.spriteobj import SpriteText
 from stargateRL.utils import GX_TILESETS
 
 
@@ -39,7 +39,7 @@ class FilledBoxWidget(Widget):
                         GX_TILESETS['MAIN'].get_colored(tile_id, tile_color),
                         (x + x_tile) * tile_size,
                         (y + y_tile) * tile_size,
-                        batch=self._batch))
+                        batch=self._batch, usage='static'))
 
 
 class BorderWidget(Widget):
@@ -68,23 +68,25 @@ class BorderWidget(Widget):
         self._sprites.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(LB_CORNER, tile_color),
-                x * ts, y * ts, batch=self._batch))
+                x * ts, y * ts, batch=self._batch, usage='static'))
         # Left, top, corner
         self._sprites.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(LT_CORNER, tile_color),
-                x * ts, (y + y_tiles - 1) * ts, batch=self._batch))
+                x * ts, (y + y_tiles - 1) * ts,
+                batch=self._batch, usage='static'))
         # Right, bottom, corner
         self._sprites.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(RB_CORNER, tile_color),
-                (x + x_tiles - 1) * ts, y * ts, batch=self._batch))
+                (x + x_tiles - 1) * ts, y * ts,
+                batch=self._batch, usage='static'))
         # Right, top, corner
         self._sprites.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(RT_CORNER, tile_color),
                 (x + x_tiles - 1) * ts, (y + y_tiles - 1) * ts,
-                batch=self._batch))
+                batch=self._batch, usage='static'))
 
         # Bottom and top edges
         for x_tile in range(x_tiles):
@@ -92,7 +94,7 @@ class BorderWidget(Widget):
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(T_EDGE, tile_color),
                     (x + x_tile) * ts, (y + y_tiles - 1) * ts,
-                    batch=self._batch))
+                    batch=self._batch, usage='static'))
             self._sprites.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(B_EDGE, tile_color),
@@ -103,12 +105,12 @@ class BorderWidget(Widget):
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(R_EDGE, tile_color),
                     (x + x_tiles - 1) * ts, (y + y_tile) * ts,
-                    batch=self._batch))
+                    batch=self._batch, usage='static'))
             self._sprites.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(L_EDGE, tile_color),
                     x * ts, (y + y_tile) * ts,
-                    batch=self._batch))
+                    batch=self._batch, usage='static'))
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""

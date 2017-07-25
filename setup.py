@@ -122,6 +122,8 @@ setup(
                 ('stargateRL/data/bin', ['data/bin/icon.png']),
                 ('stargateRL/data/exports', []),
                 ('stargateRL/data/saves', []),
+                ('stargateRL/data/fonts', ['data/fonts/LICENSE.TXT',
+                                           'data/fonts/Px437_IBM_VGA8.ttf']),
                 ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png',
                                                'data/bin/tiles/tileset20.png',
                                                'data/bin/tiles/tileset32.png',

@@ -20,6 +20,10 @@ class Color(object):
         """Return a tuple of (R, G, B)."""
         return self._color[:3]
 
+    def rgba(self):
+        """Return a tuple of (R, G, B, A)."""
+        return self._color
+
 
 class GraphxColors(Enum):
     """Contains colors used by the tiles or default methods."""
@@ -96,15 +100,22 @@ class GxTileset(object):
         """Return a tile with the given colors."""
         tile_image = self.get_by_id(tile_id)
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
-        image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
-        for index, pixel in enumerate(image_pxls):
-            if pixel == GraphxColors.TILE_BACKGROUND.value():
-                image_pxls[index] = tile_color.get_background()
+        image_pixels = []
+        for p in range(0, len(image_data), 4):
+            if image_data[p:p+4] == GraphxColors.TILE_BACKGROUND.value():
+                image_pixels.append(tile_color.get_background())
             else:
-                image_pxls[index] = tile_color.get_foreground()
+                image_pixels.append(tile_color.get_foreground())
 
-        combined_pixels = b''.join(image_pxls)
+        # image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
+        # for index, pixel in enumerate(image_pxls):
+        #     if pixel == GraphxColors.TILE_BACKGROUND.value():
+        #         image_pxls[index] = tile_color.get_background()
+        #     else:
+        #         image_pxls[index] = tile_color.get_foreground()
+
+        combined_pixels = b''.join(image_pixels)
 
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
                                       'RGBA', combined_pixels)
