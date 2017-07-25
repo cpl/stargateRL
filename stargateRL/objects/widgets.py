@@ -1,7 +1,6 @@
 """Widget support."""
 
 from pyglet.sprite import Sprite
-from pyglet.text import Label
 from pyglet.graphics import Batch
 from pyglet.window import key as wkey
 
@@ -54,7 +53,7 @@ class BorderWidget(Widget):
 
     def __init__(self, position, dimensions, removable, tile_color, tiles):
         """Construct a border widget, can be used with other widgets."""
-        super(BorderWidget, self).__init__()
+        super(BorderWidget, self).__init__(removable=removable)
 
         # LTC - LeftTopCorner, BE - BottomEdge
         LTC, LBC, RBC, RTC, TE, BE, LE, RE = tiles
@@ -88,7 +87,7 @@ class BorderWidget(Widget):
                 batch=self._batch, usage='static'))
 
         # Bottom and top edges
-        for x_tile in range(1, x_tiles):
+        for x_tile in range(1, x_tiles-1):
             self._sprites.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(TE, tile_color),
@@ -100,7 +99,7 @@ class BorderWidget(Widget):
                     (x + x_tile) * TILE_SIZE, y * TILE_SIZE,
                     batch=self._batch, usage='static'))
         # Left and right edges
-        for y_tile in range(y_tiles):
+        for y_tile in range(1, y_tiles-1):
             self._sprites.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(RE, tile_color),
@@ -116,7 +115,7 @@ class BorderWidget(Widget):
 class SelectionMenuWidget(Widget):
     """A menu of options."""
 
-    def __init__(self, position, dimensions, colors, *options, **kargs):
+    def __init__(self, position, dimensions, colors, options, **kargs):
         """Construct the selection menu."""
         super(SelectionMenuWidget, self).__init__(
             removable=kargs.get('removable'))
@@ -130,9 +129,11 @@ class SelectionMenuWidget(Widget):
         self._colors = colors
         self._op_len = len(options)
 
-        for index, option in enumerate(options):
-            string = option[0]
-            Label(string)
+        # for index, option in enumerate(options):
+        #     string = option[0]
+        #     self._sprites.append(
+        #         Label(string, batch=self._batch, font_size=TILE_SIZE,
+        #               x=x*TILE_SIZE, y=(y-index)*TILE_SIZE))
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""

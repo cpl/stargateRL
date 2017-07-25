@@ -8,7 +8,6 @@ from stargateRL.engine.colors import DefaultColors
 from stargateRL.objects import widgets
 from stargateRL.launcher.utils import load_config
 
-
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, monochrome
 
@@ -52,23 +51,23 @@ def main():
                                          tiles=(178, 178, 178, 178,
                                                 35, 35, 35, 35))
 
-    # selection_menu =\
-    #     widgets.SelectionMenuWidget(window.x_tiles / 4, window.y_tiles / 2,
-    #                                 window.x_tiles / 2, window.y_tiles / 4,
-    #                                 TileColor(DefaultColors.GOLD),
-    #                                 TileColor(DefaultColors.WHITE),
-    #                                 TileColor(DefaultColors.RED,
-    #                                           DefaultColors.GOLD),
-    #                                 # Menu options
-    #                                 ('Compile World', test_exports, [None]),
-    #                                 ('Testing Area', pdb.set_trace, []),
-    #                                 ('Saves/Worlds', None, []),
-    #                                 ('Settings', None, []),
-    #                                 ('Credits/About', []),
-    #                                 ('Exit', pyglet.app.exit, []))
+    # Render selection menu
+    selection_menu =\
+        widgets.SelectionMenuWidget(
+            position=(window.x_tiles / 2, window.y_tiles / 2),
+            dimensions=(window.x_tiles / 4, window.y_tiles / 4),
+            colors=(None, None, None),
+            # Menu options
+            options=(
+                ('Compile World', test_exports, [None]),
+                ('Testing Area', pdb.set_trace, []),
+                ('Saves/Worlds', None, []),
+                ('Settings', None, []),
+                ('Credits/About', None, []),
+                ('Exit', pyglet.app.exit, [])))
 
     window.push_widget(screen_border)
-    # window.push_widget(selection_menu)
+    window.push_widget(selection_menu)
 
     pyglet.app.run()
 
