@@ -108,14 +108,5 @@ class GxTileset(object):
             else:
                 image_pixels.append(tile_color.get_foreground())
 
-        # image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
-        # for index, pixel in enumerate(image_pxls):
-        #     if pixel == GraphxColors.TILE_BACKGROUND.value():
-        #         image_pxls[index] = tile_color.get_background()
-        #     else:
-        #         image_pxls[index] = tile_color.get_foreground()
-
-        combined_pixels = b''.join(image_pixels)
-
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
-                                      'RGBA', combined_pixels)
+                                      'RGBA', b''.join(image_pixels))

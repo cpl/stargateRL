@@ -43,26 +43,32 @@ def main():
     window.set_icon(pyglet.resource.image(CONFIG['resources']['icon']))
 
     # Render screen border
-    screen_border = widgets.BorderWidget(0, 0, window.x_tiles, window.y_tiles,
-                                         TileColor(DefaultColors.BORDER))
+    screen_border = widgets.BorderWidget(position=(0, 0),
+                                         dimensions=(window.x_tiles,
+                                                     window.y_tiles),
+                                         removable=False,
+                                         tile_color=TileColor(
+                                             DefaultColors.BORDER),
+                                         tiles=(178, 178, 178, 178,
+                                                35, 35, 35, 35))
 
-    selection_menu =\
-        widgets.SelectionMenuWidget(window.x_tiles / 4, window.y_tiles / 2,
-                                    window.x_tiles / 2, window.y_tiles / 4,
-                                    TileColor(DefaultColors.GOLD),
-                                    TileColor(DefaultColors.WHITE),
-                                    TileColor(DefaultColors.RED,
-                                              DefaultColors.GOLD),
-                                    # Menu options
-                                    ('Compile World', test_exports, [None]),
-                                    ('Testing Area', pdb.set_trace, []),
-                                    ('Saves/Worlds', None, []),
-                                    ('Settings', None, []),
-                                    ('Credits/About', []),
-                                    ('Exit', pyglet.app.exit, []))
+    # selection_menu =\
+    #     widgets.SelectionMenuWidget(window.x_tiles / 4, window.y_tiles / 2,
+    #                                 window.x_tiles / 2, window.y_tiles / 4,
+    #                                 TileColor(DefaultColors.GOLD),
+    #                                 TileColor(DefaultColors.WHITE),
+    #                                 TileColor(DefaultColors.RED,
+    #                                           DefaultColors.GOLD),
+    #                                 # Menu options
+    #                                 ('Compile World', test_exports, [None]),
+    #                                 ('Testing Area', pdb.set_trace, []),
+    #                                 ('Saves/Worlds', None, []),
+    #                                 ('Settings', None, []),
+    #                                 ('Credits/About', []),
+    #                                 ('Exit', pyglet.app.exit, []))
 
     window.push_widget(screen_border)
-    window.push_widget(selection_menu)
+    # window.push_widget(selection_menu)
 
     pyglet.app.run()
 
