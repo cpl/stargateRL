@@ -20,7 +20,7 @@ class SpriteText(SpriteObject):
     """This can be a single word, a line of text or even a block of text."""
 
     def __init__(self, string, position, dimensions=(None, None),
-                 batch=None, group_order=None):
+                 tile_color=TileColor(), batch=None, group_order=None):
         """Construct the text out of sprites."""
         super(SpriteText, self).__init__(batch, group_order)
         self._string = string

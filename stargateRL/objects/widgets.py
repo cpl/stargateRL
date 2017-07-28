@@ -5,6 +5,7 @@ from pyglet.graphics import Batch
 from pyglet.window import key as wkey
 
 from stargateRL.utils import GX_TILESETS, TILE_SIZE
+from stargateRL.objects.ftext import FontText
 
 
 class Widget(object):
@@ -37,9 +38,12 @@ class FilledBoxWidget(Widget):
                  tile_color, tile_id=177):
         """Construct a box at given position of given dimensions w color."""
         super(FilledBoxWidget, self).__init__(removable=removable)
+
         x, y = position
-        for x_tile in range(dimensions[0]):
-            for y_tile in range(dimensions[1]):
+        x_tiles, y_tiles = dimensions
+
+        for x_tile in range(x_tiles):
+            for y_tile in range(y_tiles):
                 self._sprites.append(
                     Sprite(
                         GX_TILESETS['MAIN'].get_colored(tile_id, tile_color),
@@ -98,6 +102,7 @@ class BorderWidget(Widget):
                     GX_TILESETS['MAIN'].get_colored(BE, tile_color),
                     (x + x_tile) * TILE_SIZE, y * TILE_SIZE,
                     batch=self._batch, usage='static'))
+
         # Left and right edges
         for y_tile in range(1, y_tiles-1):
             self._sprites.append(
@@ -129,11 +134,11 @@ class SelectionMenuWidget(Widget):
         self._colors = colors
         self._op_len = len(options)
 
-        # for index, option in enumerate(options):
-        #     string = option[0]
-        #     self._sprites.append(
-        #         Label(string, batch=self._batch, font_size=TILE_SIZE,
-        #               x=x*TILE_SIZE, y=(y-index)*TILE_SIZE))
+        for index, option in enumerate(options):
+            string = option[0]
+            self._sprites.append(
+                string
+            )
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""
