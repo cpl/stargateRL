@@ -129,9 +129,7 @@ class SelectionMenuWidget(FilledBoxWidget):
                                                   kargs.get('removable', True),
                                                   tile_id=220)
 
-        border_color, default_color, active_color = colors
-        x, y = position
-        x_tiles, y_tiles = dimensions
+        border_color, default_color, active_color, selected_color = colors
 
         self._options = options
         self._index = 0
@@ -142,20 +140,24 @@ class SelectionMenuWidget(FilledBoxWidget):
         for option in options:
             _strings.append(option[0])
 
-        # self._tx_list = TextSelectionList(_strings, batch=self._batch)
-        # self._elements.append(self._tx_list)
+        self._tx_list = TextSelectionList(_strings, position, dimensions,
+                                          colors=(default_color,
+                                                  active_color,
+                                                  selected_color),
+                                          batch=self._batch)
+        self._elements.append(self._tx_list)
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""
         if symbol == wkey.ENTER:
-            # self._tx_list.select()
+            self._tx_list.select()
             _, command, args = self._options[self._index]
             command(*args)
         elif symbol == wkey.UP:
-            # self._tx_list.increment()
+            self._tx_list.increment()
             self._index = (self._index - 1) % self._op_len
         elif symbol == wkey.DOWN:
-            # self._tx_list.decrement()
+            self._tx_list.decrement()
             self._index = (self._index + 1) % self._op_len
 
         return True
@@ -168,4 +170,5 @@ class TextWidget(Widget):
         """Construct the simple text widget."""
         super(TextWidget, self).__init__(removable=True)
 
-        self._elements.append(Text(string, color, position, align, batch=self._batch))
+        self._elements.append(Text(string, color, position,
+                                   align, batch=self._batch))

@@ -57,8 +57,9 @@ def main():
             dimensions=(window.x_tiles / 2, window.y_tiles / 4),
             # (Border, Default, Active)
             colors=(DefaultColors.BORDER,
-                    DefaultColors.WHITE,
-                    DefaultColors.RED),
+                    DefaultColors.GREEN,
+                    DefaultColors.RED,
+                    DefaultColors.BLUE),
             # Menu options (name, method, args)
             options=(
                 ('Compile World', test_exports, [None]),
@@ -72,10 +73,6 @@ def main():
     # Prepare widgets for rendering
     window.push_widget(screen_border)
     window.push_widget(selection_menu)
-
-    # DEBUG: Testing text alignments
-    test_text = widgets.TextWidget('ALEX', (20, 0), DefaultColors.RED, 'center')
-    window.push_widget(test_text)
 
     pyglet.app.run()
 
