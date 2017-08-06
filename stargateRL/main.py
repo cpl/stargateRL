@@ -11,7 +11,6 @@ from stargateRL.launcher.utils import load_config
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, monochrome
 
-
 # DEBUG
 # TODO: Prepare settings for world generation
 def test_exports(tt):
@@ -41,7 +40,7 @@ def main():
     window.set_mouse_visible(window_config['mouse'])
     window.set_icon(pyglet.resource.image(CONFIG['resources']['icon']))
 
-    # Render screen border
+    # Create the screen border
     screen_border = widgets.BorderWidget(position=(0, 0),
                                          dimensions=(window.x_tiles,
                                                      window.y_tiles),
@@ -51,13 +50,16 @@ def main():
                                          tiles=(178, 178, 178, 178,
                                                 35, 35, 35, 35))
 
-    # Render selection menu
+    # Create the selection menu
     selection_menu =\
         widgets.SelectionMenuWidget(
-            position=(window.x_tiles / 2, window.y_tiles / 2),
-            dimensions=(window.x_tiles / 4, window.y_tiles / 4),
-            colors=(None, None, None),
-            # Menu options
+            position=(window.x_tiles / 4 + 1, window.y_tiles / 2),
+            dimensions=(window.x_tiles / 2, window.y_tiles / 4),
+            # (Border, Default, Active)
+            colors=(DefaultColors.BORDER,
+                    DefaultColors.WHITE,
+                    DefaultColors.RED),
+            # Menu options (name, method, args)
             options=(
                 ('Compile World', test_exports, [None]),
                 ('Testing Area', pdb.set_trace, []),
@@ -66,8 +68,14 @@ def main():
                 ('Credits/About', None, []),
                 ('Exit', pyglet.app.exit, [])))
 
+
+    # Prepare widgets for rendering
     window.push_widget(screen_border)
     window.push_widget(selection_menu)
+
+    # DEBUG: Testing text alignments
+    test_text = widgets.TextWidget('ALEX', (20, 0), DefaultColors.RED, 'center')
+    window.push_widget(test_text)
 
     pyglet.app.run()
 

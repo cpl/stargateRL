@@ -5,7 +5,8 @@ from pyglet.graphics import Batch
 from pyglet.window import key as wkey
 
 from stargateRL.utils import GX_TILESETS, TILE_SIZE
-from stargateRL.objects.ftext import FontText
+from stargateRL.objects.ftext import TextSelectionList, Text
+from stargateRL.engine.graphx import TileColor
 
 
 class Widget(object):
@@ -14,7 +15,7 @@ class Widget(object):
     def __init__(self, removable=True, key=wkey.ESCAPE):
         """Widget construct."""
         self._batch = Batch()
-        self._sprites = []
+        self._elements = []
 
         self._removable = removable
         self._key = key
@@ -35,18 +36,20 @@ class FilledBoxWidget(Widget):
     """A widget that fills the screen with colored blocks."""
 
     def __init__(self, position, dimensions, removable,
-                 tile_color, tile_id=177):
+                 tile_color=TileColor(), tile_id=177):
         """Construct a box at given position of given dimensions w color."""
         super(FilledBoxWidget, self).__init__(removable=removable)
 
         x, y = position
         x_tiles, y_tiles = dimensions
 
+        tile = GX_TILESETS['MAIN'].get_colored(tile_id, tile_color)
+
         for x_tile in range(x_tiles):
             for y_tile in range(y_tiles):
-                self._sprites.append(
+                self._elements.append(
                     Sprite(
-                        GX_TILESETS['MAIN'].get_colored(tile_id, tile_color),
+                        tile,
                         (x + x_tile) * TILE_SIZE,
                         (y + y_tile) * TILE_SIZE,
                         batch=self._batch, usage='static'))
@@ -66,25 +69,25 @@ class BorderWidget(Widget):
         x_tiles, y_tiles = dimensions
 
         # Left, bottom, corner
-        self._sprites.append(
+        self._elements.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(LBC, tile_color),
                 x * TILE_SIZE, y * TILE_SIZE,
                 batch=self._batch, usage='static'))
         # Left, top, corner
-        self._sprites.append(
+        self._elements.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(LTC, tile_color),
                 x * TILE_SIZE, (y + y_tiles - 1) * TILE_SIZE,
                 batch=self._batch, usage='static'))
         # Right, bottom, corner
-        self._sprites.append(
+        self._elements.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(RBC, tile_color),
                 (x + x_tiles - 1) * TILE_SIZE, y * TILE_SIZE,
                 batch=self._batch, usage='static'))
         # Right, top, corner
-        self._sprites.append(
+        self._elements.append(
             Sprite(
                 GX_TILESETS['MAIN'].get_colored(RTC, tile_color),
                 (x + x_tiles - 1) * TILE_SIZE, (y + y_tiles - 1) * TILE_SIZE,
@@ -92,12 +95,12 @@ class BorderWidget(Widget):
 
         # Bottom and top edges
         for x_tile in range(1, x_tiles-1):
-            self._sprites.append(
+            self._elements.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(TE, tile_color),
                     (x + x_tile) * TILE_SIZE, (y + y_tiles - 1) * TILE_SIZE,
                     batch=self._batch, usage='static'))
-            self._sprites.append(
+            self._elements.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(BE, tile_color),
                     (x + x_tile) * TILE_SIZE, y * TILE_SIZE,
@@ -105,25 +108,26 @@ class BorderWidget(Widget):
 
         # Left and right edges
         for y_tile in range(1, y_tiles-1):
-            self._sprites.append(
+            self._elements.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(RE, tile_color),
                     (x + x_tiles - 1) * TILE_SIZE, (y + y_tile) * TILE_SIZE,
                     batch=self._batch, usage='static'))
-            self._sprites.append(
+            self._elements.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(LE, tile_color),
                     x * TILE_SIZE, (y + y_tile) * TILE_SIZE,
                     batch=self._batch, usage='static'))
 
 
-class SelectionMenuWidget(Widget):
+class SelectionMenuWidget(FilledBoxWidget):
     """A menu of options."""
 
     def __init__(self, position, dimensions, colors, options, **kargs):
         """Construct the selection menu."""
-        super(SelectionMenuWidget, self).__init__(
-            removable=kargs.get('removable'))
+        super(SelectionMenuWidget, self).__init__(position, dimensions,
+                                                  kargs.get('removable', True),
+                                                  tile_id=220)
 
         border_color, default_color, active_color = colors
         x, y = position
@@ -134,20 +138,34 @@ class SelectionMenuWidget(Widget):
         self._colors = colors
         self._op_len = len(options)
 
-        for index, option in enumerate(options):
-            string = option[0]
-            self._sprites.append(
-                string
-            )
+        _strings = []
+        for option in options:
+            _strings.append(option[0])
+
+        # self._tx_list = TextSelectionList(_strings, batch=self._batch)
+        # self._elements.append(self._tx_list)
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""
         if symbol == wkey.ENTER:
+            # self._tx_list.select()
             _, command, args = self._options[self._index]
             command(*args)
         elif symbol == wkey.UP:
+            # self._tx_list.increment()
             self._index = (self._index - 1) % self._op_len
         elif symbol == wkey.DOWN:
+            # self._tx_list.decrement()
             self._index = (self._index + 1) % self._op_len
 
         return True
+
+
+class TextWidget(Widget):
+    """Simple widget to draw text."""
+
+    def __init__(self, string, position, color, align):
+        """Construct the simple text widget."""
+        super(TextWidget, self).__init__(removable=True)
+
+        self._elements.append(Text(string, color, position, align, batch=self._batch))

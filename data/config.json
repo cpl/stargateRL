@@ -15,7 +15,8 @@
         "icon": "icon.png", 
         "selection": "selection.png", 
         "size": 16, 
-        "tileset": "tileset16.png"
+        "tileset": "tileset16.png",
+        "font": "Px437 IBM VGA8"
     }, 
     "window": {
         "caption": "stargateRL", 

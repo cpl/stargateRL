@@ -80,7 +80,10 @@ config_frame = elements.MainFrame(root)
 config_frame.make_subframes(CONFIG.keys())
 
 TILE_PATH = DirectoryPaths.TILES.value
+FONT_PATH = DirectoryPaths.FONTS.value
+
 TILESETS = [tile for tile in os.listdir(TILE_PATH) if tile.endswith('.png')]
+FONTS = [font.replace('_', ' ')[:-4] for font in os.listdir(FONT_PATH) if font.endswith('.ttf')]
 SIZES = [16, 20, 32, 64]
 
 # Fill the sections with options
@@ -98,6 +101,11 @@ for section in CONFIG.keys():
                     elements.MultipleOptions(
                         config_frame.subframes[section],
                         key, value, TILESETS)
+            elif key == 'font':
+                config_frame.subframes[section].options[key] =\
+                    elements.MultipleOptions(
+                        config_frame.subframes[section],
+                        key, value, FONTS)
             elif key == 'size':
                 config_frame.subframes[section].options[key] =\
                     elements.MultipleOptions(
