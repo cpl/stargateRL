@@ -4,7 +4,6 @@ import pyglet
 
 from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
-from stargateRL.engine.graphx import TileColor
 from stargateRL.engine.colors import DefaultColors, MainColors
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, monochrome

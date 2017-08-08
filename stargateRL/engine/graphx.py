@@ -110,6 +110,12 @@ class GxTileset(object):
     def get_colored(self, tile_id, tile_color):
         """Return a tile with the given colors."""
         tile_image = self.get_by_id(tile_id)
+
+        # DEBUG
+        print tile_color, type(tile_color)
+        if isinstance(tile_color, TileColor):
+            print dir(tile_color)
+
         tile_color = tile_color.value
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
 

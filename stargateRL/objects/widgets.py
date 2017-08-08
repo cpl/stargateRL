@@ -6,8 +6,8 @@ from pyglet.window import key as wkey
 
 from stargateRL.utils import GX_TILESETS, TILE_SIZE
 from stargateRL.objects.ftext import TextSelectionList, Text
-from stargateRL.engine.graphx import TileColor
 
+# TODO: IMPORT COLOR
 
 class Widget(object):
     """Standard widget with requierments."""
@@ -33,6 +33,7 @@ class Widget(object):
         #     return True
 
 
+# TODO: REPLACE TILECOLOR!!!
 class FilledBoxWidget(Widget):
     """A widget that fills the screen with colored blocks."""
 
