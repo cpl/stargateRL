@@ -17,6 +17,8 @@ class DefaultColors(Enum):
 
     TRANSPARENT = Color(0, 0, 0, 0)
 
+    TILE = TileColor(WHITE, BLACK)
+
     # TODO: Move these two colors to a diffrent Enum
     # BORDER = Color(70, 76, 84, 255)
     GOLD = Color(245, 211, 115, 255)

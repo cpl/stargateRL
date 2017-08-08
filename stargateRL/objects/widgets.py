@@ -1,13 +1,13 @@
 """Widget support."""
 
 from pyglet.sprite import Sprite
-from pyglet.graphics import Batch
+from pyglet.graphics import Batch, OrderedGroup
 from pyglet.window import key as wkey
 
 from stargateRL.utils import GX_TILESETS, TILE_SIZE
 from stargateRL.objects.ftext import TextSelectionList, Text
+from stargateRL.engine.colors import DefaultColors
 
-# TODO: IMPORT COLOR
 
 class Widget(object):
     """Standard widget with requierments."""
@@ -33,12 +33,11 @@ class Widget(object):
         #     return True
 
 
-# TODO: REPLACE TILECOLOR!!!
 class FilledBoxWidget(Widget):
     """A widget that fills the screen with colored blocks."""
 
     def __init__(self, position, dimensions, removable,
-                 tile_color=TileColor(), tile_id=177):
+                 tile_color=DefaultColors.TILE, tile_id=177):
         """Construct a box at given position of given dimensions w color."""
         super(FilledBoxWidget, self).__init__(removable=removable)
 
@@ -136,6 +135,9 @@ class SelectionMenuWidget(FilledBoxWidget):
 
     def __init__(self, position, dimensions, colors, options, **kargs):
         """Construct the selection menu."""
+        group_background
+        group_foreground
+
         super(SelectionMenuWidget, self).__init__(position, dimensions,
                                                   kargs.get('removable', True),
                                                   tile_id=220)
