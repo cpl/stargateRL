@@ -37,7 +37,7 @@ class FilledBoxWidget(Widget):
     """A widget that fills the screen with colored blocks."""
 
     def __init__(self, position, dimensions, removable,
-                 tile_color=DefaultColors.TILE, tile_id=177):
+                 tile_color=DefaultColors.TILE, tile_id=177, group=None):
         """Construct a box at given position of given dimensions w color."""
         super(FilledBoxWidget, self).__init__(removable=removable)
 
@@ -53,7 +53,7 @@ class FilledBoxWidget(Widget):
                         tile,
                         (x + x_tile) * TILE_SIZE,
                         (y + y_tile) * TILE_SIZE,
-                        batch=self._batch, usage='static'))
+                        batch=self._batch, usage='static', group=group))
 
 
 class BorderWidget(Widget):
@@ -135,12 +135,13 @@ class SelectionMenuWidget(FilledBoxWidget):
 
     def __init__(self, position, dimensions, colors, options, **kargs):
         """Construct the selection menu."""
-        group_background
-        group_foreground
+        group_background = OrderedGroup(0)
+        group_foreground = OrderedGroup(1)
 
         super(SelectionMenuWidget, self).__init__(position, dimensions,
                                                   kargs.get('removable', True),
-                                                  tile_id=220)
+                                                  tile_id=220,
+                                                  group=group_background)
 
         border_color, default_color, active_color, selected_color = colors
 
@@ -156,7 +157,8 @@ class SelectionMenuWidget(FilledBoxWidget):
                                           colors=(default_color,
                                                   active_color,
                                                   selected_color),
-                                          batch=self._batch)
+                                          batch=self._batch,
+                                          group=group_foreground)
         self._elements.append(self._tx_list)
 
     def on_key_press(self, symbol, modifiers):
