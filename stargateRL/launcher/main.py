@@ -69,7 +69,7 @@ def close():
 
 
 # Check for special flag to launch the game without the config menu
-if sys.argv > 1:
+if len(sys.argv) > 1:
     if sys.argv[1] == '--launch':
         import stargateRL.main
         stargateRL.main.main()
