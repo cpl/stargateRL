@@ -31,10 +31,11 @@ class MainColors(Enum):
 
     BACKGROUND = Color(34, 40, 51, 255)
     FOREGROUND = Color(217, 215, 206, 255)
+    MENU = TileColor(BACKGROUND, FOREGROUND)
 
-    BORDER = TileColor(Color(71, 75, 84, 255), Color(40, 46, 56, 255))
-    # BORDER_BACKGROUND = Color(71, 75, 84, 255)
-    # BORDER_FOREGROUND = Color(40, 46, 56, 255)
+    BORDER_BACKGROUND = Color(71, 75, 84, 255)
+    BORDER_FOREGROUND = Color(40, 46, 56, 255)
+    BORDER = TileColor(BORDER_BACKGROUND, BORDER_FOREGROUND)
 
 
 class BiomeColors(Enum):

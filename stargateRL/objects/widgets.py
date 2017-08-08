@@ -63,6 +63,7 @@ class BorderWidget(Widget):
         """Construct a border widget, can be used with other widgets."""
         super(BorderWidget, self).__init__(removable=removable)
 
+        # TODO: Possibly add a constant for `usage`
         # LTC - LeftTopCorner, BE - BottomEdge
         LTC, LBC, RBC, RTC, TE, BE, LE, RE = tiles
 
@@ -70,53 +71,61 @@ class BorderWidget(Widget):
         x_tiles, y_tiles = dimensions
 
         # Left, bottom, corner
+        tile = GX_TILESETS['MAIN'].get_colored(LBC, tile_color)
         self._elements.append(
             Sprite(
-                GX_TILESETS['MAIN'].get_colored(LBC, tile_color),
+                tile,
                 x * TILE_SIZE, y * TILE_SIZE,
                 batch=self._batch, usage='static'))
         # Left, top, corner
+        tile = GX_TILESETS['MAIN'].get_colored(LTC, tile_color)
         self._elements.append(
             Sprite(
-                GX_TILESETS['MAIN'].get_colored(LTC, tile_color),
+                tile,
                 x * TILE_SIZE, (y + y_tiles - 1) * TILE_SIZE,
                 batch=self._batch, usage='static'))
         # Right, bottom, corner
+        tile = GX_TILESETS['MAIN'].get_colored(RBC, tile_color)
         self._elements.append(
             Sprite(
-                GX_TILESETS['MAIN'].get_colored(RBC, tile_color),
+                tile,
                 (x + x_tiles - 1) * TILE_SIZE, y * TILE_SIZE,
                 batch=self._batch, usage='static'))
         # Right, top, corner
+        tile = GX_TILESETS['MAIN'].get_colored(RTC, tile_color)
         self._elements.append(
             Sprite(
-                GX_TILESETS['MAIN'].get_colored(RTC, tile_color),
+                tile,
                 (x + x_tiles - 1) * TILE_SIZE, (y + y_tiles - 1) * TILE_SIZE,
                 batch=self._batch, usage='static'))
 
         # Bottom and top edges
+        top_tile = GX_TILESETS['MAIN'].get_colored(TE, tile_color)
+        bot_tile = GX_TILESETS['MAIN'].get_colored(BE, tile_color)
         for x_tile in range(1, x_tiles-1):
             self._elements.append(
                 Sprite(
-                    GX_TILESETS['MAIN'].get_colored(TE, tile_color),
+                    top_tile,
                     (x + x_tile) * TILE_SIZE, (y + y_tiles - 1) * TILE_SIZE,
                     batch=self._batch, usage='static'))
             self._elements.append(
                 Sprite(
-                    GX_TILESETS['MAIN'].get_colored(BE, tile_color),
+                    bot_tile,
                     (x + x_tile) * TILE_SIZE, y * TILE_SIZE,
                     batch=self._batch, usage='static'))
 
         # Left and right edges
+        left_tile = GX_TILESETS['MAIN'].get_colored(RE, tile_color)
+        right_tile = GX_TILESETS['MAIN'].get_colored(LE, tile_color)
         for y_tile in range(1, y_tiles-1):
             self._elements.append(
                 Sprite(
-                    GX_TILESETS['MAIN'].get_colored(RE, tile_color),
+                    left_tile,
                     (x + x_tiles - 1) * TILE_SIZE, (y + y_tile) * TILE_SIZE,
                     batch=self._batch, usage='static'))
             self._elements.append(
                 Sprite(
-                    GX_TILESETS['MAIN'].get_colored(LE, tile_color),
+                    right_tile,
                     x * TILE_SIZE, (y + y_tile) * TILE_SIZE,
                     batch=self._batch, usage='static'))
 

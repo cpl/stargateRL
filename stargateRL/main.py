@@ -42,19 +42,18 @@ def main():
 
     # TODO: Fix Enum34 .value errors, move all value calls to
     # the base most module/methods!
-    screen_background = widgets.FilledBoxWidget(
-                            position=(0, 0),
-                            dimensions=(window.x_tiles, window.y_tiles),
-                            removable=False, tile_color=MainColors.BORDER,
-                            tile_id=177)
+    # screen_background = widgets.FilledBoxWidget(
+    #                         position=(0, 0),
+    #                         dimensions=(window.x_tiles, window.y_tiles),
+    #                         removable=False, tile_color=MainColors.MENU,
+    #                         tile_id=177)
 
     # Create the screen border
     screen_border = widgets.BorderWidget(position=(0, 0),
                                          dimensions=(window.x_tiles,
                                                      window.y_tiles),
                                          removable=False,
-                                         tile_color=TileColor(
-                                             DefaultColors.BORDER),
+                                         tile_color=MainColors.BORDER,
                                          tiles=(178, 178, 178, 178,
                                                 35, 35, 35, 35))
 
@@ -64,7 +63,7 @@ def main():
             position=(window.x_tiles / 4 + 1, window.y_tiles / 2),
             dimensions=(window.x_tiles / 2, window.y_tiles / 4),
             # (TileColor(Border), TileColor(Menu), Default, Active, Selected)
-            colors=(DefaultColors.BORDER,
+            colors=(MainColors.BORDER,
                     DefaultColors.GREEN,
                     DefaultColors.RED,
                     DefaultColors.BLUE),
@@ -78,7 +77,7 @@ def main():
                 ('Exit', pyglet.app.exit, [])))
 
     # Prepare widgets for rendering
-    window.push_widget(screen_background)
+    # window.push_widget(screen_background)
     window.push_widget(screen_border)
     window.push_widget(selection_menu)
 
