@@ -2,14 +2,14 @@
 import pdb
 import pyglet
 
+from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.graphx import TileColor
 from stargateRL.engine.colors import DefaultColors
-from stargateRL.objects import widgets
-from stargateRL.launcher.utils import load_config
-
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, monochrome
+from stargateRL.launcher.utils import load_config
+
 
 # DEBUG
 # TODO: Prepare settings for world generation

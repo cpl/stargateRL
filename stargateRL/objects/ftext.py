@@ -44,7 +44,7 @@ class TextSelectionList(object):
     """Default class for multi line/list text objects."""
 
     def __init__(self, strings, position, dimensions, colors,
-                 align='center', anchor=('center', 'top'), batch=None):
+                 align='center', anchor=('center', 'baseline'), batch=None):
         """Create the labels and list."""
         x, y = position
         x_tiles, y_tiles = dimensions
@@ -55,8 +55,9 @@ class TextSelectionList(object):
 
         for index, string in enumerate(strings):
             self._labels.append(
-                Text(string, default, position=(x, y-index),
-                     dimensions=(x_tiles, 1),
+                Text(string, default,
+                     position=(x_tiles/2+x, y_tiles/2+y_tiles/4+y-index),
+                     dimensions=(x_tiles, TILE_SIZE),
                      align=align, anchor=anchor,
                      fsdt=0, batch=batch))
 

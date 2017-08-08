@@ -26,10 +26,11 @@ class Widget(object):
 
     def on_key_press(self, symbol, modifiers):
         """Return False removes the widget from stack, True keeps it."""
-        if self._removable and self._key == symbol:
-            return False
-        else:
-            return True
+        return self._removable and self._key == symbol
+        # if self._removable and self._key == symbol:
+        #     return False
+        # else:
+        #     return True
 
 
 class FilledBoxWidget(Widget):
@@ -133,7 +134,6 @@ class SelectionMenuWidget(FilledBoxWidget):
 
         self._options = options
         self._index = 0
-        self._colors = colors
         self._op_len = len(options)
 
         _strings = []
