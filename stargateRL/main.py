@@ -5,7 +5,7 @@ import pyglet
 from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.graphx import TileColor
-from stargateRL.engine.colors import DefaultColors
+from stargateRL.engine.colors import DefaultColors, MainColors
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, monochrome
 from stargateRL.launcher.utils import load_config
@@ -40,6 +40,14 @@ def main():
     window.set_mouse_visible(window_config['mouse'])
     window.set_icon(pyglet.resource.image(CONFIG['resources']['icon']))
 
+    # TODO: Fix Enum34 .value errors, move all value calls to
+    # the base most module/methods!
+    screen_background = widgets.FilledBoxWidget(
+                            position=(0, 0),
+                            dimensions=(window.x_tiles, window.y_tiles),
+                            removable=False, tile_color=MainColors.BORDER,
+                            tile_id=177)
+
     # Create the screen border
     screen_border = widgets.BorderWidget(position=(0, 0),
                                          dimensions=(window.x_tiles,
@@ -55,7 +63,7 @@ def main():
         widgets.SelectionMenuWidget(
             position=(window.x_tiles / 4 + 1, window.y_tiles / 2),
             dimensions=(window.x_tiles / 2, window.y_tiles / 4),
-            # (Border, Default, Active)
+            # (TileColor(Border), TileColor(Menu), Default, Active, Selected)
             colors=(DefaultColors.BORDER,
                     DefaultColors.GREEN,
                     DefaultColors.RED,
@@ -69,8 +77,8 @@ def main():
                 ('Credits/About', None, []),
                 ('Exit', pyglet.app.exit, [])))
 
-
     # Prepare widgets for rendering
+    window.push_widget(screen_background)
     window.push_widget(screen_border)
     window.push_widget(selection_menu)
 
