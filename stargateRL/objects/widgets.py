@@ -59,9 +59,15 @@ class FilledBoxWidget(Widget):
 class BorderWidget(Widget):
     """A widget that draws a widget around the given area."""
 
-    def __init__(self, position, dimensions, removable, tile_color, tiles):
+    def __init__(self, position, dimensions, removable, tile_color, tiles,
+                 batch=None, group=None):
         """Construct a border widget, can be used with other widgets."""
         super(BorderWidget, self).__init__(removable=removable)
+
+        if batch is not None:
+            self._batch = batch
+        if group is not None:
+            self._group = group
 
         # TODO: Possibly add a constant for `usage`
         # LTC - LeftTopCorner, BE - BottomEdge
@@ -102,7 +108,7 @@ class BorderWidget(Widget):
         # Bottom and top edges
         top_tile = GX_TILESETS['MAIN'].get_colored(TE, tile_color)
         bot_tile = GX_TILESETS['MAIN'].get_colored(BE, tile_color)
-        for x_tile in range(1, x_tiles-1):
+        for x_tile in range(1, x_tiles - 1):
             self._elements.append(
                 Sprite(
                     top_tile,
@@ -117,7 +123,7 @@ class BorderWidget(Widget):
         # Left and right edges
         left_tile = GX_TILESETS['MAIN'].get_colored(RE, tile_color)
         right_tile = GX_TILESETS['MAIN'].get_colored(LE, tile_color)
-        for y_tile in range(1, y_tiles-1):
+        for y_tile in range(1, y_tiles - 1):
             self._elements.append(
                 Sprite(
                     left_tile,
@@ -135,15 +141,23 @@ class SelectionMenuWidget(FilledBoxWidget):
 
     def __init__(self, position, dimensions, colors, options, **kargs):
         """Construct the selection menu."""
+        # Prepare groups
         group_background = OrderedGroup(0)
         group_foreground = OrderedGroup(1)
 
+        border_color, default_color, active_color, selected_color, tile_color = colors
+
+        # Create a FilledBox background
         super(SelectionMenuWidget, self).__init__(position, dimensions,
                                                   kargs.get('removable', True),
-                                                  tile_id=220,
+                                                  tile_id=0,
+                                                  tile_color=tile_color,
                                                   group=group_background)
 
-        border_color, default_color, active_color, selected_color = colors
+        # Create a Border around the FilledBox
+        self._border = BorderWidget(position, dimensions, False, border_color,
+                                    tiles=(178, 178, 178, 178, 35, 35, 35, 35),
+                                    batch=self._batch, group=group_foreground)
 
         self._options = options
         self._index = 0

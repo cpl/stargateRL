@@ -24,7 +24,7 @@ class DefaultColors(Enum):
     GOLD = Color(245, 211, 115, 255)
 
 
-class MainColors(Enum):
+class ThemeColors(Enum):
     """Colors used for the default main menu."""
 
     TEXT_DEFAULT = Color(43, 43, 42, 255)

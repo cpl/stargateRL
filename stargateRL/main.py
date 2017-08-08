@@ -4,7 +4,7 @@ import pyglet
 
 from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
-from stargateRL.engine.colors import DefaultColors, MainColors
+from stargateRL.engine.colors import ThemeColors
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, monochrome
 from stargateRL.launcher.utils import load_config
@@ -42,7 +42,7 @@ def main():
     screen_background = widgets.FilledBoxWidget(
                             position=(0, 0),
                             dimensions=(window.x_tiles, window.y_tiles),
-                            removable=False, tile_color=MainColors.MENU,
+                            removable=False, tile_color=ThemeColors.MENU,
                             tile_id=219)
 
     # Create the screen border
@@ -50,7 +50,7 @@ def main():
                                          dimensions=(window.x_tiles,
                                                      window.y_tiles),
                                          removable=False,
-                                         tile_color=MainColors.BORDER,
+                                         tile_color=ThemeColors.BORDER,
                                          tiles=(178, 178, 178, 178,
                                                 35, 35, 35, 35))
 
@@ -60,10 +60,11 @@ def main():
             position=(window.x_tiles / 4 + 1, window.y_tiles / 2),
             dimensions=(window.x_tiles / 2, window.y_tiles / 4),
             # (TileColor(Border), TileColor(Menu), Default, Active, Selected)
-            colors=(MainColors.BORDER,
-                    DefaultColors.GREEN,
-                    DefaultColors.RED,
-                    DefaultColors.BLUE),
+            colors=(ThemeColors.BORDER,
+                    ThemeColors.TEXT_DEFAULT,
+                    ThemeColors.TEXT_ACTIVE,
+                    ThemeColors.TEXT_SELECT,
+                    ThemeColors.MENU),
             # Menu options (name, method, args)
             options=(
                 ('Compile World', test_exports, [None]),

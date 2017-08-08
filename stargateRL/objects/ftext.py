@@ -34,6 +34,10 @@ class Text(object):
         if batch is None:
             self._batch = self._label
 
+    def set_color(self, color):
+        """Change the color of the Text."""
+        self._label.color = color.value.rgba
+
     def on_draw(self):
         """Draw the text."""
         # If batch is None on __init__, then _batch becomes a ref to _label
@@ -51,6 +55,10 @@ class TextSelectionList(object):
         x_tiles, y_tiles = dimensions
         default, active, selected = colors
 
+        self._color_active = active
+        self._color_default = default
+        self._color_selected = selected
+
         self._labels = []
         self._active = 0
 
@@ -62,14 +70,35 @@ class TextSelectionList(object):
                      align=align, anchor=anchor,
                      fsdt=0, batch=batch, group=group))
 
+        self._activate()
+
+    def _clear(self):
+        """Clear previous selections."""
+        self._labels[(self._active - 1) % len(self._labels)].set_color(
+            self._color_default)
+        self._labels[(self._active + 1) % len(self._labels)].set_color(
+            self._color_default)
+
+    def _activate(self):
+        """Change the color of the active label to active."""
+        self._clear()
+        self._labels[self._active].set_color(self._color_active)
+
+    def _select(self):
+        """Change the color of the active label to selected."""
+        self._clear()
+        self._labels[self._active].set_color(self._color_selected)
+
     def increment(self):
         """Do things when the menu incremets."""
-        self._active = (self._active + 1) % len(self._labels)
+        self._active = (self._active - 1) % len(self._labels)
+        self._activate()
 
     def decrement(self):
         """Do things when the menu decrements."""
-        self._active = (self._active - 1) % len(self._labels)
+        self._active = (self._active + 1) % len(self._labels)
+        self._activate()
 
     def select(self):
         """Do thing when the menu option is selected."""
-        pass
+        self._select()
