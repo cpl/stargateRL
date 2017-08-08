@@ -26,7 +26,7 @@ def match():
 
 
 def save(write=True):
-    """Method called by the Apply button."""
+    """Call when the Apply button is pressed."""
     config_dictionary = CONFIG
     for _section in CONFIG.keys():
         for _key in CONFIG[_section].keys():
@@ -42,7 +42,7 @@ def default():
 
 
 def close():
-    """Method called by the Close button."""
+    """Call when Close button is pressed."""
     if match():
         root.destroy()
     else:
@@ -66,6 +66,14 @@ def close():
             popup.destroy()
         except Exception:
             sys.exit()
+
+
+# Check for special flag to launch the game without the config menu
+if sys.argv > 1:
+    if sys.argv[1] == '--launch':
+        import stargateRL.main
+        stargateRL.main.main()
+        sys.exit()
 
 
 CONFIG = load_config()
