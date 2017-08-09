@@ -20,15 +20,16 @@ def monochrome(map_data, file_name='map_monochrome', tone=DefaultColors.WHITE):
     color = tone.value.rgb()
     for row in map_data:
         for val in row:
-            image_data.append((int(color[0]*val),
-                               int(color[1]*val),
-                               int(color[2]*val)))
+            image_data.append((int(color[0] * val),
+                               int(color[1] * val),
+                               int(color[2] * val)))
 
     img = Image.new('RGB', (len(map_data), len(map_data[0])))
     img.putdata(image_data)
     img.save(path.join(file_path, file_name))
 
 
+# TODO: Look into this ...
 def exactmatch(map_data, file_name='map_exactmatch', values=[]):
     """Store a BMP image of the map, using the given value-color pairs."""
     image_data = []

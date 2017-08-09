@@ -26,7 +26,7 @@ class SpriteText(SpriteObject):
         self._string = string
 
         x, y = position
-        x_tiles, y_tiles = dimensions
+        x_tiles, _ = dimensions
 
         # Create sprites from string
         self._sprites = []
@@ -45,12 +45,12 @@ class SpriteText(SpriteObject):
             self._sprites.append(
                 Sprite(
                     GX_TILESETS['MAIN'].get_colored(letter_ord, tile_color),
-                    (x+x_mod)*TILE_SIZE, (y+y_mod)*TILE_SIZE,
+                    (x + x_mod) * TILE_SIZE, (y + y_mod) * TILE_SIZE,
                     batch=self._batch, group=self._group_order))
 
     def set_color(self, tile_color=TileColor(), start=0, end=None):
         """Change the color of the text or part of the text."""
         for index, sprite in enumerate(self._sprites[start:end]):
             sprite.image =\
-                GX_TILESETS['MAIN'].get_colored(ord(self._string[index+start]),
-                                                tile_color)
+                GX_TILESETS['MAIN'].get_colored(
+                    ord(self._string[index + start]), tile_color)

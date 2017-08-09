@@ -64,6 +64,7 @@ def close():
         popup.mainloop()
         try:
             popup.destroy()
+# TODO: Restrain which type of exception is thrown here >.>
         except Exception:
             sys.exit()
 
@@ -71,8 +72,8 @@ def close():
 # Check for special flag to launch the game without the config menu
 if len(sys.argv) > 1:
     if sys.argv[1] == '--launch':
-        import stargateRL.main
-        stargateRL.main.main()
+        import stargateRL.main as game
+        game.main()
         sys.exit()
 
 
@@ -91,7 +92,9 @@ TILE_PATH = DirectoryPaths.TILES.value
 FONT_PATH = DirectoryPaths.FONTS.value
 
 TILESETS = [tile for tile in os.listdir(TILE_PATH) if tile.endswith('.png')]
-FONTS = [font.replace('_', ' ')[:-4] for font in os.listdir(FONT_PATH) if font.endswith('.ttf')]
+FONTS = [
+    font.replace('_', ' ')[:-4]
+    for font in os.listdir(FONT_PATH) if font.endswith('.ttf')]
 SIZES = [16, 20, 32, 64]
 
 # Fill the sections with options
@@ -144,5 +147,6 @@ tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
 root.mainloop()
 try:
     root.destroy()
+# TODO: Restrain which type of exception is thrown here >.>
 except Exception:
     sys.exit()

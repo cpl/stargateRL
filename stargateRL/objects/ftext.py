@@ -19,12 +19,15 @@ class Text(object):
         self._batch = batch
         self._group = group
 
+        # TODO: Simplify number of local variables and this entire mammoth!
         self._label = Label(text=text,
                             font_name=DEFAULT_FONT,
-                            font_size=TILE_SIZE+fsdt, bold=False, italic=False,
+                            font_size=TILE_SIZE + fsdt,
+                            bold=False, italic=False,
                             color=color.value.rgba,
-                            x=x*TILE_SIZE, y=y*TILE_SIZE,
-                            width=x_tiles*TILE_SIZE, height=y_tiles*TILE_SIZE,
+                            x=x * TILE_SIZE, y=y * TILE_SIZE,
+                            width=x_tiles * TILE_SIZE,
+                            height=y_tiles * TILE_SIZE,
                             anchor_x=anchor_x, anchor_y=anchor_y,
                             align=align, multiline=False, dpi=None,
                             batch=batch, group=group)
@@ -65,7 +68,8 @@ class TextSelectionList(object):
         for index, string in enumerate(strings):
             self._labels.append(
                 Text(string, default,
-                     position=(x_tiles/2+x, y_tiles/2+y_tiles/4+y-index),
+                     position=(x_tiles / 2 + x,
+                               y_tiles / 2 + y_tiles / 4 + y - index),
                      dimensions=(x_tiles, TILE_SIZE),
                      align=align, anchor=anchor,
                      fsdt=0, batch=batch, group=group))

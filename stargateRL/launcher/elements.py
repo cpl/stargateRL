@@ -37,7 +37,7 @@ class SubFrame(tk.Frame):
         self.options = {}
 
         header_font = tkFont.Font(family='Serif', size=18, weight=tkFont.BOLD)
-        self._label = tk.Label(master=self, text='# '+label, anchor=tk.NW,
+        self._label = tk.Label(master=self, text='# '+ label, anchor=tk.NW,
                                padx=25, font=header_font,
                                bg=HEADER_COLORS[0], fg=HEADER_COLORS[1])
         self._label.pack(fill=tk.X)
@@ -51,7 +51,7 @@ class Input(tk.Frame, object):
         tk.Frame.__init__(self, master, bg=SUBFRAME_COLORS[0])
         self.pack(side=tk.TOP, fill=tk.X)
 
-        self._label = tk.Label(master=self, text=label+':', anchor=tk.W,
+        self._label = tk.Label(master=self, text=label + ':', anchor=tk.W,
                                padx=30, width=10, bg=SUBFRAME_COLORS[0])
         self._label.pack(fill=tk.X, side=tk.LEFT)
 
@@ -130,7 +130,7 @@ class MultipleOptions(Input):
 
         self._is_int = isinstance(value, int)
 
-        self._entry = tk.OptionMenu(self, self._value, *values)
+        self._entry = tk.OptionMenu(self, self._value, * values)
         self._entry.config(bg=SUBFRAME_COLORS[0], relief=tk.FLAT,
                            highlightbackground=SUBFRAME_COLORS[0],
                            fg=VALUE_COLORS[1])
