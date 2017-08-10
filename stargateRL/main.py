@@ -61,10 +61,10 @@ def main():
             dimensions=(window.x_tiles / 2, window.y_tiles / 4),
             # (TileColor(Border), TileColor(Menu), Default, Active, Selected)
             colors=(ThemeColors.BORDER,
+                    ThemeColors.MENU,
                     ThemeColors.TEXT_DEFAULT,
                     ThemeColors.TEXT_ACTIVE,
-                    ThemeColors.TEXT_SELECT,
-                    ThemeColors.MENU),
+                    ThemeColors.TEXT_SELECT),
             # Menu options (name, method, args)
             options=(
                 ('Compile World', test_exports, [None]),

@@ -18,7 +18,7 @@ class Widget(object):
         self._elements = []
 
         self._removable = removable
-        self._key = key
+        self._escape_key = key
 
     def draw(self):
         """Draw the pyglet batch."""
@@ -26,11 +26,12 @@ class Widget(object):
 
     def on_key_press(self, symbol, modifiers):
         """Return False removes the widget from stack, True keeps it."""
-        return self._removable and self._key == symbol
-        # if self._removable and self._key == symbol:
-        #     return False
-        # else:
-        #     return True
+        return self._removable and self._escape_key == symbol
+
+    @property
+    def elements(self):
+        """Get all elements."""
+        return self._elements
 
 
 class FilledBoxWidget(Widget):
@@ -136,28 +137,44 @@ class BorderWidget(Widget):
                     batch=self._batch, usage='static'))
 
 
-class SelectionMenuWidget(FilledBoxWidget):
+class FilledBoxWBorderWidget(FilledBoxWidget):
+    """A box widget with a border around it."""
+
+    def __init__(self, position, dimensions, removable, tiles, colors,
+                 group=None):
+        """Construct a box at given position of given dimensions w color."""
+        x, y = position
+        x_tiles, y_tiles = dimensions
+
+        border_color, backgr_color = colors
+
+        super(FilledBoxWBorderWidget, self).__init__((x + 1, y + 1),
+                                                     (x_tiles - 2,
+                                                      y_tiles - 2),
+                                                     removable,
+                                                     tile_color=backgr_color,
+                                                     tile_id=tiles[0],
+                                                     group=group)
+
+        border = BorderWidget(position, dimensions, removable,
+                              border_color, tiles[1:], self._batch)
+        self._elements.append(border.elements)
+
+
+class SelectionMenuWidget(FilledBoxWBorderWidget):
     """A menu of options."""
 
     def __init__(self, position, dimensions, colors, options, **kargs):
         """Construct the selection menu."""
-        # Prepare groups
-        group_background = OrderedGroup(0)
-        group_foreground = OrderedGroup(1)
+        self._batch_text = Batch()
 
-        border_color, default_color, active_color, selected_color, tile_color = colors
-
-        # Create a FilledBox background
         super(SelectionMenuWidget, self).__init__(position, dimensions,
-                                                  kargs.get('removable', True),
-                                                  tile_id=0,
-                                                  tile_color=tile_color,
-                                                  group=group_background)
+                                                  removable=False,
+                                                  tiles=(0, 178, 178, 178,
+                                                         178, 35, 35, 35, 35),
+                                                  colors=colors[0:2])
 
-        # Create a Border around the FilledBox
-        self._border = BorderWidget(position, dimensions, False, border_color,
-                                    tiles=(178, 178, 178, 178, 35, 35, 35, 35),
-                                    batch=self._batch, group=group_foreground)
+        _, _, default_color, active_color, selected_color = colors
 
         self._options = options
         self._index = 0
@@ -171,9 +188,13 @@ class SelectionMenuWidget(FilledBoxWidget):
                                           colors=(default_color,
                                                   active_color,
                                                   selected_color),
-                                          batch=self._batch,
-                                          group=group_foreground)
+                                          batch=self._batch_text)
         self._elements.append(self._tx_list)
+
+    def draw(self):
+        """Draw the pyglet batch."""
+        self._batch.draw()
+        self._batch_text.draw()
 
     def on_key_press(self, symbol, modifiers):
         """Get called on window.event on_key_press."""

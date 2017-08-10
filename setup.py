@@ -13,9 +13,11 @@ from os import path
 
 CWD = path.abspath(path.dirname(__file__))
 
-with copen(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
-    LONG_DESCRIPTION = f.read()
-    LONG_DESCRIPTION = LONG_DESCRIPTION.replace("\r", "")
+
+def read_description():
+    """Read the LONG DESCRIPTION."""
+    with copen(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
+        return f.read()
 
 
 def read(*names, **kwargs):
@@ -33,7 +35,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.4dev1',
+    version='0.0.4dev2',
 
     # py2app
     setup_requires=["py2app"],
@@ -41,7 +43,7 @@ setup(
     app=["stargateRL/launcher/main.py"],
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
-    long_description=LONG_DESCRIPTION,
+    long_description=read_description(),
 
     # The project's main homepage.
     url='https://github.com/thee-engineer/stargateRL',
