@@ -71,10 +71,12 @@ def close():
 
 # Check for special flag to launch the game without the config menu
 if len(sys.argv) > 1:
+    import stargateRL.main as game
     if sys.argv[1] == '--launch':
-        import stargateRL.main as game
         game.main()
-        sys.exit()
+    elif sys.argv[1] == '--compile':
+        game.compile_world()
+    sys.exit()
 
 
 CONFIG = load_config()

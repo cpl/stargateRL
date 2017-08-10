@@ -1,7 +1,7 @@
 """Widget support."""
 
 from pyglet.sprite import Sprite
-from pyglet.graphics import Batch, OrderedGroup
+from pyglet.graphics import Batch
 from pyglet.window import key as wkey
 
 from stargateRL.utils import GX_TILESETS, TILE_SIZE

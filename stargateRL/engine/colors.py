@@ -19,10 +19,6 @@ class DefaultColors(Enum):
 
     TILE = TileColor(WHITE, BLACK)
 
-    # TODO: Move these two colors to a diffrent Enum
-    # BORDER = Color(70, 76, 84, 255)
-    GOLD = Color(245, 211, 115, 255)
-
 
 class ThemeColors(Enum):
     """Colors used for the default main menu."""
@@ -30,6 +26,7 @@ class ThemeColors(Enum):
     TEXT_DEFAULT = Color(43, 43, 42, 255)
     TEXT_ACTIVE = Color(238, 175, 98, 255)
     TEXT_SELECT = Color(128, 94, 53, 255)
+    TEXT_LIGHT = Color(40, 46, 56, 255)
 
     BACKGROUND = Color(34, 40, 51, 255)
     FOREGROUND = Color(217, 215, 206, 255)

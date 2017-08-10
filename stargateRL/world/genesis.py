@@ -41,10 +41,12 @@ class NoiseGenerator(object):
         """Set the noise value at x, y."""
         self._noise_map[x][y] = value
 
+    @property
     def settings(self):
         """Return the settings used in generation."""
         return self._settings
 
+    @property
     def data(self):
         """Return the noise map data."""
         return self._noise_map
@@ -155,14 +157,17 @@ class WorldData(object):
         self._generator_moisture = NoiseGenerator(width, height, seed)
         self._data_biomes = self.generate_biomes()
 
+    @property
     def elevation(self):
         """Return the elevation matrix only."""
-        return self._generator_elevation.data()
+        return self._generator_elevation.data
 
+    @property
     def moisture(self):
         """Return the moisture matrix only."""
-        return self._generator_moisture.data()
+        return self._generator_moisture.data
 
+    @property
     def biomes(self):
         """Return the biomes matrix only."""
         return self._data_biomes

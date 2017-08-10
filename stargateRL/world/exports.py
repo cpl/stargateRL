@@ -17,7 +17,7 @@ def monochrome(map_data, file_name='map_monochrome', tone=DefaultColors.WHITE):
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
 
-    color = tone.value.rgb()
+    color = tone.value.rgb
     for row in map_data:
         for val in row:
             image_data.append((int(color[0] * val),
@@ -41,7 +41,7 @@ def exactmatch(map_data, file_name='map_exactmatch', values=[]):
         for val in row:
             for value_color in values:
                 if val == value_color[0]:
-                    image_data.append(value_color[1].rgb())
+                    image_data.append(value_color[1].rgb)
 
     img = Image.new('RGB', (len(map_data), len(map_data[0])))
     img.putdata(image_data)
@@ -57,7 +57,7 @@ def default_export_biomes(map_data, file_name='biomes'):
 
     for row in map_data:
         for val in row:
-            image_data.append(BiomeColors[Biomes(val).name].value.rgb())
+            image_data.append(BiomeColors[Biomes(val).name].value.rgb)
 
     img = Image.new('RGB', (len(map_data), len(map_data[0])))
     img.putdata(image_data)

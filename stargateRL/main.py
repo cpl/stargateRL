@@ -10,19 +10,16 @@ from stargateRL.world.exports import default_export_biomes, monochrome
 from stargateRL.launcher.utils import load_config
 
 
-# DEBUG
-# TODO: Prepare settings for world generation
-def test_exports(tt):
-    """Test export methods."""
-    print tt
+def compile_world():
+    """Start world creation."""
     world_data = WorldData(seed=-1)
-    monochrome(world_data.elevation(), 'elevation')
-    monochrome(world_data.moisture(), 'moisture')
-    default_export_biomes(world_data.biomes())
+    monochrome(world_data.elevation, 'elevation')
+    monochrome(world_data.moisture, 'moisture')
+    default_export_biomes(world_data.biomes)
 
 
 def main():
-    """Create the game."""
+    """Start the game."""
     pyglet.options['debug_gl'] = False
 
     CONFIG = load_config()
@@ -67,7 +64,7 @@ def main():
                     ThemeColors.TEXT_SELECT),
             # Menu options (name, method, args)
             options=(
-                ('Compile World', test_exports, [None]),
+                ('Compile World', compile_world, [None]),
                 ('Testing Area', pdb.set_trace, []),
                 ('Saves/Worlds', None, []),
                 ('Settings', None, []),
