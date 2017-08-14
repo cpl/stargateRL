@@ -16,6 +16,7 @@ def compile_world():
     monochrome(world_data.elevation, 'elevation')
     monochrome(world_data.moisture, 'moisture')
     default_export_biomes(world_data.biomes)
+    world_data.save('test_world')
 
 
 def main():
