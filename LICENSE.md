@@ -23,7 +23,7 @@
 6. Us is defined as the initial developers of this Package,
    ```Alexandru-Paul Copil```
 
-   ###Agreement
+   ### Agreement
 
     1. Permission is hereby granted to use, copy, modify and/or study this Package, provided that:
 
