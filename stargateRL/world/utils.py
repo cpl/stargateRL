@@ -47,3 +47,21 @@ class Biomes(Enum):
     TUNDRA = 14
     BARE = 15
     SCORCHED = 16
+
+
+class Profiles(Enum):
+    """A set of constants representing world generation profiles."""
+
+    DEFAULT = {'settings': {'scale': 150.0, 'octaves': 5,
+                            'exponent': 4, 'persistance': 0.5,
+                            'lacunarity': 3.0, 'terraces': 1.0,
+                            'continent_filter': True, 'offset': (0, 0),
+                            'mode': 'simplex'},
+               'seed': -1, 'width': 500, 'height': 500}
+
+    TESTING = {'settings': {'scale': 150.0, 'octaves': 5,
+                            'exponent': 4, 'persistance': 0.5,
+                            'lacunarity': 3.0, 'terraces': 1.0,
+                            'continent_filter': True, 'offset': (0, 0),
+                            'mode': 'simplex'},
+               'seed': -1, 'width': 500, 'height': 500}

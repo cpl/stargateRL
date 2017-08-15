@@ -12,11 +12,12 @@ from stargateRL.launcher.utils import load_config
 
 def compile_world():
     """Start world creation."""
-    world_data = WorldData(seed=-1)
-    monochrome(world_data.elevation, 'elevation')
-    monochrome(world_data.moisture, 'moisture')
-    default_export_biomes(world_data.biomes)
-    world_data.save('test_world')
+    world_data = WorldData('test_world', 2)
+    for planet in world_data.planets:
+        monochrome(planet.elevation, planet.hash_name + '.elevation')
+        monochrome(planet.moisture, planet.hash_name + '.moisture')
+        default_export_biomes(planet.biomes, planet.hash_name + '.biomes')
+    world_data.save()
 
 
 def main():

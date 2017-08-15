@@ -1,18 +1,20 @@
 """Terain generators."""
 
+import json
 import math
 import random
+import hashlib
 import cPickle as pickel
 from os import path
 
-from stargateRL.world.utils import normalize, noise, continent
+from stargateRL.world.utils import normalize, noise, continent, Profiles
 from stargateRL.paths import DirectoryPaths
 
 
 class NoiseGenerator(object):
     """Construct the terrain heightmap."""
 
-    def __init__(self, width, height, seed, settings=None):
+    def __init__(self, width, height, settings=None):
         """Construct the terrain."""
         self._width = width
         self._height = height
@@ -22,14 +24,16 @@ class NoiseGenerator(object):
 
         # If no settings are given, use defaults
         if settings is None:
-            self._settings = {'seed': seed, 'scale': 150.0, 'octaves': 5,
+            self._settings = {'scale': 150.0, 'octaves': 5,
                               'exponent': 4, 'persistance': 0.5,
                               'lacunarity': 3.0, 'terraces': 1.0,
-                              'continent_filter': True, 'width': width,
-                              'height': height, 'offset': (0, 0),
+                              'continent_filter': True, 'offset': (0, 0),
                               'mode': 'simplex'}
         else:
             self._settings = settings
+
+        self._settings['width'] = width
+        self._settings['height'] = height
 
         self.generate_noise_map()
 
@@ -141,21 +145,20 @@ class NoiseGenerator(object):
                                                   mnoise, xnoise)
 
 
-class WorldData(object):
-    """Construct and store all world data."""
+class PlanetGenerator(object):
+    """Generate planet data such as elevation, moisture and biomes."""
 
-    def __init__(self, seed=0, width=500, height=500):
+    def __init__(self, width=500, height=500, settings=None):
         """Construct the biomes using elevation and moisture."""
-        seed = random.getrandbits(21) if seed == -1 else seed
-        random.seed(seed)
-
         self.width = width
         self.height = height
 
         # Generate map data using noise
-        self._generator_elevation = NoiseGenerator(width, height, seed)
-        self._generator_moisture = NoiseGenerator(width, height, seed)
+        self._generator_elevation = NoiseGenerator(width, height, settings)
+        self._generator_moisture = NoiseGenerator(width, height, settings)
         self._data_biomes = self.generate_biomes()
+
+        self._hash = hashlib.sha256(str(random.getstate())).hexdigest()
 
     @property
     def elevation(self):
@@ -172,10 +175,13 @@ class WorldData(object):
         """Return the biomes matrix only."""
         return self._data_biomes
 
-    # TODO: Fix error where all biomes are 12 (SHRUBLANDS)
+    @property
+    def hash_name(self):
+        """Return the hash of the planet after generation."""
+        return self._hash
+
     def generate_biomes(self):
         """Go trough eleavtion and moisture, and generate the biomes."""
-        # TODO: Move (maybe create a class) for BiomeMapping
         # Elevation and moisture thresholds
         elvt = [0.10, 0.13, 0.3, 0.6, 0.8, 2.0]
         mstt = [0.05, 0.1, 0.25, 0.4, 0.65, 2.0]
@@ -207,11 +213,52 @@ class WorldData(object):
 
         return biome_matrix
 
-    def save(self, name='world'):
+
+class WorldData(object):
+    """Construct and store all world data."""
+
+    def __init__(self, name, world_count, config=Profiles.DEFAULT):
+        """Construct the world data using world generator."""
+        config = config.value
+
+        # Assign random seed if needed (-1 --> random seed)
+        if config['seed'] == -1:
+            config['seed'] = random.getrandbits(21)
+        random.seed(config['seed'])
+
+        self._name = name
+        self._config = config
+
+        self._planets = []
+        for _ in xrange(world_count):
+            self._planets.append(PlanetGenerator(config['width'],
+                                                 config['height'],
+                                                 config['settings']))
+
+    @property
+    def seed(self):
+        """Return the seed of the world."""
+        return self._config['seed']
+
+    @property
+    def name(self):
+        """Return the name of the world."""
+        return self._name
+
+    @property
+    def planets(self):
+        """Return the planets."""
+        return self._planets
+
+    def save(self):
         """Store the world data as a pickel object."""
         with open(path.join(
-                DirectoryPaths.SAVES.value, name + '.pkl'), 'w') as fp:
+                DirectoryPaths.SAVES.value, self._name + '.pkl'), 'w') as fp:
             pickel.dump(self, fp, protocol=pickel.HIGHEST_PROTOCOL)
+        with open(path.join(
+                DirectoryPaths.SAVES.value, self._name + '.config' + '.json'
+        ), 'w') as fp:
+            json.dump(self._config, fp, indent=4)
 
     @staticmethod
     def load(name):
