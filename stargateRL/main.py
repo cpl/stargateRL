@@ -12,7 +12,7 @@ from stargateRL.launcher.utils import load_config
 
 def compile_world():
     """Start world creation."""
-    world_data = WorldData('test_world', 2)
+    world_data = WorldData('test_world', 1)
     for planet in world_data.planets:
         monochrome(planet.elevation, planet.hash_name + '.elevation')
         monochrome(planet.moisture, planet.hash_name + '.moisture')

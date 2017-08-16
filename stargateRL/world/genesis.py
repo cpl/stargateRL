@@ -1,5 +1,8 @@
 """Terain generators."""
 
+
+from __future__ import print_function
+
 import json
 import math
 import random
@@ -24,16 +27,9 @@ class NoiseGenerator(object):
 
         # If no settings are given, use defaults
         if settings is None:
-            self._settings = {'scale': 150.0, 'octaves': 5,
-                              'exponent': 4, 'persistance': 0.5,
-                              'lacunarity': 3.0, 'terraces': 1.0,
-                              'continent_filter': True, 'offset': (0, 0),
-                              'mode': 'simplex'}
+            self._settings = Profiles.DEFAULT
         else:
             self._settings = settings
-
-        self._settings['width'] = width
-        self._settings['height'] = height
 
         self.generate_noise_map()
 
@@ -62,6 +58,7 @@ class NoiseGenerator(object):
         min_noise = 0.0
 
         # Apply offset to the noise map
+        print('\nApplying offset to noise map.')
         octaves_offsets = []
         for _ in range(self._settings['octaves']):
             offset_x = random.randint(-100000, 100000) + \
@@ -71,16 +68,16 @@ class NoiseGenerator(object):
             octaves_offsets.append((offset_x, offset_y))
 
         # Go trough each position on the map, and generate the noise
+        print('\nGenerating noise.')
         for y in range(self._height):
             for x in range(self._width):
-
                 # Initialize the noise parameters
                 amplitude = 1.0
                 frequency = 1.0
                 noise_height = 0.0
 
                 # Adjust parameters
-                scale = self._settings['scale']
+                scale = self._settings['scale'] * (self._width / 3.3)
                 for octave in range(self._settings['octaves']):
                     sample_x = float(x - self._width / 2) / scale * \
                         frequency + octaves_offsets[octave][0]
@@ -109,6 +106,7 @@ class NoiseGenerator(object):
         # Prepare for another normalization
         mnoise = None
         xnoise = None
+        print('\nNormalization of noise.')
         for y in range(self._height):
             for x in range(self._width):
                 # Normalize heightmap values between 0.0 and 1.0
@@ -139,6 +137,7 @@ class NoiseGenerator(object):
                 self._noise_map[x][y] = noise_height
 
         # Apply final changes
+        print('\nFinal changes.')
         for y in range(self._height):
             for x in range(self._width):
                 self._noise_map[x][y] = normalize(self._noise_map[x][y],
@@ -148,14 +147,19 @@ class NoiseGenerator(object):
 class PlanetGenerator(object):
     """Generate planet data such as elevation, moisture and biomes."""
 
-    def __init__(self, width=500, height=500, settings=None):
+    MIN = 100
+    MAX = 2000
+
+    def __init__(self, settings=None):
         """Construct the biomes using elevation and moisture."""
-        self.width = width
-        self.height = height
+        self.width = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
+        self.height = self.width
 
         # Generate map data using noise
-        self._generator_elevation = NoiseGenerator(width, height, settings)
-        self._generator_moisture = NoiseGenerator(width, height, settings)
+        self._generator_elevation = NoiseGenerator(self.width,
+                                                   self.height, settings)
+        self._generator_moisture = NoiseGenerator(self.width,
+                                                  self.height, settings)
         self._data_biomes = self.generate_biomes()
 
         self._hash = hashlib.sha256(str(random.getstate())).hexdigest()
@@ -197,6 +201,7 @@ class PlanetGenerator(object):
         biome_matrix =\
             [[None for _ in range(self.width)] for _ in range(self.height)]
 
+        print('\nStarted biome generation.')
         for x in range(self.width):
             for y in range(self.height):
                 elv = self._generator_elevation.get(x, y)
@@ -230,10 +235,10 @@ class WorldData(object):
         self._config = config
 
         self._planets = []
-        for _ in xrange(world_count):
-            self._planets.append(PlanetGenerator(config['width'],
-                                                 config['height'],
-                                                 config['settings']))
+        for index in xrange(world_count):
+            print('\nStarted generating world. Please wait.')
+            self._planets.append(PlanetGenerator(config['settings']))
+            print('\nFinished generating world {}'.format(index))
 
     @property
     def seed(self):
