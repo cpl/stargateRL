@@ -49,6 +49,7 @@ class Biomes(Enum):
     SCORCHED = 16
 
 
+# TODO: Write WORLD profiles and PLANET profiles
 class Profiles(Enum):
     """A set of constants representing world generation profiles."""
 

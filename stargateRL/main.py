@@ -10,6 +10,7 @@ from stargateRL.world.exports import default_export_biomes, monochrome
 from stargateRL.launcher.utils import load_config
 
 
+# TODO: Implement project wide logging!!!
 def compile_world():
     """Start world creation."""
     world_data = WorldData('test_world', 1)

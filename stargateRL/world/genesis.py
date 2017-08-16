@@ -255,6 +255,7 @@ class WorldData(object):
         """Return the planets."""
         return self._planets
 
+    # TODO: Check for existing save file! Write it as file(n).pkl
     def save(self):
         """Store the world data as a pickel object."""
         with open(path.join(
