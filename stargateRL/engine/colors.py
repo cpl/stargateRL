@@ -63,7 +63,14 @@ class BiomeColors(Enum):
 class ElevationColors(Enum):
     """Colors used by the default elevation image export."""
 
-    pass
+    OCEAN = Color(14, 54, 93, 255)
+    BEACH = Color(211, 172, 71, 255)
+
+    PLAINS = Color(34, 148, 72, 255)
+    PLATEU = Color(0, 110, 56, 255)
+
+    HILLS = Color(32, 36, 0, 255)
+    MOUNTAINS = Color(200, 200, 200, 255)
 
 
 class MoistureColors(Enum):

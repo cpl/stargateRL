@@ -68,7 +68,7 @@ class NoiseGenerator(object):
             octaves_offsets.append((offset_x, offset_y))
 
         # Go trough each position on the map, and generate the noise
-        print('\nGenerating noise.')
+        print('\nGenerating noise. {}x{}'.format(self._width, self._height))
         for y in range(self._height):
             for x in range(self._width):
                 # Initialize the noise parameters

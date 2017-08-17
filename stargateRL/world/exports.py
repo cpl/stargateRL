@@ -29,7 +29,6 @@ def monochrome(map_data, file_name='map_monochrome', tone=DefaultColors.WHITE):
     img.save(path.join(file_path, file_name))
 
 
-# TODO: Look into this ...
 def exactmatch(map_data, file_name='map_exactmatch', values=[]):
     """Store a BMP image of the map, using the given value-color pairs."""
     image_data = []
@@ -37,11 +36,15 @@ def exactmatch(map_data, file_name='map_exactmatch', values=[]):
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
 
+    print len(map_data), len(map_data[0])
+    print values
+
     for row in map_data:
         for val in row:
             for value_color in values:
-                if val == value_color[0]:
-                    image_data.append(value_color[1].rgb)
+                if val <= value_color[0]:
+                    image_data.append(value_color[1].value.rgb)
+                    break
 
     img = Image.new('RGB', (len(map_data), len(map_data[0])))
     img.putdata(image_data)
