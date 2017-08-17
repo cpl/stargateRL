@@ -26,3 +26,4 @@ class FilePaths(Enum):
 
     CONFIG = path.join(DirectoryPaths.DATA.value, 'config.json')
     ICON = path.join(DirectoryPaths.BIN.value, 'icon.png')
+    LOG = path.join(DirectoryPaths.DATA.value, 'debug.log')

@@ -5,6 +5,7 @@ from __future__ import print_function
 
 import json
 import math
+import time
 import random
 import hashlib
 import cPickle as pickel
@@ -12,6 +13,7 @@ from os import path
 
 from stargateRL.world.utils import normalize, noise, continent, Profiles
 from stargateRL.paths import DirectoryPaths
+from stargateRL.debug import logger
 
 
 class NoiseGenerator(object):
@@ -22,6 +24,8 @@ class NoiseGenerator(object):
         self._width = width
         self._height = height
 
+        logger.debug('Created new NoiseGenerator {}x{}'.format(width, height))
+
         # Generate empty noise map
         self._noise_map = [[None for _ in range(width)] for _ in range(height)]
 
@@ -30,6 +34,8 @@ class NoiseGenerator(object):
             self._settings = Profiles.DEFAULT
         else:
             self._settings = settings
+
+        logger.debug('NoiseGenerator settings: {}'.format(settings))
 
         self.generate_noise_map()
 
@@ -57,8 +63,9 @@ class NoiseGenerator(object):
         max_noise = 0.0
         min_noise = 0.0
 
+        logger.debug('Setup noise generator')
+
         # Apply offset to the noise map
-        print('\nApplying offset to noise map.')
         octaves_offsets = []
         for _ in range(self._settings['octaves']):
             offset_x = random.randint(-100000, 100000) + \
@@ -66,9 +73,12 @@ class NoiseGenerator(object):
             offset_y = random.randint(-100000, 100000) + \
                 self._settings['offset'][1]
             octaves_offsets.append((offset_x, offset_y))
+        logger.debug('Generated octaves offset')
 
         # Go trough each position on the map, and generate the noise
-        print('\nGenerating noise. {}x{}'.format(self._width, self._height))
+        _units = self._width * self._height
+        logger.debug('Start noise generation: {} units'.format(_units))
+        _t0 = time.time()
         for y in range(self._height):
             for x in range(self._width):
                 # Initialize the noise parameters
@@ -102,11 +112,14 @@ class NoiseGenerator(object):
                     min_noise = noise_height
 
                 self._noise_map[x][y] = noise_height
+        _dt = time.time() - _t0
+        logger.debug(
+            'Finished noise gen in {}s, {}u/s'.format(_dt, _units / _dt))
 
         # Prepare for another normalization
         mnoise = None
         xnoise = None
-        print('\nNormalization of noise.')
+        logger.debug('Start noise normalization and filter')
         for y in range(self._height):
             for x in range(self._width):
                 # Normalize heightmap values between 0.0 and 1.0
@@ -137,11 +150,12 @@ class NoiseGenerator(object):
                 self._noise_map[x][y] = noise_height
 
         # Apply final changes
-        print('\nFinal changes.')
+        logger.debug('Applying final normalization to noise')
         for y in range(self._height):
             for x in range(self._width):
                 self._noise_map[x][y] = normalize(self._noise_map[x][y],
                                                   mnoise, xnoise)
+        logger.debug('Finished noise generation')
 
 
 class PlanetGenerator(object):
@@ -155,13 +169,20 @@ class PlanetGenerator(object):
         self.width = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
         self.height = self.width
 
+        logger.info(
+            'Created PlanetGenerator {}x{}'.format(self.width, self.height))
+
         # Generate map data using noise
+        logger.debug('Creating elevation')
         self._generator_elevation = NoiseGenerator(self.width,
                                                    self.height, settings)
+        logger.debug('Creating moisture')
         self._generator_moisture = NoiseGenerator(self.width,
                                                   self.height, settings)
+        logger.debug('Creating biomes')
         self._data_biomes = self.generate_biomes()
 
+        logger.debug('Computing hash of random state')
         self._hash = hashlib.sha256(str(random.getstate())).hexdigest()
 
     @property
@@ -201,7 +222,8 @@ class PlanetGenerator(object):
         biome_matrix =\
             [[None for _ in range(self.width)] for _ in range(self.height)]
 
-        print('\nStarted biome generation.')
+        logger.debug('Starting biome generation')
+        _t0 = time.time()
         for x in range(self.width):
             for y in range(self.height):
                 elv = self._generator_elevation.get(x, y)
@@ -215,6 +237,8 @@ class PlanetGenerator(object):
                             else:
                                 continue
                         break
+        _dt = time.time() - _t0
+        logger.debug('Finished generating biomes in {}s'.format(_dt))
 
         return biome_matrix
 
@@ -226,19 +250,30 @@ class WorldData(object):
         """Construct the world data using world generator."""
         config = config.value
 
+        logger.debug('Created WorldData with {} worlds'.format(world_count))
+        logger.debug('WorldData config: {}'.format(config))
+
         # Assign random seed if needed (-1 --> random seed)
         if config['seed'] == -1:
             config['seed'] = random.getrandbits(21)
         random.seed(config['seed'])
 
+        logger.debug('WorldData seed: {}'.format(config['seed']))
+
         self._name = name
         self._config = config
 
         self._planets = []
+        logger.debug('Starting planet generation')
+        _t0 = time.time()
         for index in xrange(world_count):
-            print('\nStarted generating world. Please wait.')
             self._planets.append(PlanetGenerator(config['settings']))
-            print('\nFinished generating world {}'.format(index))
+        _dt = time.time() - _t0
+        logger.debug(
+            'Finished generating {} worlds in {}s, {}w/s'.format(world_count,
+                                                                 _dt,
+                                                                 world_count /
+                                                                 _dt))
 
     @property
     def seed(self):
@@ -258,6 +293,7 @@ class WorldData(object):
     # TODO: Check for existing save file! Write it as file(n).pkl
     def save(self):
         """Store the world data as a pickel object."""
+        logger.info('Saving WorldData of {}'.format(self._name))
         with open(path.join(
                 DirectoryPaths.SAVES.value, self._name + '.pkl'), 'w') as fp:
             pickel.dump(self, fp, protocol=pickel.HIGHEST_PROTOCOL)
@@ -265,10 +301,12 @@ class WorldData(object):
                 DirectoryPaths.SAVES.value, self._name + '.config' + '.json'
         ), 'w') as fp:
             json.dump(self._config, fp, indent=4)
+        logger.info('Finished saving WorldData of {}'.format(self._name))
 
     @staticmethod
     def load(name):
         """Load an existing save file."""
+        logger.info('Loading WorldData of {}'.format(name))
         with open(path.join(
                 DirectoryPaths.SAVES.value, name + '.pkl'), 'r') as fp:
             return pickel.load(fp)

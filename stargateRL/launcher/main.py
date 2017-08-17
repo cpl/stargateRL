@@ -8,15 +8,14 @@ import tkinter as tki
 from stargateRL.launcher import elements
 from stargateRL.launcher.utils import load_config, save_config
 from stargateRL.paths import DirectoryPaths
+from stargateRL.debug import logger
 
 
 def launch():
     """Start the stargateRL.__main__ method."""
-    root.destroy()
-
-    # TODO: Make a top import of main() and use it here
-    import stargateRL.main
-    stargateRL.main.main()
+    close()
+    import stargateRL.main as game
+    game.main()
 
 
 def match():
@@ -34,6 +33,7 @@ def save(write=True):
                 config_frame.subframes[_section].options[_key].get_value()
     if write:
         save_config(config_dictionary)
+    logger.info('Saved config file')
 
 
 def default():
@@ -44,6 +44,7 @@ def default():
 def close():
     """Call when Close button is pressed."""
     if match():
+        logger.info('Launcher closed')
         root.destroy()
     else:
         popup = tki.Toplevel(master=None)
@@ -64,13 +65,15 @@ def close():
         popup.mainloop()
         try:
             popup.destroy()
-# TODO: Restrain which type of exception is thrown here >.>
-        except Exception:
+        except tki.TclError:
             sys.exit()
 
 
+logger.info('stargateRL started')
+
 # Check for special flag to launch the game without the config menu
 if len(sys.argv) > 1:
+    logger.debug('stargateRL flags: {}'.format(sys.argv))
     import stargateRL.main as game
     if sys.argv[1] == '--launch':
         game.main()
@@ -81,6 +84,8 @@ if len(sys.argv) > 1:
 
 CONFIG = load_config()
 root = tki.Tk()
+
+logger.info('Started launcher')
 
 root.resizable(0, 0)
 root.wm_title('stargateRL Launcher')
@@ -147,8 +152,8 @@ tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
 
 # GUI goes above this line
 root.mainloop()
+logger.info('Launcher closed')
 try:
     root.destroy()
-# TODO: Restrain which type of exception is thrown here >.>
-except Exception:
+except tki.TclError:
     sys.exit()

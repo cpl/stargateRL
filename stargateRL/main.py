@@ -8,9 +8,9 @@ from stargateRL.engine.colors import ThemeColors, ElevationColors
 from stargateRL.world.genesis import WorldData
 from stargateRL.world.exports import default_export_biomes, exactmatch
 from stargateRL.launcher.utils import load_config
+from stargateRL.debug import logger
 
 
-# TODO: Implement project wide logging!!!
 def compile_world():
     """Start world creation."""
     world_data = WorldData('test_world', 1)
@@ -31,6 +31,7 @@ def compile_world():
 
 def main():
     """Start the game."""
+    logger.info('Started main program')
     pyglet.options['debug_gl'] = False
 
     CONFIG = load_config()
@@ -75,7 +76,7 @@ def main():
                     ThemeColors.TEXT_SELECT),
             # Menu options (name, method, args)
             options=(
-                ('Compile World', compile_world, [None]),
+                ('Compile World', compile_world, []),
                 ('Testing Area', pdb.set_trace, []),
                 ('Saves/Worlds', None, []),
                 ('Settings', None, []),
