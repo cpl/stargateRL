@@ -14,7 +14,7 @@ from stargateRL.debug import logger
 def monochrome(map_data, file_name='map_monochrome', tone=DefaultColors.WHITE):
     """Store a BMP image of the map, monochrome. The tone can be changed."""
     image_data = []
-    logger.info('Exporting monochrome bmp: {}'.format(file_name))
+    logger.info('Exporting monochrome bmp: %s', file_name)
 
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
@@ -34,7 +34,7 @@ def monochrome(map_data, file_name='map_monochrome', tone=DefaultColors.WHITE):
 def exactmatch(map_data, file_name='map_exactmatch', values=[]):
     """Store a BMP image of the map, using the given value-color pairs."""
     image_data = []
-    logger.info('Exporting exactmatch bmp: {}'.format(file_name))
+    logger.info('Exporting exactmatch bmp: %s', file_name)
 
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
@@ -57,7 +57,7 @@ def exactmatch(map_data, file_name='map_exactmatch', values=[]):
 def default_export_biomes(map_data, file_name='biomes'):
     """Store a BMP image of the biomes, using the default value-color pairs."""
     image_data = []
-    logger.info('Exporting biomes bmp: {}'.format(file_name))
+    logger.info('Exporting biomes bmp: %s', file_name)
 
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'

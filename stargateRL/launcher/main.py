@@ -73,7 +73,7 @@ logger.info('stargateRL started')
 
 # Check for special flag to launch the game without the config menu
 if len(sys.argv) > 1:
-    logger.debug('stargateRL flags: {}'.format(sys.argv))
+    logger.debug('stargateRL flags: %s', sys.argv)
     import stargateRL.main as game
     if sys.argv[1] == '--launch':
         game.main()

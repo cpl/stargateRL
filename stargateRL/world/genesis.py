@@ -24,7 +24,7 @@ class NoiseGenerator(object):
         self._width = width
         self._height = height
 
-        logger.debug('Created new NoiseGenerator {}x{}'.format(width, height))
+        logger.debug('Created new NoiseGenerator %ix%i', width, height)
 
         # Generate empty noise map
         self._noise_map = [[None for _ in range(width)] for _ in range(height)]
@@ -35,7 +35,7 @@ class NoiseGenerator(object):
         else:
             self._settings = settings
 
-        logger.debug('NoiseGenerator settings: {}'.format(settings))
+        logger.debug('NoiseGenerator settings: %s', settings)
 
         self.generate_noise_map()
 
@@ -77,7 +77,7 @@ class NoiseGenerator(object):
 
         # Go trough each position on the map, and generate the noise
         _units = self._width * self._height
-        logger.debug('Start noise generation: {} units'.format(_units))
+        logger.debug('Start noise generation: %d units', _units)
         _t0 = time.time()
         for y in range(self._height):
             for x in range(self._width):
@@ -114,7 +114,7 @@ class NoiseGenerator(object):
                 self._noise_map[x][y] = noise_height
         _dt = time.time() - _t0
         logger.debug(
-            'Finished noise gen in {}s, {}u/s'.format(_dt, _units / _dt))
+            'Finished noise gen in %fs, %fu/s', _dt, _units / _dt)
 
         # Prepare for another normalization
         mnoise = None
@@ -170,7 +170,7 @@ class PlanetGenerator(object):
         self.height = self.width
 
         logger.info(
-            'Created PlanetGenerator {}x{}'.format(self.width, self.height))
+            'Created PlanetGenerator %dx%d', self.width, self.height)
 
         # Generate map data using noise
         logger.debug('Creating elevation')
@@ -238,7 +238,7 @@ class PlanetGenerator(object):
                                 continue
                         break
         _dt = time.time() - _t0
-        logger.debug('Finished generating biomes in {}s'.format(_dt))
+        logger.debug('Finished generating biomes in %fs', _dt)
 
         return biome_matrix
 
@@ -250,15 +250,15 @@ class WorldData(object):
         """Construct the world data using world generator."""
         config = config.value
 
-        logger.debug('Created WorldData with {} worlds'.format(world_count))
-        logger.debug('WorldData config: {}'.format(config))
+        logger.debug('Created WorldData with %i worlds', world_count)
+        logger.debug('WorldData config: %s', config)
 
         # Assign random seed if needed (-1 --> random seed)
         if config['seed'] == -1:
             config['seed'] = random.getrandbits(21)
         random.seed(config['seed'])
 
-        logger.debug('WorldData seed: {}'.format(config['seed']))
+        logger.debug('WorldData seed: %s', config['seed'])
 
         self._name = name
         self._config = config
@@ -270,10 +270,8 @@ class WorldData(object):
             self._planets.append(PlanetGenerator(config['settings']))
         _dt = time.time() - _t0
         logger.debug(
-            'Finished generating {} worlds in {}s, {}w/s'.format(world_count,
-                                                                 _dt,
-                                                                 world_count /
-                                                                 _dt))
+            'Finished generating %i worlds in %fs, %fw/s',
+            world_count, _dt, world_count / _dt)
 
     @property
     def seed(self):
@@ -293,7 +291,7 @@ class WorldData(object):
     # TODO: Check for existing save file! Write it as file(n).pkl
     def save(self):
         """Store the world data as a pickel object."""
-        logger.info('Saving WorldData of {}'.format(self._name))
+        logger.info('Saving WorldData of %s', self._name)
         with open(path.join(
                 DirectoryPaths.SAVES.value, self._name + '.pkl'), 'w') as fp:
             pickel.dump(self, fp, protocol=pickel.HIGHEST_PROTOCOL)
@@ -301,12 +299,12 @@ class WorldData(object):
                 DirectoryPaths.SAVES.value, self._name + '.config' + '.json'
         ), 'w') as fp:
             json.dump(self._config, fp, indent=4)
-        logger.info('Finished saving WorldData of {}'.format(self._name))
+        logger.info('Finished saving WorldData of %s', self._name)
 
     @staticmethod
     def load(name):
         """Load an existing save file."""
-        logger.info('Loading WorldData of {}'.format(name))
+        logger.info('Loading WorldData of %s', name)
         with open(path.join(
                 DirectoryPaths.SAVES.value, name + '.pkl'), 'r') as fp:
             return pickel.load(fp)
