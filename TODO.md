@@ -5,5 +5,5 @@
 - [ ]  Simplify number of local variables and this entire mammoth! | [ftext.py](https://github.com/thee-engineer/stargateRL/tree/master/./stargateRL/objects/ftext.py#L22)
 - [ ]  Assign y_tiles to do something. | [stext.py](https://github.com/thee-engineer/stargateRL/tree/master/./stargateRL/objects/stext.py#L18)
 - [ ]  Possibly add a constant for `usage` | [widgets.py](https://github.com/thee-engineer/stargateRL/tree/master/./stargateRL/objects/widgets.py#L73)
-- [ ]  Check for existing save file! Write it as file(n).pkl | [genesis.py](https://github.com/thee-engineer/stargateRL/tree/master/./stargateRL/world/genesis.py#L293)
 - [ ]  Write WORLD profiles and PLANET profiles | [utils.py](https://github.com/thee-engineer/stargateRL/tree/master/./stargateRL/world/utils.py#L52)
+- [ ]  Check why continents don't look as good as before | [utils.py](https://github.com/thee-engineer/stargateRL/tree/master/./stargateRL/world/utils.py#L53)

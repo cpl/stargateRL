@@ -50,6 +50,7 @@ class Biomes(Enum):
 
 
 # TODO: Write WORLD profiles and PLANET profiles
+# TODO: Check why continents don't look as good as before
 class Profiles(Enum):
     """A set of constants representing world generation profiles."""
 

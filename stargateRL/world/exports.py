@@ -39,9 +39,6 @@ def exactmatch(map_data, file_name='map_exactmatch', values=[]):
     file_path = DirectoryPaths.EXPORTS.value
     file_name = file_name + '.bmp'
 
-    print len(map_data), len(map_data[0])
-    print values
-
     for row in map_data:
         for val in row:
             for value_color in values:

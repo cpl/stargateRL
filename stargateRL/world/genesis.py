@@ -288,16 +288,25 @@ class WorldData(object):
         """Return the planets."""
         return self._planets
 
-    # TODO: Check for existing save file! Write it as file(n).pkl
     def save(self):
         """Store the world data as a pickel object."""
         logger.info('Saving WorldData of %s', self._name)
-        with open(path.join(
-                DirectoryPaths.SAVES.value, self._name + '.pkl'), 'w') as fp:
+        file_name = path.join(DirectoryPaths.SAVES.value, self._name)
+
+        # Check for existing save file, and create a new one
+        if path.isfile(file_name + '.pkl'):
+            file_name = file_name + '(1)'
+        _count = 1
+        while path.isfile(file_name + '.pkl'):
+            file_name = file_name.replace('({})'.format(_count),
+                                          '({})'.format(_count + 1))
+            _count += 1
+        logger.debug('Saved file as %s', file_name)
+
+        # Write the save file and WorldData profile
+        with open(file_name + '.pkl', 'w') as fp:
             pickel.dump(self, fp, protocol=pickel.HIGHEST_PROTOCOL)
-        with open(path.join(
-                DirectoryPaths.SAVES.value, self._name + '.config' + '.json'
-        ), 'w') as fp:
+        with open(file_name + '.config' + '.json', 'w') as fp:
             json.dump(self._config, fp, indent=4)
         logger.info('Finished saving WorldData of %s', self._name)
 
