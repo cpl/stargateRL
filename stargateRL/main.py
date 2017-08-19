@@ -4,25 +4,29 @@ import pyglet
 
 from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
-from stargateRL.engine.colors import ThemeColors, ElevationColors
+from stargateRL.engine.colors import ThemeColors
 from stargateRL.world.genesis import WorldData
-from stargateRL.world.exports import default_export_biomes, exactmatch
+from stargateRL.world.exports import default_export_biomes, monochrome
+# from stargateRL.world.exports import exactmatch
+# from stargateRL.engine.colors import ElevationColors
+from stargateRL.world.utils import Profiles
 from stargateRL.launcher.utils import load_config
 from stargateRL.debug import logger
 
 
 def compile_world():
     """Start world creation."""
-    world_data = WorldData('test_world', 1)
+    world_data = WorldData('test_world', 5, config=Profiles.ARCHIPELAGO)
     for planet in world_data.planets:
-        # monochrome(planet.moisture, planet.hash_name + '.moisture')
-        exactmatch(planet.elevation, planet.hash_name + '.elevation',
-                   values=[(0.10, ElevationColors.OCEAN),
-                           (0.13, ElevationColors.BEACH),
-                           (0.3, ElevationColors.PLAINS),
-                           (0.6, ElevationColors.PLATEU),
-                           (0.8, ElevationColors.HILLS),
-                           (2.0, ElevationColors.MOUNTAINS)])
+        monochrome(planet.moisture, planet.hash_name + '.moisture')
+        monochrome(planet.elevation, planet.hash_name + '.elevation')
+        # exactmatch(planet.elevation, planet.hash_name + '.elevation',
+        #            values=[(0.10, ElevationColors.OCEAN),
+        #                    (0.13, ElevationColors.BEACH),
+        #                    (0.3, ElevationColors.PLAINS),
+        #                    (0.6, ElevationColors.PLATEU),
+        #                    (0.8, ElevationColors.HILLS),
+        #                    (2.0, ElevationColors.MOUNTAINS)])
 
         default_export_biomes(planet.biomes, planet.hash_name + '.biomes')
 

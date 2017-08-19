@@ -162,7 +162,7 @@ class PlanetGenerator(object):
     """Generate planet data such as elevation, moisture and biomes."""
 
     MIN = 100
-    MAX = 2000
+    MAX = 500
 
     def __init__(self, settings=None):
         """Construct the biomes using elevation and moisture."""

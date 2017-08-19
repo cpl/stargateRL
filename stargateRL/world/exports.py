@@ -1,4 +1,5 @@
 """A set of methods for exporting world data to visual data."""
+# TODO: Save exports in a WorldData.name folder exports/test_world/*files*
 
 from os import path
 

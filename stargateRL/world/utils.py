@@ -50,7 +50,7 @@ class Biomes(Enum):
 
 
 # TODO: Write WORLD profiles and PLANET profiles
-# TODO: Check why continents don't look as good as before
+# TODO: Write new Profile system!!!!!!!!!!!!!!!!
 class Profiles(Enum):
     """A set of constants representing world generation profiles."""
 
@@ -62,8 +62,15 @@ class Profiles(Enum):
                'seed': -1}
 
     TESTING = {'settings': {'scale': 1.0, 'octaves': 5,
-                            'exponent': 4, 'persistance': 0.5,
+                            'exponent': 5, 'persistance': 0.5,
                             'lacunarity': 3.0, 'terraces': 1.0,
                             'continent_filter': True, 'offset': (0, 0),
                             'mode': 'simplex'},
                'seed': -1}
+
+    ARCHIPELAGO = {'settings': {'scale': 0.5, 'octaves': 5,
+                                'exponent': 6, 'persistance': 0.5,
+                                'lacunarity': 3.0, 'terraces': 1.0,
+                                'continent_filter': True, 'offset': (0, 0),
+                                'mode': 'simplex'},
+                   'seed': -1}
