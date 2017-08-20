@@ -51,6 +51,8 @@ class Biomes(Enum):
 
 # TODO: Write WORLD profiles and PLANET profiles
 # TODO: Write new Profile system!!!!!!!!!!!!!!!!
+# TODO: Write profiles as .json config files
+# TODO: Make profiles for each WorldData Subsection
 class Profiles(Enum):
     """A set of constants representing world generation profiles."""
 
