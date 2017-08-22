@@ -1,0 +1,12 @@
+World Generation
+
+--> Compile world
+--> Select planet count [2-12]
+--> Select home planet profile
+    --> Elevation/Landmass
+        --> Random
+    --> Temperature/Biomes
+        --> Random
+    --> Planet options
+        --> Size
+        --> Seed

@@ -11,7 +11,7 @@ import hashlib
 import cPickle as pickel
 from os import path
 
-from stargateRL.world.utils import normalize, noise, continent, Profiles
+from stargateRL.world.utils import normalize, noise, continent
 from stargateRL.paths import DirectoryPaths
 from stargateRL.debug import logger
 
@@ -19,8 +19,11 @@ from stargateRL.debug import logger
 class NoiseGenerator(object):
     """Construct the terrain heightmap."""
 
-    def __init__(self, width, height, settings=None):
+    def __init__(self, width, height, settings):
         """Construct the terrain."""
+        self._settings = settings
+        logger.debug('NoiseGenerator settings: %s', settings)
+
         self._width = width
         self._height = height
 
@@ -28,14 +31,6 @@ class NoiseGenerator(object):
 
         # Generate empty noise map
         self._noise_map = [[None for _ in range(width)] for _ in range(height)]
-
-        # If no settings are given, use defaults
-        if settings is None:
-            self._settings = Profiles.DEFAULT
-        else:
-            self._settings = settings
-
-        logger.debug('NoiseGenerator settings: %s', settings)
 
         self.generate_noise_map()
 
@@ -166,19 +161,31 @@ class PlanetGenerator(object):
 
     def __init__(self, settings=None):
         """Construct the biomes using elevation and moisture."""
-        self.width = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
-        self.height = self.width
+        width, height = settings['width'], settings['height']
+
+        # Assign random width and height if needed
+        if width == -1:
+            width = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
+        if height == -1:
+            height = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
+        elif height == 0:
+            height = width
 
         logger.info(
             'Created PlanetGenerator %dx%d', self.width, self.height)
 
+        elv_settings = settings['elevation']
+        mst_settings = settings['moisture']
+
         # Generate map data using noise
         logger.debug('Creating elevation')
         self._generator_elevation = NoiseGenerator(self.width,
-                                                   self.height, settings)
+                                                   self.height,
+                                                   elv_settings)
         logger.debug('Creating moisture')
         self._generator_moisture = NoiseGenerator(self.width,
-                                                  self.height, settings)
+                                                  self.height,
+                                                  mst_settings)
         logger.debug('Creating biomes')
         self._data_biomes = self.generate_biomes()
 
@@ -246,28 +253,26 @@ class PlanetGenerator(object):
 class WorldData(object):
     """Construct and store all world data."""
 
-    def __init__(self, name, world_count, config=Profiles.DEFAULT):
+    def __init__(self, name, world_count, profile):
         """Construct the world data using world generator."""
-        config = config.value
-
         logger.debug('Created WorldData with %i worlds', world_count)
-        logger.debug('WorldData config: %s', config)
+        logger.debug('WorldData config: %s', profile)
 
         # Assign random seed if needed (-1 --> random seed)
-        if config['seed'] == -1:
-            config['seed'] = random.getrandbits(21)
-        random.seed(config['seed'])
+        if profile['seed'] == -1:
+            profile['seed'] = random.getrandbits(21)
+        random.seed(profile['seed'])
 
-        logger.debug('WorldData seed: %s', config['seed'])
+        logger.debug('WorldData seed: %s', profile['seed'])
 
         self._name = name
-        self._config = config
+        self._profile = profile
 
         self._planets = []
         logger.debug('Starting planet generation')
         _t0 = time.time()
         for index in xrange(world_count):
-            self._planets.append(PlanetGenerator(config['settings']))
+            self._planets.append(PlanetGenerator(profile['settings']))
         _dt = time.time() - _t0
         logger.debug(
             'Finished generating %i worlds in %fs, %fw/s',
@@ -276,7 +281,7 @@ class WorldData(object):
     @property
     def seed(self):
         """Return the seed of the world."""
-        return self._config['seed']
+        return self._profile['seed']
 
     @property
     def name(self):

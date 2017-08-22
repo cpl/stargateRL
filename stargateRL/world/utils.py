@@ -49,30 +49,5 @@ class Biomes(Enum):
     SCORCHED = 16
 
 
-# TODO: Write WORLD profiles and PLANET profiles
-# TODO: Write new Profile system!!!!!!!!!!!!!!!!
-# TODO: Write profiles as .json config files
-# TODO: Make profiles for each WorldData Subsection
-class Profiles(Enum):
-    """A set of constants representing world generation profiles."""
-
-    DEFAULT = {'settings': {'scale': 1.0, 'octaves': 5,
-                            'exponent': 4, 'persistance': 0.5,
-                            'lacunarity': 3.0, 'terraces': 1.0,
-                            'continent_filter': True, 'offset': (0, 0),
-                            'mode': 'simplex'},
-               'seed': -1}
-
-    TESTING = {'settings': {'scale': 1.0, 'octaves': 5,
-                            'exponent': 5, 'persistance': 0.5,
-                            'lacunarity': 3.0, 'terraces': 1.0,
-                            'continent_filter': True, 'offset': (0, 0),
-                            'mode': 'simplex'},
-               'seed': -1}
-
-    ARCHIPELAGO = {'settings': {'scale': 0.5, 'octaves': 5,
-                                'exponent': 6, 'persistance': 0.5,
-                                'lacunarity': 3.0, 'terraces': 1.0,
-                                'continent_filter': True, 'offset': (0, 0),
-                                'mode': 'simplex'},
-                   'seed': -1}
+def read_profile():
+    """Read a config file, -1 is random."""
