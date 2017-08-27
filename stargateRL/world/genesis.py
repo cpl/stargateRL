@@ -258,7 +258,7 @@ class WorldData(object):
 
     def __init__(self, name, world_count, profile):
         """Construct the world data using world generator."""
-        logger.debug('Created WorldData with %i worlds', world_count)
+        logger.debug('Creating WorldData with %i worlds', world_count)
         logger.debug('WorldData config: %s', profile)
 
         profile = profile.value
