@@ -18,6 +18,7 @@ class DirectoryPaths(Enum):
     BIN = path.join(DATA, 'bin')
     TILES = path.join(BIN, 'tiles')
     FONTS = path.join(DATA, 'fonts')
+    PROFILES = path.join(DATA, 'profiles')
 
 
 # Files

@@ -11,7 +11,7 @@ import hashlib
 import cPickle as pickel
 from os import path
 
-from stargateRL.world.utils import normalize, noise, continent
+from stargateRL.world.utils import normalize, noise, continent, read_profile
 from stargateRL.paths import DirectoryPaths
 from stargateRL.debug import logger
 
@@ -156,39 +156,36 @@ class NoiseGenerator(object):
 class PlanetGenerator(object):
     """Generate planet data such as elevation, moisture and biomes."""
 
-    MIN = 100
-    MAX = 500
-
+    # TODO: Better settings passing
     def __init__(self, settings=None):
         """Construct the biomes using elevation and moisture."""
-        width, height = settings['width'], settings['height']
-
-        # Assign random width and height if needed
-        if width == -1:
-            width = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
-        if height == -1:
-            height = random.randint(PlanetGenerator.MIN, PlanetGenerator.MAX)
-        elif height == 0:
-            height = width
-
-        self.width = width
-        self.height = height
+        if settings['homeworld']:
+            self.width = settings['homeworld']['width']
+            self.height = settings['homeworld']['height']
+        else:
+            self.width = random.randint(settings['min_size'],
+                                        settings['max_size'])
+            self.height = self.width
 
         logger.info(
-            'Created PlanetGenerator %dx%d', width, height)
+            'Created PlanetGenerator %dx%d', self.width, self.height)
 
-        # elv_settings = settings['elevation']
-        # mst_settings = settings['moisture']
-        elv_settings = settings
-        mst_settings = settings
+        if settings['homeworld']:
+            elv_profile = read_profile(settings['homeworld']['elevation'],
+                                       'elv')
+            mst_profile = read_profile(settings['homeworld']['moisture'],
+                                       'mst')
+        else:
+            elv_profile = read_profile('random', 'elv')
+            mst_profile = read_profile('random', 'mst')
 
         # Generate map data using noise
         logger.debug('Creating elevation')
-        self._generator_elevation = NoiseGenerator(width, height,
-                                                   elv_settings)
+        self._generator_elevation = NoiseGenerator(self.width, self.height,
+                                                   elv_profile)
         logger.debug('Creating moisture')
-        self._generator_moisture = NoiseGenerator(width, height,
-                                                  mst_settings)
+        self._generator_moisture = NoiseGenerator(self.width, self.height,
+                                                  mst_profile)
         logger.debug('Creating biomes')
         self._data_biomes = self.generate_biomes()
 
@@ -261,7 +258,6 @@ class WorldData(object):
         logger.debug('Creating WorldData with %i worlds', world_count)
         logger.debug('WorldData config: %s', profile)
 
-        profile = profile.value
         # Assign random seed if needed (-1 --> random seed)
         if profile['seed'] == -1:
             profile['seed'] = random.getrandbits(21)
@@ -271,12 +267,14 @@ class WorldData(object):
 
         self._name = name
         self._profile = profile
-
         self._planets = []
+
+        # TODO: Improve homeworld generation and separation of other planets
         logger.debug('Starting planet generation')
         _t0 = time.time()
-        for index in xrange(world_count):
-            self._planets.append(PlanetGenerator(profile['settings']))
+        self._planets.append(PlanetGenerator(profile))
+        for index in xrange(world_count - 1):
+            self._planets.append(PlanetGenerator())
         _dt = time.time() - _t0
         logger.debug(
             'Finished generating %i worlds in %fs, %fw/s',

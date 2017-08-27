@@ -9,12 +9,13 @@ from stargateRL.launcher.utils import load_config
 from stargateRL.debug import logger
 from stargateRL.world.exports import monochrome, default_export_biomes
 from stargateRL.world.genesis import WorldData
-from stargateRL.world.utils import Profiles
+from stargateRL.world.utils import read_profile
 
 
 def compile_world():
     """Start world creation."""
-    world_data = WorldData('test_world', 1, profile=Profiles.TESTING)
+    world_data = WorldData('test_world', 1,
+                           profile=read_profile('default', 'wd'))
     for planet in world_data.planets:
         monochrome(planet.moisture, planet.hash_name + '.moisture')
         monochrome(planet.elevation, planet.hash_name + '.elevation')

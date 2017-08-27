@@ -1,0 +1,16 @@
+{
+    "scale": 0.5,
+    "octaves": 5,
+    "exponent": 6,
+    "persistance": 0.5,
+    "lacunarity": 3.0,
+    "terraces": 1.0,
+    "continent_filter": true,
+    "offset": [
+        0,
+        0
+    ],
+    "mode": "simplex",
+    "width": -1,
+    "height": 0
+}
