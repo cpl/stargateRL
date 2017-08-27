@@ -171,20 +171,23 @@ class PlanetGenerator(object):
         elif height == 0:
             height = width
 
-        logger.info(
-            'Created PlanetGenerator %dx%d', self.width, self.height)
+        self.width = width
+        self.height = height
 
-        elv_settings = settings['elevation']
-        mst_settings = settings['moisture']
+        logger.info(
+            'Created PlanetGenerator %dx%d', width, height)
+
+        # elv_settings = settings['elevation']
+        # mst_settings = settings['moisture']
+        elv_settings = settings
+        mst_settings = settings
 
         # Generate map data using noise
         logger.debug('Creating elevation')
-        self._generator_elevation = NoiseGenerator(self.width,
-                                                   self.height,
+        self._generator_elevation = NoiseGenerator(width, height,
                                                    elv_settings)
         logger.debug('Creating moisture')
-        self._generator_moisture = NoiseGenerator(self.width,
-                                                  self.height,
+        self._generator_moisture = NoiseGenerator(width, height,
                                                   mst_settings)
         logger.debug('Creating biomes')
         self._data_biomes = self.generate_biomes()
@@ -258,6 +261,7 @@ class WorldData(object):
         logger.debug('Created WorldData with %i worlds', world_count)
         logger.debug('WorldData config: %s', profile)
 
+        profile = profile.value
         # Assign random seed if needed (-1 --> random seed)
         if profile['seed'] == -1:
             profile['seed'] = random.getrandbits(21)
@@ -311,8 +315,8 @@ class WorldData(object):
         # Write the save file and WorldData profile
         with open(file_name + '.pkl', 'w') as fp:
             pickel.dump(self, fp, protocol=pickel.HIGHEST_PROTOCOL)
-        with open(file_name + '.config' + '.json', 'w') as fp:
-            json.dump(self._config, fp, indent=4)
+        with open(file_name + '.profile' + '.json', 'w') as fp:
+            json.dump(self._profile, fp, indent=4)
         logger.info('Finished saving WorldData of %s', self._name)
 
     @staticmethod

@@ -5,20 +5,19 @@ import pyglet
 from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.colors import ThemeColors
-from stargateRL.world.genesis import WorldData
-from stargateRL.world.exports import default_export_biomes, monochrome
-from stargateRL.world.utils import Profiles
 from stargateRL.launcher.utils import load_config
 from stargateRL.debug import logger
+from stargateRL.world.exports import monochrome, default_export_biomes
+from stargateRL.world.genesis import WorldData
+from stargateRL.world.utils import Profiles
 
 
 def compile_world():
     """Start world creation."""
-    world_data = WorldData('test_world', 5, config=Profiles.ARCHIPELAGO)
+    world_data = WorldData('test_world', 1, profile=Profiles.TESTING)
     for planet in world_data.planets:
         monochrome(planet.moisture, planet.hash_name + '.moisture')
         monochrome(planet.elevation, planet.hash_name + '.elevation')
-
         # exactmatch(planet.elevation, planet.hash_name + '.elevation',
         #            values=[(0.10, ElevationColors.OCEAN),
         #                    (0.13, ElevationColors.BEACH),

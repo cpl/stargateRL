@@ -1,15 +1,30 @@
 """Helper methods for the world module."""
 
 import math
+import json
+from os.path import join
 
 from noise import snoise2, pnoise2
 from enum import Enum
 
+from stargateRL.paths import DirectoryPaths
+
+
+import time
+
+
+TOTAL_TIME = 0
+
 
 def noise(x, y, width, height, mode='simplex'):
     """Return noise between 0.0 and 1.0."""
+    global TOTAL_TIME
     if mode == 'simplex':
-        return snoise2(x, y, repeatx=width, repeaty=height) / 2.0 + 0.5
+        _t0 = time.time()
+        r = snoise2(x, y, repeatx=width, repeaty=height) / 2.0 + 0.5
+        TOTAL_TIME += time.time() - _t0
+        print TOTAL_TIME
+        return r
     elif mode == 'perlin':
         return pnoise2(x, y, repeatx=width, repeaty=height) / 2.0 + 0.5
     else:
@@ -49,5 +64,35 @@ class Biomes(Enum):
     SCORCHED = 16
 
 
-def read_profile():
+def read_profile(name):
     """Read a config file, -1 is random."""
+    with open(join(DirectoryPaths.PROFILES.value, name), 'r') as fp:
+        return json.load(fp)
+
+
+# Temporary
+# TODO: Replace this with .json profiles
+class Profiles(Enum):
+    """A set of constants representing world generation profiles."""
+
+    DEFAULT = {'settings': {'scale': 1.0, 'octaves': 5,
+                            'exponent': 4, 'persistance': 0.5,
+                            'lacunarity': 3.0, 'terraces': 1.0,
+                            'continent_filter': True, 'offset': (0, 0),
+                            'mode': 'simplex'},
+               'seed': -1}
+
+    TESTING = {'settings': {'scale': 1.0, 'octaves': 5,
+                            'exponent': 5, 'persistance': 0.5,
+                            'lacunarity': 3.0, 'terraces': 1.0,
+                            'continent_filter': True, 'offset': (0, 0),
+                            'mode': 'simplex',
+                            'width': -1, 'height': 0},
+               'seed': -1}
+
+    ARCHIPELAGO = {'settings': {'scale': 0.5, 'octaves': 5,
+                                'exponent': 6, 'persistance': 0.5,
+                                'lacunarity': 3.0, 'terraces': 1.0,
+                                'continent_filter': True, 'offset': (0, 0),
+                                'mode': 'simplex'},
+                   'seed': -1}
