@@ -44,6 +44,8 @@ class FilledBoxWidget(Widget):
 
         x, y = position
         x_tiles, y_tiles = dimensions
+        x_tiles = int(x_tiles)
+        y_tiles = int(y_tiles)
 
         tile = GX_TILESETS['MAIN'].get_colored(tile_id, tile_color)
 
@@ -76,6 +78,8 @@ class BorderWidget(Widget):
 
         x, y = position
         x_tiles, y_tiles = dimensions
+        x_tiles = int(x_tiles)
+        y_tiles = int(y_tiles)
 
         # Left, bottom, corner
         tile = GX_TILESETS['MAIN'].get_colored(LBC, tile_color)

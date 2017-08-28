@@ -2,6 +2,9 @@
 import pdb
 import pyglet
 
+# TODO: Prepare for another refactor >.>
+# TODO: Plan out v0.1.0 on paper, sanity check it and find more contributors
+
 from stargateRL.objects import widgets
 from stargateRL.engine.screen import GameWindow
 from stargateRL.engine.colors import ThemeColors

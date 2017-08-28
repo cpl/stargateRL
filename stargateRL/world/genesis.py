@@ -8,7 +8,7 @@ import math
 import time
 import random
 import hashlib
-import cPickle as pickel
+import pickle
 from os import path
 
 from stargateRL.world.utils import normalize, noise, continent, read_profile
