@@ -8,14 +8,16 @@ import io
 
 from setuptools import setup, find_packages
 from codecs import open as copen
-from os import path
+from os import path, listdir
 
 
 CWD = path.abspath(path.dirname(__file__))
 
-with copen(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
-    LONG_DESCRIPTION = f.read()
-    LONG_DESCRIPTION = LONG_DESCRIPTION.replace("\r", "")
+
+def read_description():
+    """Read the LONG DESCRIPTION."""
+    with copen(path.join(CWD, 'README.rst'), encoding='utf-8') as f:
+        return f.read()
 
 
 def read(*names, **kwargs):
@@ -27,13 +29,27 @@ def read(*names, **kwargs):
         return fp.read()
 
 
+def list_files(dir_path, extension=None):
+    """Return all files inside a path."""
+    files = listdir(dir_path)
+    _files = []
+    if extension is not None:
+        for file in files:
+            if file.endswith(extension):
+                _files.append(path.join(dir_path, file))
+    else:
+        for file in files:
+            _files.append(path.join(dir_path, file))
+    return _files
+
+
 setup(
     name='stargateRL',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.3dev3',
+    version='0.0.5dev7',
 
     # py2app
     setup_requires=["py2app"],
@@ -41,7 +57,7 @@ setup(
     app=["stargateRL/launcher/main.py"],
 
     description='A sci-fi rouge-like game, developed in Python using Pyglet.',
-    long_description=LONG_DESCRIPTION,
+    long_description=read_description(),
 
     # The project's main homepage.
     url='https://github.com/thee-engineer/stargateRL',
@@ -120,12 +136,14 @@ setup(
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
     data_files=[('stargateRL/data', ['data/config.json']),
                 ('stargateRL/data/bin', ['data/bin/icon.png']),
+                ('stargateRL/data/profiles',
+                 list_files('data/profiles', '.json')),
                 ('stargateRL/data/exports', []),
                 ('stargateRL/data/saves', []),
-                ('stargateRL/data/bin/tiles', ['data/bin/tiles/tileset16.png',
-                                               'data/bin/tiles/tileset20.png',
-                                               'data/bin/tiles/tileset32.png',
-                                               'data/bin/tiles/tileset64.png'])
+                ('stargateRL/data/fonts', ['data/fonts/LICENSE.TXT',
+                                           'data/fonts/Px437_IBM_VGA8.ttf']),
+                ('stargateRL/data/bin/tiles',
+                 list_files('data/bin/tiles', '.png'))
                 ],
 
     # To provide executable scripts, use entry points in preference to the
@@ -133,7 +151,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'stargateRL = stargateRL.launcher.main',
+            'stargateRL=stargateRL.launcher.main',
         ],
     },
 )

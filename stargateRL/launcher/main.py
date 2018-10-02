@@ -8,15 +8,14 @@ import tkinter as tki
 from stargateRL.launcher import elements
 from stargateRL.launcher.utils import load_config, save_config
 from stargateRL.paths import DirectoryPaths
+from stargateRL.debug import logger
 
 
 def launch():
     """Start the stargateRL.__main__ method."""
-    root.destroy()
-
-    # TODO: Make a top import of main() and use it here
-    import stargateRL.main
-    stargateRL.main.main()
+    close()
+    import stargateRL.main as game
+    game.main()
 
 
 def match():
@@ -26,7 +25,7 @@ def match():
 
 
 def save(write=True):
-    """Method called by the Apply button."""
+    """Call when the Apply button is pressed."""
     config_dictionary = CONFIG
     for _section in CONFIG.keys():
         for _key in CONFIG[_section].keys():
@@ -34,6 +33,7 @@ def save(write=True):
                 config_frame.subframes[_section].options[_key].get_value()
     if write:
         save_config(config_dictionary)
+    logger.info('Saved config file')
 
 
 def default():
@@ -42,8 +42,9 @@ def default():
 
 
 def close():
-    """Method called by the Close button."""
+    """Call when Close button is pressed."""
     if match():
+        logger.info('Launcher closed')
         root.destroy()
     else:
         popup = tki.Toplevel(master=None)
@@ -64,12 +65,27 @@ def close():
         popup.mainloop()
         try:
             popup.destroy()
-        except Exception:
+        except tki.TclError:
             sys.exit()
+
+
+logger.info('stargateRL started')
+
+# Check for special flag to launch the game without the config menu
+if len(sys.argv) > 1:
+    logger.debug('stargateRL flags: %s', sys.argv)
+    import stargateRL.main as game
+    if sys.argv[1] == '--launch':
+        game.main()
+    elif sys.argv[1] == '--compile':
+        game.compile_world()
+    sys.exit()
 
 
 CONFIG = load_config()
 root = tki.Tk()
+
+logger.info('Started launcher')
 
 root.resizable(0, 0)
 root.wm_title('stargateRL Launcher')
@@ -80,7 +96,12 @@ config_frame = elements.MainFrame(root)
 config_frame.make_subframes(CONFIG.keys())
 
 TILE_PATH = DirectoryPaths.TILES.value
+FONT_PATH = DirectoryPaths.FONTS.value
+
 TILESETS = [tile for tile in os.listdir(TILE_PATH) if tile.endswith('.png')]
+FONTS = [
+    font.replace('_', ' ')[:-4]
+    for font in os.listdir(FONT_PATH) if font.endswith('.ttf')]
 SIZES = [16, 20, 32, 64]
 
 # Fill the sections with options
@@ -98,6 +119,11 @@ for section in CONFIG.keys():
                     elements.MultipleOptions(
                         config_frame.subframes[section],
                         key, value, TILESETS)
+            elif key == 'font':
+                config_frame.subframes[section].options[key] =\
+                    elements.MultipleOptions(
+                        config_frame.subframes[section],
+                        key, value, FONTS)
             elif key == 'size':
                 config_frame.subframes[section].options[key] =\
                     elements.MultipleOptions(
@@ -126,7 +152,8 @@ tki.Button(config_frame, highlightbackground=elements.MAINFRAME_COLORS[0],
 
 # GUI goes above this line
 root.mainloop()
+logger.info('Launcher closed')
 try:
     root.destroy()
-except Exception:
+except tki.TclError:
     sys.exit()

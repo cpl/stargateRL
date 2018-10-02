@@ -13,10 +13,12 @@ class GameWindow(pyglet.window.Window):
         """Construct the window manager."""
         super(GameWindow, self).__init__(width, height, **kargs)
         self._widgets = []
-        self.fps = pyglet.clock.ClockDisplay()
 
         self.x_tiles = int(width/INTENDED_SIZE)
         self.y_tiles = int(height/INTENDED_SIZE)
+
+        # DEBUG
+        self.fps = pyglet.clock.ClockDisplay()
 
         # DEBUG, used in testing and other
         # TODO: Remove this is production

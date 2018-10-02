@@ -2,7 +2,7 @@
 
 from enum import Enum
 
-from stargateRL.engine.graphx import Color
+from stargateRL.engine.graphx import Color, TileColor
 
 
 class DefaultColors(Enum):
@@ -17,9 +17,24 @@ class DefaultColors(Enum):
 
     TRANSPARENT = Color(0, 0, 0, 0)
 
-    # TODO: Move these two colors to a diffrent Enum
-    BORDER = Color(70, 76, 84, 255)
-    GOLD = Color(245, 211, 115, 255)
+    TILE = TileColor(WHITE, BLACK)
+
+
+class ThemeColors(Enum):
+    """Colors used for the default main menu."""
+
+    TEXT_DEFAULT = Color(43, 43, 42, 255)
+    TEXT_ACTIVE = Color(238, 175, 98, 255)
+    TEXT_SELECT = Color(128, 94, 53, 255)
+    TEXT_LIGHT = Color(40, 46, 56, 255)
+
+    BACKGROUND = Color(34, 40, 51, 255)
+    FOREGROUND = Color(217, 215, 206, 255)
+    MENU = TileColor(BACKGROUND, FOREGROUND)
+
+    BORDER_BACKGROUND = Color(71, 75, 84, 255)
+    BORDER_FOREGROUND = Color(40, 46, 56, 255)
+    BORDER = TileColor(BORDER_BACKGROUND, BORDER_FOREGROUND)
 
 
 class BiomeColors(Enum):
@@ -48,7 +63,14 @@ class BiomeColors(Enum):
 class ElevationColors(Enum):
     """Colors used by the default elevation image export."""
 
-    pass
+    OCEAN = Color(14, 54, 93, 255)
+    BEACH = Color(211, 172, 71, 255)
+
+    PLAINS = Color(34, 148, 72, 255)
+    PLATEU = Color(0, 110, 56, 255)
+
+    HILLS = Color(32, 36, 0, 255)
+    MOUNTAINS = Color(200, 200, 200, 255)
 
 
 class MoistureColors(Enum):

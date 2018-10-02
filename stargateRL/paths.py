@@ -17,6 +17,8 @@ class DirectoryPaths(Enum):
     SAVES = path.join(DATA, 'saves')
     BIN = path.join(DATA, 'bin')
     TILES = path.join(BIN, 'tiles')
+    FONTS = path.join(DATA, 'fonts')
+    PROFILES = path.join(DATA, 'profiles')
 
 
 # Files
@@ -25,3 +27,4 @@ class FilePaths(Enum):
 
     CONFIG = path.join(DirectoryPaths.DATA.value, 'config.json')
     ICON = path.join(DirectoryPaths.BIN.value, 'icon.png')
+    LOG = path.join(DirectoryPaths.DATA.value, 'debug.log')

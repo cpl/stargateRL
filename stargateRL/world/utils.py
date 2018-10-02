@@ -1,13 +1,19 @@
 """Helper methods for the world module."""
 
 import math
+import json
+from os.path import join, isfile
 
 from noise import snoise2, pnoise2
 from enum import Enum
 
+from stargateRL.debug import logger
+from stargateRL.paths import DirectoryPaths
+
 
 def noise(x, y, width, height, mode='simplex'):
     """Return noise between 0.0 and 1.0."""
+    global TOTAL_TIME
     if mode == 'simplex':
         return snoise2(x, y, repeatx=width, repeaty=height) / 2.0 + 0.5
     elif mode == 'perlin':
@@ -47,3 +53,18 @@ class Biomes(Enum):
     TUNDRA = 14
     BARE = 15
     SCORCHED = 16
+
+
+def read_profile(name, format):
+    """Read a config file, -1 is random."""
+    logger.debug('Reading profile %s %s', name, format)
+    if format not in ('elv', 'mst', 'wd'):
+        raise Exception('Profile format must be mst/elv/wd, found %s' % format)
+
+    name = '%s_%s.profile.json' % (format, name)
+    path = join(DirectoryPaths.PROFILES.value, name)
+    if isfile(path):
+        with open(path, 'r') as fp:
+            return json.load(fp)
+    else:
+        raise Exception('Given profile was not found, %s' % name)

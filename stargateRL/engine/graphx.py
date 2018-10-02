@@ -12,13 +12,20 @@ class Color(object):
         """Create a color."""
         self._color = (r, g, b, a)
 
-    def __call__(self):
-        """Return the color only."""
+    @property
+    def bytes(self):
+        """Return the color as a byte string."""
         return bytes(bytearray(self._color))
 
+    @property
     def rgb(self):
         """Return a tuple of (R, G, B)."""
         return self._color[:3]
+
+    @property
+    def rgba(self):
+        """Return a tuple of (R, G, B, A)."""
+        return self._color
 
 
 class GraphxColors(Enum):
@@ -38,12 +45,13 @@ class TileColor(object):
                  foreground_color=GraphxColors.DEFAULT_COLORED_FOREGROUND,
                  background_color=GraphxColors.DEFAULT_COLORED_BACKGROUND):
         """Construct the color for the tile."""
-        self._foreground_color = foreground_color.value
-        self._background_color = background_color.value
+        self._foreground_color = foreground_color
+        self._background_color = background_color
 
-    def __call__(self):
-        """Return the names of the colors."""
-        return (self._foreground_color, self._background_color)
+    # TODO: Replace this with something that makes sense
+    # def __call__(self):
+    #     """Return the names of the colors."""
+    #     return (self._foreground_color, self._background_color)
 
     def set_background(self, color):
         """Set the background color."""
@@ -53,13 +61,15 @@ class TileColor(object):
         """Set the foreground color."""
         self._foreground_color = color
 
-    def get_background(self):
+    @property
+    def background(self):
         """Return the background color."""
-        return self._background_color()
+        return self._background_color
 
-    def get_foreground(self):
+    @property
+    def foreground(self):
         """Return the foreground color."""
-        return self._foreground_color()
+        return self._foreground_color
 
 
 class GxTileset(object):
@@ -67,12 +77,17 @@ class GxTileset(object):
 
     def __init__(self, resource_path, tile_size):
         """Construct the tileset manager."""
+        # Load the graphic frmo Pyglet's resources path
         self.source_image = pyglet.resource.image(resource_path)
 
+        # Round any possible and impossible floats to ints
         self.tile_size = int(tile_size)
+
+        # Compute the tile rows and columns
         self.x_tiles_count = int(self.source_image.width / tile_size)
         self.y_tiles_count = int(self.source_image.height / tile_size)
 
+        # Create a Pyglet Image Grid
         self.tileset_grid = pyglet.image.ImageGrid(self.source_image,
                                                    self.x_tiles_count,
                                                    self.y_tiles_count)
@@ -95,16 +110,16 @@ class GxTileset(object):
     def get_colored(self, tile_id, tile_color):
         """Return a tile with the given colors."""
         tile_image = self.get_by_id(tile_id)
+
+        tile_color = tile_color.value
         image_data = tile_image.image_data.get_data('RGBA', tile_image.width*4)
-        image_pxls = [image_data[p:p+4] for p in range(0, len(image_data), 4)]
 
-        for index, pixel in enumerate(image_pxls):
-            if pixel == GraphxColors.TILE_BACKGROUND.value():
-                image_pxls[index] = tile_color.get_background()
+        image_pixels = []
+        for p in range(0, len(image_data), 4):
+            if image_data[p:p+4] == GraphxColors.TILE_BACKGROUND.value.bytes:
+                image_pixels.append(tile_color.background.bytes)
             else:
-                image_pxls[index] = tile_color.get_foreground()
-
-        combined_pixels = b''.join(image_pxls)
+                image_pixels.append(tile_color.foreground.bytes)
 
         return pyglet.image.ImageData(tile_image.width, tile_image.height,
-                                      'RGBA', combined_pixels)
+                                      'RGBA', b''.join(image_pixels))

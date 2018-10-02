@@ -14,7 +14,10 @@ pylint:
     - C0103
     - R0903
     - R0913
+    - R0901
     - MC0001
+    - D203
+    - W0102
 pep8:
   full: true
 doc-warnings: true
