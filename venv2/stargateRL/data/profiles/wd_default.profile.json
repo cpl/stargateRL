@@ -1,0 +1,11 @@
+{
+    "seed": -1,
+    "min_size": 100,
+    "max_size": 500,
+    "homeworld": {
+        "elevation": "default",
+        "moisture": "default",
+        "width": 1000,
+        "height": 1000
+    }
+}

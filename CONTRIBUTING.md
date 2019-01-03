@@ -1,8 +1,3 @@
-Help in any way possible (code, ideas, finding bugs, opening issues relevant to the development of the project, localization,
-spelling, documentation, etc...)
+# Sorry
 
-If you have any questions, please contact me at `alexandru.p.copil@gmail.com` or on Gitter.
-
-While contributing to the stargateRL project, please be aware of the code of conduct.
-
-Thank you!
+This project is no longer maintained. If you have any experience with Go and/or openGL you may want to check out the new [repo](github.com/thee-engineer/nor).

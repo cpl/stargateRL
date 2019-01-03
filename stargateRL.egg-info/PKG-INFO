@@ -1,0 +1,50 @@
+Metadata-Version: 1.1
+Name: stargateRL
+Version: 0.0.5.dev7
+Summary: A sci-fi rouge-like game, developed in Python using Pyglet.
+Home-page: https://github.com/thee-engineer/stargateRL
+Author: Alexandru-Paul Copil (thee-engineer)
+Author-email: alexandru.p.copil@gmail.com
+License: Modified Simple Machine License
+Description-Content-Type: UNKNOWN
+Description: |mylogo|
+        ~~~~~~~~
+        stargateRL |pypi| |travis| |landscape| |coveralls| |gitter| |bitcoin| |patreon|
+        ===========================================================
+        .. |mylogo| image:: http://i.imgur.com/MgTkIlm.png
+        .. |coveralls| image:: https://coveralls.io/repos/github/thee-engineer/stargateRL/badge.svg?branch=master
+          :target: https://coveralls.io/github/thee-engineer/stargateRL?branch=master
+          :alt: Coveralls
+        .. |landscape| image:: https://landscape.io/github/thee-engineer/stargateRL/master/landscape.svg?style=flat
+           :target: https://landscape.io/github/thee-engineer/stargateRL/master
+           :alt: Code Health
+        .. |travis| image:: https://travis-ci.org/thee-engineer/stargateRL.svg?branch=master
+            :target: https://travis-ci.org/thee-engineer/stargateRL
+            :alt: Travis-CI
+        .. |pypi| image:: https://badge.fury.io/py/stargateRL.svg
+            :target: https://badge.fury.io/py/stargateRL
+            :alt: PyPi Project Page
+        .. |gitter| image:: https://img.shields.io/gitter/room/nwjs/nw.js.svg
+            :target: https://gitter.im/stargateRL/Lobby
+            :alt: Gitter Chat
+        .. |bitcoin| image:: https://img.shields.io/badge/Bitcoin-14xkoFmGcHDaaSbqiVd5fw3FREQeditJ5L-yellow.svg
+            :alt: 14xkoFmGcHDaaSbqiVd5fw3FREQeditJ5L
+        .. |patreon| image:: https://img.shields.io/badge/Patreon-theeengineer-orange.svg
+            :target: https://www.patreon.com/theeengineer
+            :alt: Support theeengineer on Patreon
+        
+Keywords: stargateRL scifi sci-fi rouge-like rougelike game video-game
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Other Audience
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Games/Entertainment
+Classifier: Topic :: Multimedia :: Graphics
+Classifier: Environment :: X11 Applications
+Classifier: Environment :: MacOS X
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: License :: Other/Proprietary License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.6

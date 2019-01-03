@@ -1,0 +1,3 @@
+[console_scripts]
+stargateRL = stargateRL.launcher.main
+

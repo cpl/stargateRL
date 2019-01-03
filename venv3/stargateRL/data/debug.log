@@ -1,0 +1,49 @@
+2017-08-28 21:42:31,033 - INFO - stargateRL started
+2017-08-28 21:42:32,113 - INFO - Started launcher
+2017-08-28 21:45:37,869 - INFO - stargateRL started
+2017-08-28 21:45:38,716 - INFO - Started launcher
+2017-08-28 21:45:50,421 - INFO - stargateRL started
+2017-08-28 21:45:50,421 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv3/bin/stargateRL', '--start']
+2017-08-28 21:50:17,609 - INFO - stargateRL started
+2017-08-28 21:50:18,727 - INFO - Started launcher
+2017-08-28 21:50:25,000 - INFO - Saved config file
+2017-08-28 21:50:25,001 - INFO - Launcher closed
+2017-08-28 21:50:25,522 - INFO - Launcher closed
+2017-08-28 21:54:14,270 - INFO - stargateRL started
+2017-08-28 21:54:14,360 - INFO - Started launcher
+2017-08-28 21:54:15,998 - INFO - Saved config file
+2017-08-28 21:54:15,998 - INFO - Launcher closed
+2017-08-28 21:54:16,489 - INFO - Started main program
+2017-08-28 21:54:17,351 - INFO - Launcher closed
+2017-08-28 21:57:54,960 - INFO - stargateRL started
+2017-08-28 21:57:54,962 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv3/bin/stargateRL', '--start']
+2017-08-28 21:59:57,844 - INFO - stargateRL started
+2017-08-28 21:59:58,592 - INFO - Started launcher
+2017-08-28 22:00:01,269 - INFO - Saved config file
+2017-08-28 22:00:01,269 - INFO - Launcher closed
+2017-08-28 22:00:01,782 - INFO - Started main program
+2017-08-28 22:00:02,769 - INFO - Launcher closed
+2017-08-28 22:02:21,818 - INFO - stargateRL started
+2017-08-28 22:02:22,856 - INFO - Started launcher
+2017-08-28 22:02:25,046 - INFO - Saved config file
+2017-08-28 22:02:25,047 - INFO - Launcher closed
+2017-08-28 22:02:25,558 - INFO - Started main program
+2017-08-28 22:02:30,706 - INFO - Launcher closed
+2017-08-28 22:02:35,117 - INFO - stargateRL started
+2017-08-28 22:02:35,117 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv3/bin/stargateRL', '--compile']
+2017-08-28 22:02:35,681 - DEBUG - Reading profile default wd
+2017-08-28 22:02:35,682 - DEBUG - Creating WorldData with 1 worlds
+2017-08-28 22:02:35,682 - DEBUG - WorldData config: {'seed': -1, 'min_size': 100, 'max_size': 500, 'homeworld': {'elevation': 'default', 'moisture': 'default', 'width': 1000, 'height': 1000}}
+2017-08-28 22:02:35,683 - DEBUG - WorldData seed: 1572630
+2017-08-28 22:02:35,683 - DEBUG - Starting planet generation
+2017-08-28 22:02:35,683 - INFO - Created PlanetGenerator 1000x1000
+2017-08-28 22:02:35,683 - DEBUG - Reading profile default elv
+2017-08-28 22:02:35,683 - DEBUG - Reading profile default mst
+2017-08-28 22:02:35,683 - DEBUG - Creating elevation
+2017-08-28 22:02:35,683 - DEBUG - NoiseGenerator settings: {'scale': 1.0, 'octaves': 5, 'exponent': 5, 'persistance': 0.5, 'lacunarity': 3.0, 'terraces': 1.0, 'continent_filter': True, 'offset': [0, 0], 'mode': 'simplex', 'width': -1, 'height': 0}
+2017-08-28 22:02:35,684 - DEBUG - Created new NoiseGenerator 1000x1000
+2017-08-28 22:02:35,747 - DEBUG - Setup noise generator
+2017-08-28 22:02:35,747 - DEBUG - Generated octaves offset
+2017-08-28 22:02:35,747 - DEBUG - Start noise generation: 1000000 units
+2017-08-28 22:02:54,173 - DEBUG - Finished noise gen in 18.425031s, 54273.992264u/s
+2017-08-28 22:02:54,173 - DEBUG - Start noise normalization and filter

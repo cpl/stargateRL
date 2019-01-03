@@ -1,0 +1,65 @@
+2017-08-28 21:39:36,551 - INFO - stargateRL started
+2017-08-28 21:39:37,646 - INFO - Started launcher
+2017-08-28 21:39:44,059 - INFO - stargateRL started
+2017-08-28 21:39:44,145 - INFO - Started launcher
+2017-08-28 21:40:56,753 - INFO - stargateRL started
+2017-08-28 21:40:56,843 - INFO - Started launcher
+2017-08-28 21:41:05,626 - INFO - stargateRL started
+2017-08-28 21:41:05,626 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv2/bin/stargateRL', '--start']
+2017-08-28 21:41:10,426 - INFO - stargateRL started
+2017-08-28 21:41:10,426 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv2/bin/stargateRL', '--compile']
+2017-08-28 21:41:10,929 - DEBUG - Reading profile default wd
+2017-08-28 21:41:10,929 - DEBUG - Creating WorldData with 1 worlds
+2017-08-28 21:41:10,929 - DEBUG - WorldData config: {u'min_size': 100, u'seed': -1, u'homeworld': {u'width': 1000, u'elevation': u'default', u'moisture': u'default', u'height': 1000}, u'max_size': 500}
+2017-08-28 21:41:10,930 - DEBUG - WorldData seed: 1325906
+2017-08-28 21:41:10,930 - DEBUG - Starting planet generation
+2017-08-28 21:41:10,930 - INFO - Created PlanetGenerator 1000x1000
+2017-08-28 21:41:10,930 - DEBUG - Reading profile default elv
+2017-08-28 21:41:10,930 - DEBUG - Reading profile default mst
+2017-08-28 21:41:10,931 - DEBUG - Creating elevation
+2017-08-28 21:41:10,931 - DEBUG - NoiseGenerator settings: {u'scale': 1.0, u'octaves': 5, u'exponent': 5, u'continent_filter': True, u'terraces': 1.0, u'lacunarity': 3.0, u'height': 0, u'width': -1, u'persistance': 0.5, u'mode': u'simplex', u'offset': [0, 0]}
+2017-08-28 21:41:10,931 - DEBUG - Created new NoiseGenerator 1000x1000
+2017-08-28 21:41:10,983 - DEBUG - Setup noise generator
+2017-08-28 21:41:10,983 - DEBUG - Generated octaves offset
+2017-08-28 21:41:10,983 - DEBUG - Start noise generation: 1000000 units
+2017-08-28 21:41:26,621 - DEBUG - Finished noise gen in 15.638163s, 63946.130342u/s
+2017-08-28 21:41:26,622 - DEBUG - Start noise normalization and filter
+2017-08-28 21:41:29,700 - DEBUG - Applying final normalization to noise
+2017-08-28 21:41:30,378 - DEBUG - Finished noise generation
+2017-08-28 21:41:30,378 - DEBUG - Creating moisture
+2017-08-28 21:41:30,379 - DEBUG - NoiseGenerator settings: {u'scale': 1.0, u'octaves': 5, u'exponent': 5, u'continent_filter': True, u'terraces': 1.0, u'lacunarity': 3.0, u'height': 0, u'width': -1, u'persistance': 0.5, u'mode': u'simplex', u'offset': [0, 0]}
+2017-08-28 21:41:30,379 - DEBUG - Created new NoiseGenerator 1000x1000
+2017-08-28 21:41:30,431 - DEBUG - Setup noise generator
+2017-08-28 21:41:30,431 - DEBUG - Generated octaves offset
+2017-08-28 21:41:30,431 - DEBUG - Start noise generation: 1000000 units
+2017-08-28 21:41:45,897 - DEBUG - Finished noise gen in 15.465402s, 64660.459990u/s
+2017-08-28 21:41:45,897 - DEBUG - Start noise normalization and filter
+2017-08-28 21:41:48,923 - DEBUG - Applying final normalization to noise
+2017-08-28 21:41:49,589 - DEBUG - Finished noise generation
+2017-08-28 21:41:49,589 - DEBUG - Creating biomes
+2017-08-28 21:41:49,651 - DEBUG - Starting biome generation
+2017-08-28 21:41:51,096 - DEBUG - Finished generating biomes in 1.444359s
+2017-08-28 21:41:51,096 - DEBUG - Computing hash of random state
+2017-08-28 21:41:51,096 - DEBUG - Finished generating 1 worlds in 40.166517s, 0.024896w/s
+2017-08-28 21:41:51,096 - INFO - Exporting monochrome bmp: c50733f8a527809c0f35f4bcde0aec1f86780abbb6071b8572ecbf41bc615e58.moisture
+2017-08-28 21:41:52,456 - INFO - Exporting monochrome bmp: c50733f8a527809c0f35f4bcde0aec1f86780abbb6071b8572ecbf41bc615e58.elevation
+2017-08-28 21:41:53,614 - INFO - Exporting biomes bmp: c50733f8a527809c0f35f4bcde0aec1f86780abbb6071b8572ecbf41bc615e58.biomes
+2017-08-28 21:41:56,724 - INFO - Saving WorldData of test_world
+2017-08-28 21:41:56,724 - DEBUG - Saved file as /Users/copper/Developer/Gits/stargateRL/venv2/stargateRL/data/saves/test_world
+2017-08-28 21:41:57,384 - INFO - Finished saving WorldData of test_world
+2017-08-28 21:45:59,400 - INFO - stargateRL started
+2017-08-28 21:45:59,400 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv2/bin/stargateRL', '--start']
+2017-08-28 21:46:02,537 - INFO - stargateRL started
+2017-08-28 21:46:02,537 - DEBUG - stargateRL flags: ['/Users/copper/Developer/Gits/stargateRL/venv2/bin/stargateRL', '--start']
+2017-08-28 21:48:34,762 - INFO - stargateRL started
+2017-08-28 21:48:35,519 - INFO - Started launcher
+2017-08-28 21:48:41,267 - INFO - Saved config file
+2017-08-28 21:48:41,267 - INFO - Launcher closed
+2017-08-28 21:48:41,830 - INFO - Started main program
+2017-08-28 21:48:44,099 - INFO - Launcher closed
+2017-08-28 21:53:58,906 - INFO - stargateRL started
+2017-08-28 21:53:59,642 - INFO - Started launcher
+2017-08-28 21:54:04,749 - INFO - Saved config file
+2017-08-28 21:54:04,750 - INFO - Launcher closed
+2017-08-28 21:54:05,284 - INFO - Started main program
+2017-08-28 21:54:07,901 - INFO - Launcher closed

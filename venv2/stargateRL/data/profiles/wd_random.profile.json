@@ -1,0 +1,9 @@
+{
+    "seed": -1,
+    "min_size": 500,
+    "max_size": 2000,
+    "homeworld": {
+        "elevation": "random",
+        "moisture": "random"
+    }
+}

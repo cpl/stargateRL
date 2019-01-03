@@ -1,0 +1,11 @@
+ignore:
+  - \.git/
+  - \.md
+extensions:
+  - .py
+tags:
+  - TODO
+  - DEBUG
+  - FIXME
+  - TEST
+output: TODO.md

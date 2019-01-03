@@ -1,5 +1,6 @@
 # Modified Simple Machine License
-### Definitions
+
+## Definitions
 
 1. This Package is defined as all of the files within any archive
    file or any group of files released in conjunction by the initial
@@ -21,9 +22,9 @@
    Modified Package, or a derivative of this Package.
 
 6. Us is defined as the initial developers of this Package,
-   ```Alexandru-Paul Copil```
+   `Alexandru-Paul Copil`
 
-   ### Agreement
+## Agreement
 
     1. Permission is hereby granted to use, copy, modify and/or study this Package, provided that:
 

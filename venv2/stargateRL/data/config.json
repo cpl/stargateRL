@@ -1,0 +1,30 @@
+{
+    "audio": {
+        "dialog": 100, 
+        "environment": 100, 
+        "master volume": 100, 
+        "music": 76, 
+        "sfx": 100
+    }, 
+    "graphics": {
+        "fps limit": 60, 
+        "scale": 1, 
+        "vsync": false
+    }, 
+    "resources": {
+        "icon": "icon.png", 
+        "selection": "selection.png", 
+        "size": 16, 
+        "tileset": "tileset16.png",
+        "font": "Px437 IBM VGA8"
+    }, 
+    "window": {
+        "caption": "stargateRL", 
+        "fullscreen": false, 
+        "height": 800, 
+        "mouse": true, 
+        "resizable": false, 
+        "style": "default", 
+        "width": 1200
+    }
+}
